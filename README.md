@@ -38,7 +38,7 @@ Open `src/main/resources/application.properties`
 - For PostgreSQL:
 
 ```
-spring.datasource.url= jdbc:postgresql://localhost:5432/dsi
+spring.datasource.url= jdbc:postgresql://localhost:5432/dsi-ecommerce
 spring.datasource.username= postgres
 spring.datasource.password= root
 
