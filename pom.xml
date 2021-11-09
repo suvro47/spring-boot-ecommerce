@@ -94,7 +94,7 @@
 				lombok
 			</artifactId>
 			<version>
-				1.18.20
+				1.18.22
 			</version>
 			<scope>
 				provided
@@ -111,12 +111,7 @@
 				test
 			</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.22</version>
-			<scope>provided</scope>
-		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>
