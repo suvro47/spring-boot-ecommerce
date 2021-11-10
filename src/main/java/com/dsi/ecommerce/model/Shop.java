@@ -2,6 +2,8 @@ package com.dsi.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,7 +11,8 @@ import java.util.List;
 
 @Entity
 @Table( name="shops" )
-@Data
+@Getter
+@Setter
 public class Shop {
 
     @Id
@@ -35,8 +38,8 @@ public class Shop {
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "is_varified", nullable = false)
-    private boolean isVarified = false;
+    @Column(name = "is_varified", columnDefinition = "boolean default false")
+    private Boolean isVarified;
 
 //    @OneToOne(fetch=FetchType.LAZY)
 //    private User user;

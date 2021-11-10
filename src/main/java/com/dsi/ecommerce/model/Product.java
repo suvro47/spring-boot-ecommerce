@@ -8,7 +8,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "products")
-@Data
 @Getter
 @Setter
 public class Product {
@@ -40,8 +39,8 @@ public class Product {
     @Column(name = "sold_items", nullable = false)
     private Integer soldItems;
 
-//    @ManyToOne
-//    private Shop shop;
+    @ManyToOne
+    private Shop shop;
 
 //    @OneToMany(mappedBy = "product")
 //    private List<Review> reviews;
