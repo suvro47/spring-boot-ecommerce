@@ -10,6 +10,16 @@
     <div th:insert="navbar :: navbar_body">...</div>
 
     <div class="ui raised very padded container segment">
+       <div class="ui link cards">
+           <div class="card">
+               <div class="image">
+                   <img src="/images/matthew.png">
+               </div>
+           </div>
+       </div>
+    </div>
+
+    <div class="ui raised very padded container segment">
 
         <form class="ui form"  th:object="${shop}" th:action="@{/register_shop}" method="post" enctype="multipart/form-data">
             <div class="field">
