@@ -13,8 +13,11 @@ public class ShopController {
     public String registerNewShop(Model model) {
         ShopDto shop = new ShopDto();
         model.addAttribute("shop", shop);
-        return "index";
+        return "navbar";
     }
+
+
+
 
 
 
