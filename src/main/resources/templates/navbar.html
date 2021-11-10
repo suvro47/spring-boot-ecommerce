@@ -10,16 +10,14 @@
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 
-<body>
+<body th:fragment="navbar_body">
 
-
-    <div class="container" th:fragment="navbar_body">
+    <div class="container">
         <h1 align="center">  put your nav here  | <a href="/register_shop"> sell on our site </a> </h1>
     </div>
 
     <!-- Semantic UI JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-
 
 </body>
 </html>
