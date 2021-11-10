@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@Entity(name="comments")
-public class Comment {
+@Entity(name="review_replies")
+public class ReviewReply {
 
     @Id
     @SequenceGenerator(name = "comment_id_sequence", sequenceName = "comment_id_sequence", allocationSize = 1)
@@ -28,8 +28,7 @@ public class Comment {
     @ManyToOne
     private Review review;
 
-
-//    @OneToOne
-//    private User user;
+    @OneToOne
+    private User user;
 
 }

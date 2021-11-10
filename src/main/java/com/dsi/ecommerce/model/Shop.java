@@ -42,8 +42,8 @@ public class Shop {
     @OneToMany(mappedBy = "shop")
     private List<Product> products;
 
-//    @OneToOne
-//    private User user;
+    @OneToOne
+    private User user;
 
 
 }
