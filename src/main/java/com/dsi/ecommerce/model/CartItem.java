@@ -1,9 +1,7 @@
 package com.dsi.ecommerce.model;
 
 import lombok.*;
-
 import javax.persistence.*;
-
 
 @Getter
 @Setter
@@ -15,14 +13,17 @@ public class CartItem {
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_item_id_sequence")
         private Long id;
 
-        @OneToOne
-        private Product product;
-
         @Column(nullable = false)
         private Integer quantity;
 
         @Transient
         private Double subTotal;
+
+        @OneToOne
+        private Product product;
+
+        @ManyToOne
+        private Cart cart;
 
         public Double getSubTotal() {
                 return this.quantity * this.product.getPrice();
