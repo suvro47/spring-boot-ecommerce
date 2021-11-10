@@ -1,5 +1,7 @@
-package com.dsi.ecommerce.model;
+package com.dsi.ecommerce.model.cart;
 
+import com.dsi.ecommerce.model.Product;
+import com.dsi.ecommerce.model.cart.Cart;
 import lombok.*;
 import javax.persistence.*;
 
@@ -19,7 +21,7 @@ public class CartItem {
         @Transient
         private Double subTotal;
 
-        @OneToOne
+        @ManyToOne
         private Product product;
 
         @ManyToOne
