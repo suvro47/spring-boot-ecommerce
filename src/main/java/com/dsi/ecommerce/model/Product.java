@@ -3,13 +3,14 @@ package com.dsi.ecommerce.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Entity(name = "products")
-@Table(name = "products")
 @Getter
 @Setter
 @ToString
+@Entity(name="products")
 public class Product {
+
     @Id
     @SequenceGenerator(name = "product_id_sequence", sequenceName = "product_id_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_sequence")
@@ -37,11 +38,11 @@ public class Product {
     @Column(name = "sold_items", nullable = false)
     private Integer soldItems;
 
-//    @ManyToOne
-//    private Shop shop;
+    @ManyToOne
+    private Shop shop;
 
-//    @OneToMany(mappedBy = "product")
-//    private List<Review> reviews;
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviews;
 
 
 }
