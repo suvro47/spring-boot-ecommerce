@@ -23,17 +23,17 @@ public class Product {
     @Column(name = "image", nullable = true, columnDefinition = "TEXT")
     private String image;
 
-    @Column(name = "categories", nullable = false, columnDefinition = "TEXT")
-    private String categories;
+    @Column(name = "category", nullable = false, columnDefinition = "TEXT")
+    private String category;
 
     @Column(name = "price", nullable = false, columnDefinition = "Double")
-    private String price;
+    private Double price;
 
-    @Column(name = "quantity", nullable = false, columnDefinition = "Integer")
-    private String quantity;
+    @Column(name = "available_quantity", nullable = false, columnDefinition = "Integer")
+    private Integer availableQuantity;
 
     @Column(name = "sold_items", nullable = false, columnDefinition = "Integer")
-    private String soldItems;
+    private Integer soldItems;
 
     @ManyToOne
     private Shop shop;
