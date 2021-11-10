@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserFromMyUserDetail(MyUserDetail userDetail) {
-        return null;
+        return getUserById(userDetail.getId());
     }
 
     @Override
