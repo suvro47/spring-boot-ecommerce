@@ -1,7 +1,6 @@
 package com.dsi.ecommerce.controller;
 
 import com.dsi.ecommerce.dto.ShopDto;
-import com.dsi.ecommerce.model.Shop;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
