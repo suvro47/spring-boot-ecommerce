@@ -24,13 +24,13 @@ public class Product {
     private String image;
 
     @Column(name = "categories", nullable = false, columnDefinition = "TEXT")
-    private String categories;
+    private String category;
 
     @Column(name = "price", nullable = false, columnDefinition = "Double")
     private Double price;
 
-    @Column(name = "quantity", nullable = false, columnDefinition = "Integer")
-    private Integer quantity;
+    @Column(name = "available_quantity", nullable = false, columnDefinition = "Integer")
+    private Integer availableQuantity;
 
     @Column(name = "sold_items", nullable = false, columnDefinition = "Integer")
     private Integer soldItems;
