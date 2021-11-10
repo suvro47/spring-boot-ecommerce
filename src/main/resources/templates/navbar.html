@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="navbar_head">
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <!-- Semantic UI CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+
+    <div class="container" th:fragment="navbar_body">
+        <h1 align="center">  put your nav here  | <a href="/register_shop"> sell on our site </a> </h1>
+    </div>
+
+    <!-- Semantic UI JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+
+</body>
+</html>

@@ -19,11 +19,11 @@ public class Review {
     @Column(name = "content", nullable = true, columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "image", nullable = true, columnDefinition = "TEXT")
-    private String image;
-
     @Column(name = "rating", nullable = true, columnDefinition = "integer default 0")
     private Integer rating;
+
+    @Column(name = "image", nullable = true, columnDefinition = "TEXT")
+    private String image;
 
     @Column(name = "time", nullable = false)
     private Long dateTimeMilli;
@@ -34,13 +34,10 @@ public class Review {
     @ManyToOne
     private Product product;
 
-    @OneToMany(mappedBy="review")
-    private List<Comment> comments;
+    @OneToMany( mappedBy="review" )
+    private List<ReviewReply> reviewReplies;
 
-//    @OneToOne
-//    private User user;
-
-
-
+    @ManyToOne
+    private User user;
 
 }
