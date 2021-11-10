@@ -1,5 +1,7 @@
 package com.dsi.ecommerce.model;
 
+
+import com.dsi.ecommerce.model.order.Order;
 import lombok.*;
 
 import javax.persistence.*;
@@ -44,6 +46,9 @@ public class User {
     @Column(name = "role", nullable = false)
     private String role;
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orderList;
+
     @OneToOne( mappedBy="user" )
     private Shop shop;
 
@@ -52,7 +57,4 @@ public class User {
 
     @OneToMany( mappedBy="user" )
     private List<ReviewReply> reviewReplies;
-
-
-
 }
