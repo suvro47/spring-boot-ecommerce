@@ -1,7 +1,8 @@
 package com.dsi.ecommerce.config;
 
 
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.service.UserService;
+import com.dsi.ecommerce.utility.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
@@ -16,13 +18,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class ConfigWebSecurity  extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private MyUserDetail userDetail;
+
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws  Exception{
-        //////
-        auth.userDetailsService(userDetail);
+        auth.userDetailsService(userDetailsService);
     }
 
     @Bean
@@ -32,6 +33,11 @@ public class ConfigWebSecurity  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected  void configure(HttpSecurity https) throws Exception{
+
+        https.authorizeRequests()
+                .antMatchers("/admin").hasRole(UserRoles.ADMIN.toString())
+                .antMatchers("/").permitAll()
+                .and().formLogin();
 
     }
 
