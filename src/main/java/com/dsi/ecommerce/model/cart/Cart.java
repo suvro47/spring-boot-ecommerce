@@ -1,4 +1,4 @@
-package com.dsi.ecommerce.model;
+package com.dsi.ecommerce.model.cart;
 
 import lombok.*;
 

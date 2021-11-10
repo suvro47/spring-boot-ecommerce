@@ -10,9 +10,8 @@ import java.util.List;
 @ToString
 @Getter
 @Setter
-@EqualsAndHashCode
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "user")
 @Table(
         name = "users",
@@ -42,5 +41,4 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
-
 }

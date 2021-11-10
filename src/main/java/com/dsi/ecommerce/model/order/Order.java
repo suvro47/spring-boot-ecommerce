@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-enum OrderStatus {PLACED, PROCESSING, SHIPPING, DELIVERED}
+enum OrderStatus {PLACED, PROCESSING, SHIPPING, DELIVERED, CANCELLED}
 
 @Setter
 @Getter
