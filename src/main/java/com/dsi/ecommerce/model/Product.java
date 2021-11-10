@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -40,8 +41,8 @@ public class Product {
     @ManyToOne
     private Shop shop;
 
-//    @OneToMany(mappedBy = "product")
-//    private List<Review> reviews;
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviews;
 
 
 }

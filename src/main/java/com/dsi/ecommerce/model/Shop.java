@@ -40,11 +40,11 @@ public class Shop {
     @Column(name = "is_varified", columnDefinition = "boolean default false")
     private Boolean isVarified;
 
-//    @OneToOne(fetch=FetchType.LAZY)
-//    private User user;
-
     @OneToMany(mappedBy = "shop")
     private List<Product> products;
+
+//    @OneToOne
+//    private User user;
 
 
 
