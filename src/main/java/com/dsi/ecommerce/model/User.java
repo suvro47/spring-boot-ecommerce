@@ -1,6 +1,7 @@
 package com.dsi.ecommerce.model;
 
 
+import com.dsi.ecommerce.model.cart.Cart;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,4 +38,7 @@ public class User {
     private String profilePic;
     @Column(name = "role", nullable = false)
     private String role;
+
+    @OneToOne
+    private Cart cart;
 }

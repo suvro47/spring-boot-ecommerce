@@ -1,4 +1,8 @@
 package com.dsi.ecommerce.service;
 
-public class CartService {
+import com.dsi.ecommerce.dao.cart.CartDao;
+
+public interface CartService {
+
+
 }
