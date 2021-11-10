@@ -9,16 +9,22 @@
     <div th:insert="navbar :: navbar_head">...</div>
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <div class="container">
+    <div class="ui raised very padded container segment">
 
-        <form class="ui form">
+        <form class="ui form"  th:object="${shop}" th:action="@{/register_shop}" method="post" enctype="multipart/form-data">
             <div class="field">
                 <label>Shop Name </label>
                 <input type="text">
             </div>
+
             <div class="field">
-                <label>Short Text</label>
-                <textarea rows="2" spellcheck="false"></textarea>
+                <label>Text</label>
+                <textarea spellcheck="false"></textarea>
+            </div>
+
+            <div class="field">
+                <label>Poster</label>
+                <input type="file" name="file" />
             </div>
 
             <div class="field">
