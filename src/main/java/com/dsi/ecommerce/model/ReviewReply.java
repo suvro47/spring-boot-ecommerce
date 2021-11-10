@@ -28,7 +28,7 @@ public class ReviewReply {
     @ManyToOne
     private Review review;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
 }
