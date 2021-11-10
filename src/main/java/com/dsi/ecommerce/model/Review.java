@@ -35,10 +35,10 @@ public class Review {
     private Product product;
 
     @OneToMany(mappedBy="review")
-    private List<Comment> comments;
+    private List<ReviewReply> reviewReplies;
 
-//    @OneToOne
-//    private User user;
+    @OneToOne
+    private User user;
 
 
 

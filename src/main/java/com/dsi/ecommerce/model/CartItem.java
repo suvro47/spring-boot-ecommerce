@@ -28,4 +28,8 @@ public class CartItem {
         public Double getSubTotal() {
                 return this.quantity * this.product.getPrice();
         }
+
+
+
+
 }

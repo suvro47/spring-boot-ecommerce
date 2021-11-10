@@ -8,9 +8,8 @@ import javax.persistence.*;
 @ToString
 @Getter
 @Setter
-@EqualsAndHashCode
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name = "user")
 @Table(
         name = "users",
@@ -37,4 +36,5 @@ public class User {
     private String profilePic;
     @Column(name = "role", nullable = false)
     private String role;
+
 }
