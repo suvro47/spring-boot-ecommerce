@@ -9,17 +9,17 @@ import java.util.List;
 @Setter
 @Entity(name = "carts")
 public class Cart {
+
         @Id
         @SequenceGenerator(name = "cart_id_sequence", sequenceName = "cart_id_sequence", allocationSize = 1)
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_id_sequence")
         private Long id;
 
-        @OneToMany
-        @JoinTable(name = "list_cart_items")
-        private List<CartItem> cartItems;
-
         @Transient
         private Double totalCost;
+
+        @OneToMany(mappedBy = "cart")
+        private List<CartItem> cartItems;
 
         public Double getTotalCost() {
                 Double total = 0.0;
