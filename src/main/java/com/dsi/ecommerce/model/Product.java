@@ -1,22 +1,20 @@
 package com.dsi.ecommerce.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "products")
 @Table(name = "products")
-@Data
 @Getter
 @Setter
+@ToString
 public class Product {
     @Id
     @SequenceGenerator(name = "product_id_sequence", sequenceName = "product_id_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_sequence")
     @Column(name = "id", updatable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, columnDefinition = "TEXT")
     private String name;
