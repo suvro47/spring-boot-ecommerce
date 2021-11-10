@@ -7,8 +7,6 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "cart_items")
 public class CartItem {
 
@@ -17,8 +15,8 @@ public class CartItem {
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_item_id_sequence")
         private Long id;
 
-//        @OneToOne
-//        private Product product;
+        @OneToOne
+        private Product product;
 
         @Column(nullable = false)
         private Integer quantity;

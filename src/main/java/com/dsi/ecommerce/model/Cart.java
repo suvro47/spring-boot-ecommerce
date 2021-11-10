@@ -7,8 +7,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "carts")
 public class Cart {
         @Id
@@ -19,4 +17,15 @@ public class Cart {
         @OneToMany
         @JoinTable(name = "list_cart_items")
         private List<CartItem> cartItems;
+
+        @Transient
+        private Double totalCost;
+
+        public Double getTotalCost() {
+                Double total = 0.0;
+                for(CartItem c : cartItems){
+                        total += c.getSubTotal();
+                }
+                return total;
+        }
 }
