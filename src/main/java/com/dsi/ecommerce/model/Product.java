@@ -27,13 +27,13 @@ public class Product {
     private String categories;
 
     @Column(name = "price", nullable = false, columnDefinition = "Double")
-    private String price;
+    private Double price;
 
     @Column(name = "quantity", nullable = false, columnDefinition = "Integer")
-    private String quantity;
+    private Integer quantity;
 
     @Column(name = "sold_items", nullable = false, columnDefinition = "Integer")
-    private String soldItems;
+    private Integer soldItems;
 
     @ManyToOne
     private Shop shop;
