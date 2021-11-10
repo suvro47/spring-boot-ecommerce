@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Table( name="products" )
 @Data
 public class Product {
+
     @Id
     @SequenceGenerator(name = "shop_id_sequence", sequenceName = "shop_id_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shop_id_sequence")

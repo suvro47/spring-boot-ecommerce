@@ -5,9 +5,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table( name="shop" )
+@Table( name="shops" )
 @Data
 public class Shop {
 
@@ -39,9 +40,9 @@ public class Shop {
 
 //    @OneToOne(fetch=FetchType.LAZY)
 //    private User user;
-//
-//    @OneToMany(mappedBy = "shop")
-//    private List<Product> products;
+
+    @OneToMany(mappedBy = "shop")
+    private List<Product> products;
 
 
 
