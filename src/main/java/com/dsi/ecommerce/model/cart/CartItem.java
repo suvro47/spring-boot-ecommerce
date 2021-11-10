@@ -1,5 +1,7 @@
-package com.dsi.ecommerce.model;
+package com.dsi.ecommerce.model.cart;
 
+import com.dsi.ecommerce.model.Product;
+import com.dsi.ecommerce.model.cart.Cart;
 import lombok.*;
 import javax.persistence.*;
 
