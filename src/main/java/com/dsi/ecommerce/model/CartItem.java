@@ -19,7 +19,7 @@ public class CartItem {
         @Transient
         private Double subTotal;
 
-        @OneToOne
+        @ManyToOne
         private Product product;
 
         @ManyToOne
