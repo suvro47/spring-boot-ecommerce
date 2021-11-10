@@ -1,8 +1,7 @@
 package com.dsi.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -45,12 +44,6 @@ public class Shop {
 
 //    @OneToOne
 //    private User user;
-
-
-
-
-
-
 
 
 }

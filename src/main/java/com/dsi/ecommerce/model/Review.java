@@ -1,9 +1,9 @@
 package com.dsi.ecommerce.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +19,9 @@ public class Review {
     @Column(name = "content", nullable = true, columnDefinition = "TEXT")
     private String content;
 
+    @Column(name = "image", nullable = true, columnDefinition = "TEXT")
+    private String image;
+
     @Column(name = "rating", nullable = true, columnDefinition = "integer default 0")
     private Integer rating;
 
@@ -31,8 +34,8 @@ public class Review {
     @ManyToOne
     private Product product;
 
-//    @OneToMany(mappedBy="review")
-//    private List<Comment> comments;
+    @OneToMany(mappedBy="review")
+    private List<Comment> comments;
 
 //    @OneToOne
 //    private User user;
