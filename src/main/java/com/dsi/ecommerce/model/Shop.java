@@ -1,7 +1,6 @@
 package com.dsi.ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,17 +8,17 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table( name="shops" )
+
 @Getter
 @Setter
+@Entity(name="shops")
 public class Shop {
 
     @Id
     @SequenceGenerator(name = "shop_id_sequence", sequenceName = "shop_id_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "shop_id_sequence")
     @Column(name = "id", updatable = false)
-    private long id;
+    private Long id;
 
     @Column(name = "name", nullable = false, columnDefinition = "TEXT")
     private String name;
