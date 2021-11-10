@@ -3,6 +3,7 @@ package com.dsi.ecommerce.service.impl;
 import com.dsi.ecommerce.dao.UserDao;
 import com.dsi.ecommerce.exception.NoUserFound;
 import com.dsi.ecommerce.exception.UserAlreadyExists;
+import com.dsi.ecommerce.exception.UserNotFound;
 import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.service.MyUserDetail;
 import com.dsi.ecommerce.service.UserService;
@@ -39,12 +40,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long userId) {
-
+        userDao.deleteById(userId);
     }
 
     @Override
     public User getUserById(Long userId) {
-        return null;
+        User user = userDao.findById(userId).orElseThrow(() -> new UserNotFound(userId));
+
+        return user;
     }
 
     @Override
