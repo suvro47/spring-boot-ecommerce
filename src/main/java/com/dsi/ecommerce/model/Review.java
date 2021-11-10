@@ -34,10 +34,10 @@ public class Review {
     @ManyToOne
     private Product product;
 
-    @OneToMany(mappedBy="review")
+    @OneToMany( mappedBy="review" )
     private List<ReviewReply> reviewReplies;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
 }
