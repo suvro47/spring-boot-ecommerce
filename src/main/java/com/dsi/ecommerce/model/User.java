@@ -1,9 +1,11 @@
 package com.dsi.ecommerce.model;
 
 
+import com.dsi.ecommerce.model.order.Order;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @ToString
 @Getter
@@ -37,4 +39,8 @@ public class User {
     private String profilePic;
     @Column(name = "role", nullable = false)
     private String role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orderList;
+
 }

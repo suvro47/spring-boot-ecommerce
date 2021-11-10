@@ -1,8 +1,10 @@
 package com.dsi.ecommerce.model.order;
 
+import com.dsi.ecommerce.model.User;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 enum OrderStatus {PLACED, PROCESSING, SHIPPING, DELIVERED}
 
@@ -17,7 +19,7 @@ public class Order {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "orderDateTimeMillis", nullable = false)
+    @Column(name = "order_date_time_millis", nullable = false)
     private Long orderDateTimeMillis;
 
     @Column(name = "total_price", nullable = false)
@@ -30,12 +32,12 @@ public class Order {
     @Column(name = "order_status")
     private OrderStatus orderStatus;
 
-//    @ManyToOne
-//    private User user;
+    @ManyToOne
+    private User user;
 
     @OneToOne
     private Payment payment;
 
-//    @OneToOne
-//    private OrderDetails orderDetails;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItem;
 }
