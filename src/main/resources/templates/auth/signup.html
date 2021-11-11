@@ -8,39 +8,70 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="margin-top: 10px">
 
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-    </div>
+    <h1 align="center">Please Create A New Account</h1>
+    <div class="container">
+        <form th:object="${signup_form}"  method="POST" th:action="@{/signup}"  enctype="multipart/form-data">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="username">@</span>
+                <input th:field = "*{username}"  type="text" class="form-control" placeholder="Username" aria-label="Username"
+                       aria-describedby="basic-addon1">
+            </div>
 
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-        <span class="input-group-text" id="basic-addon2">@example.com</span>
-    </div>
+            <div class="row">
+                <div class="col">
+                    <label for="firstname" class="form-label"> First Name </label>
+                    <div class="input-group mb-3">
+                        <input th:field = "*{firstname}"  type="text" class="form-control" id="firstname"
+                               placeholder="First Name"
+                               aria-label="firstname"
+                               aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="lastname" class="form-label"> Last Name </label>
+                    <div class="input-group mb-3">
+                        <input th:field = "*{lastname}"  type="text" class="form-control" id="lastname"
+                               placeholder="Last Name"
+                               aria-label="LastName"
+                               aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
 
-    <label for="basic-url" class="form-label">Your vanity URL</label>
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-    </div>
+            <div class="input-group mb-3">
+                <input th:field = "*{profilePic}"   type="file" class="form-control" id="profilePic">
+                <label class="input-group-text"  for="profilePic">Upload Profile Pic</label>
+            </div>
 
-    <div class="input-group mb-3">
-        <span class="input-group-text">$</span>
-        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-        <span class="input-group-text">.00</span>
-    </div>
+         <div class="row">
+             <div class="col-md-6">
+                 <label for="email" class="form-label">Email</label>
+                 <input th:field = "*{email}"  type="email" class="form-control" id="email" >
+             </div>
+             <div class="col-md-6">
+                 <label for="password" class="form-label">Password</label>
+                 <input th:field = "*{password}"   type="password" class="form-control" id="password">
+             </div>
 
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-        <span class="input-group-text">@</span>
-        <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-    </div>
+         </div>
+            <br>
+            <div class="col-12">
+                <label class="form-label"  for="role">Choose Account Type</label>
+                <select th:field="*{role}"   class="form-select" id="role">
+                    <option selected  value="BUYER">Buyer</option>
+                    <option value="SELLER">Seller</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
+            </div>
 
-    <div class="input-group">
-        <span class="input-group-text">With textarea</span>
-        <textarea class="form-control" aria-label="With textarea"></textarea>
+            <br/>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+        </form>
     </div>
 
 </div>
