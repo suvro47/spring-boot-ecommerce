@@ -1,7 +1,7 @@
 package com.dsi.ecommerce.controller;
 
 
-import com.dsi.ecommerce.exception.UserNotFound;
+import com.dsi.ecommerce.exception.UserNotFoundException;
 import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserController {
         try {
             List<User> users = userService.getAllUsers();
             model.addAttribute("users",users);
-        }catch (UserNotFound exception){
+        }catch (UserNotFoundException exception){
             exception.printStackTrace();
             //todo: handle UserNotFound
         }
@@ -39,7 +39,7 @@ public class UserController {
             User user = userService.getUserByUsername(username);
             model.addAttribute("user", user);
         }
-        catch (UserNotFound exception){
+        catch (UserNotFoundException exception){
             exception.printStackTrace();
             //todo: handle UserNotFound
         }
@@ -53,7 +53,7 @@ public class UserController {
             User user = userService.getUserByUsername(username);
             model.addAttribute("user", user);
         }
-        catch (UserNotFound exception){
+        catch (UserNotFoundException exception){
             exception.printStackTrace();
             //todo: handle UserNotFound
         }
@@ -76,7 +76,7 @@ public class UserController {
         try{
             User updatedUser = userService.updateUser(username, user);
             model.addAttribute("user", updatedUser);
-        }catch (UserNotFound exception){
+        }catch (UserNotFoundException exception){
             exception.printStackTrace();
             //todo: handle UserNotFound
         }
@@ -87,7 +87,7 @@ public class UserController {
     public String deleteUser(@PathVariable("username") String username, Model model){
         try{
             userService.deleteUserByUsername(username);
-        }catch (UserNotFound exception){
+        }catch (UserNotFoundException exception){
             exception.printStackTrace();
             //todo: handle UserNotFound
         }

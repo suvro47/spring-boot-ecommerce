@@ -2,15 +2,15 @@ package com.dsi.ecommerce.exception;
 
 import com.dsi.ecommerce.model.User;
 
-public class UserNotFound extends RuntimeException{
-    public UserNotFound(){
+public class UserNotFoundException extends RuntimeException{
+    public UserNotFoundException(){
         super(("No User found."));
     }
-    public UserNotFound(long userId) {
+    public UserNotFoundException(long userId) {
         super("User not found with id: "+ userId);
     }
 
-    public UserNotFound(String username) {
+    public UserNotFoundException(String username) {
         super("User not found with username: " + username);
     }
 }
