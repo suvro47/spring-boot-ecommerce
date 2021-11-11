@@ -1,6 +1,4 @@
 package com.dsi.ecommerce.config;
-
-
 import com.dsi.ecommerce.service.UserService;
 import com.dsi.ecommerce.utility.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +16,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class ConfigWebSecurity  extends WebSecurityConfigurerAdapter {
 
-
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws  Exception{
         auth.userDetailsService(userDetailsService);
     }
-
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -36,8 +33,12 @@ public class ConfigWebSecurity  extends WebSecurityConfigurerAdapter {
 
         https.authorizeRequests()
                 .antMatchers("/admin").hasRole(UserRoles.ADMIN.toString())
-                .antMatchers("/").permitAll()
-                .and().formLogin();
+                .antMatchers("/").permitAll();
+//                .and().formLogin()
+//                .loginPage("auth/login.html")
+//                .loginProcessingUrl("/perform_login")
+//                .defaultSuccessUrl("/homepage.html", true)
+//                .failureUrl("/login.html?error=true");
 
     }
 
