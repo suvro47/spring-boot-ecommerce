@@ -1,7 +1,6 @@
 package com.dsi.ecommerce.service.impl;
 
 import com.dsi.ecommerce.dao.UserDao;
-import com.dsi.ecommerce.exception.NoUserFound;
 import com.dsi.ecommerce.exception.UserAlreadyExists;
 import com.dsi.ecommerce.exception.UserNotFound;
 import com.dsi.ecommerce.model.User;
@@ -30,33 +29,42 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers() throws NoUserFound{
+    public List<User> getAllUsers() throws UserNotFound{
         List<User> users = userDao.findAll();
         if (users.isEmpty()){
-            throw new NoUserFound();
+            throw new UserNotFound();
         }
         return users;
     }
 
     @Override
-    public void deleteUser(Long userId) {
-        userDao.deleteById(userId);
+    public void deleteUser(Long userId) throws UserNotFound{
+        userDao.delete(getUserById(userId));
     }
 
     @Override
-    public User getUserById(Long userId) {
+    public User getUserById(Long userId) throws UserNotFound{
         User user = userDao.findById(userId).orElseThrow(() -> new UserNotFound(userId));
 
         return user;
     }
 
     @Override
-    public User getUserFromMyUserDetail(MyUserDetail userDetail) {
+    public User getUserFromMyUserDetail(MyUserDetail userDetail) throws UserNotFound {
         return getUserById(userDetail.getId());
     }
 
     @Override
-    public User updateUser(Long userId, User user) {
-        return null;
+    public User updateUser(Long userId, User userData) throws UserNotFound{
+        User user = getUserById(userId);
+        user.setUsername(userData.getUsername());
+        user.setEmail(userData.getEmail());
+        user.setFirstname(userData.getFirstname());
+        user.setLastname(userData.getLastname());
+        user.setProfilePic(userData.getProfilePic());
+        user.setActive(userData.isActive());
+        user.setRole(userData.getRole());
+
+        return userDao.save(user);
     }
 }
