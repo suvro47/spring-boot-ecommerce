@@ -7,9 +7,9 @@ import java.util.List;
 
 @Getter
 @Setter
+@ToString
 @Entity(name="products")
 public class Product {
-
     @Id
     @SequenceGenerator(name = "product_id_sequence", sequenceName = "product_id_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_sequence")
@@ -42,6 +42,5 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private List<Review> reviews;
-
 
 }
