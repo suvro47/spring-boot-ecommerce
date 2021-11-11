@@ -4,14 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.swing.plaf.synth.SynthDesktopIconUI;
+
 @Controller
-@RequestMapping("/cart/user/{id}")
 public class CartController {
+        @GetMapping("/cart/user/{id}")
+        public String home (){
 
-        @GetMapping("/")
-        public String cartHome(){
+                System.out.println("adlsfkjalsfjlasjdflajsflj");
 
-                return "cart";
+                return "cart/index";
         }
 
 }
