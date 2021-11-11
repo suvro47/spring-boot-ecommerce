@@ -1,6 +1,7 @@
 package com.dsi.ecommerce.service.impl;
 
 import com.dsi.ecommerce.dao.OrderDao;
+import com.dsi.ecommerce.exception.IdNotFoundException;
 import com.dsi.ecommerce.model.order.Order;
 import com.dsi.ecommerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getSingleOrder(Long id) {
-        return orderDao.findById(id).orElse(new Order());
+    public Order getSingleOrder(Long id) throws IdNotFoundException {
+        return orderDao.findById(id).orElseThrow(() -> new IdNotFoundException("Order not found in the request."));
     }
 }
