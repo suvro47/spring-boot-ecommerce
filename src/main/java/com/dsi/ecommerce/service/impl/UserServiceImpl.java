@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(Long userId) throws UserNotFound{
-        userDao.delete(getUserById(userId));
+    public void deleteUserByUsername(String username) throws UserNotFound {
+        userDao.delete(getUserByUsername(username));
     }
 
     @Override
@@ -51,13 +51,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUsername(String username) throws UserNotFound {
+        User user = userDao.findByUsername(username);
+        if (user == null){
+            throw new UserNotFound(username);
+        }
+
+        return user;
+    }
+
+    @Override
     public User getUserFromMyUserDetail(MyUserDetail userDetail) throws UserNotFound {
         return getUserById(userDetail.getId());
     }
 
     @Override
-    public User updateUser(Long userId, User userData) throws UserNotFound{
-        User user = getUserById(userId);
+    public User updateUser(String username, User userData) throws UserNotFound{
+        User user = getUserByUsername(username);
         user.setUsername(userData.getUsername());
         user.setEmail(userData.getEmail());
         user.setFirstname(userData.getFirstname());
