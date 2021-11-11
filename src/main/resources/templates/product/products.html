@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
+    <div th:replace="navbar :: common_head">...</div>
+    <!-- Additional Style Insert Here -->
 </head>
 <body>
 
-<div th:insert="navbar :: common_head">...</div>
-<!-- Additional Style Insert Here -->
-<div th:insert="navbar :: navbar_body">...</div>
-<div th:insert="navbar :: space-after-navbar">...</div>
 
+<div th:insert="navbar :: navbar_body">...</div>
 
 <div class="ui segment">
     <p>No Products Available!!!</p>
