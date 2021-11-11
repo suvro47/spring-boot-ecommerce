@@ -51,6 +51,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUsername(String username) throws UserNotFound {
+        User user = userDao.findByUsername(username);
+        if (user == null){
+            throw new UserNotFound(username);
+        }
+
+        return user;
+    }
+
+    @Override
     public User getUserFromMyUserDetail(MyUserDetail userDetail) throws UserNotFound {
         return getUserById(userDetail.getId());
     }

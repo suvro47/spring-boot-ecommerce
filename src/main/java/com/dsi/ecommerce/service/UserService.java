@@ -17,6 +17,8 @@ public interface UserService {
 
     public User getUserById(Long userId) throws UserNotFound;
 
+    public User getUserByUsername(String username) throws UserNotFound;
+
     public User getUserFromMyUserDetail(MyUserDetail userDetail ) throws UserNotFound;
 
     public User updateUser(Long userId, User user) throws UserNotFound;
