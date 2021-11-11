@@ -1,7 +1,7 @@
 package com.dsi.ecommerce.model;
 
-
 import com.dsi.ecommerce.model.order.Order;
+import com.dsi.ecommerce.utility.UserRoles;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "user")
+@Entity(name = "users")
 @Table(
         name = "users",
         uniqueConstraints = @UniqueConstraint(name = "username_unique",columnNames = "username")
@@ -43,9 +43,6 @@ public class User {
     @Column(name = "profile_pic")
     private String profilePic;
 
-    @Column(name = "role", nullable = false)
-    private String role;
-
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
 
@@ -57,4 +54,9 @@ public class User {
 
     @OneToMany( mappedBy="user" )
     private List<ReviewReply> reviewReplies;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRoles role;
+    @Column(name = "active", nullable = false)
+    private boolean active;
 }
