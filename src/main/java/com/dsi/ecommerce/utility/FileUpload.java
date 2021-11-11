@@ -6,21 +6,22 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import com.dsi.ecommerce.utility.constants.ImageType;
 import org.springframework.web.multipart.MultipartFile;
 
-public class FileUploader {
+public class FileUpload {
 
-    public static String saveImage(UploadImageTypes imageType, String name, MultipartFile file) {
+    public static String saveImage(ImageType imageType, String name, MultipartFile file) {
 
         String staticPath = "src/main/resources/static/";
 
         Path uploadPath = null;
 
-        if (imageType == UploadImageTypes.CAST_DP) {
-            uploadPath = Paths.get(staticPath + "images/casts/");
-        } else if (imageType == UploadImageTypes.MOVIE_POSTER) {
-            uploadPath = Paths.get(staticPath + "images/movies/");
-        } else if (imageType == UploadImageTypes.USER_PROFILE)
+        if (imageType == ImageType.PRODUCT_IMAGE) {
+            uploadPath = Paths.get(staticPath + "images/products/");
+        } else if (imageType == ImageType.SHOP_BANNER) {
+            uploadPath = Paths.get(staticPath + "images/shops/");
+        } else if (imageType == ImageType.USER_PROFILE)
             uploadPath = Paths.get(staticPath + "images/users/");
 
         try {
