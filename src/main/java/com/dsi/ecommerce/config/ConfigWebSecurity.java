@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class ConfigWebSecurity  extends WebSecurityConfigurerAdapter {
 
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
@@ -32,12 +33,12 @@ public class ConfigWebSecurity  extends WebSecurityConfigurerAdapter {
 
         https.authorizeRequests()
                 .antMatchers("/admin").hasRole(UserRoles.ADMIN.toString())
-                .antMatchers("/").permitAll()
-                .and().formLogin()
-                .loginPage("auth/login.html")
-                .loginProcessingUrl("/perform_login")
-                .defaultSuccessUrl("/homepage.html", true)
-                .failureUrl("/login.html?error=true");
+                .antMatchers("/").permitAll();
+//                .and().formLogin()
+//                .loginPage("auth/login.html")
+//                .loginProcessingUrl("/perform_login")
+//                .defaultSuccessUrl("/homepage.html", true)
+//                .failureUrl("/login.html?error=true");
 
     }
 
