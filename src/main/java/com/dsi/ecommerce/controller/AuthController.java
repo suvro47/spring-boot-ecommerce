@@ -23,44 +23,44 @@ public class AuthController {
     private UserService userService;
 
     @GetMapping("/signup")
-    public String signupForm(WebRequest request, Model model){
-        model.addAttribute("signup_form",new User());
+    public String signupForm(WebRequest request, Model model) {
+        model.addAttribute("signup_form", new User());
         return "auth/signup";
     }
 
 
     @PostMapping("/signup")
     public String signup(User user, BindingResult result,
-                         @RequestParam(value = "profilePic")MultipartFile profilePic , RedirectAttributes redirectAttributes){
+                         @RequestParam(value = "profilePic") MultipartFile profilePic, RedirectAttributes redirectAttributes) {
 
         System.out.println("Hellooo");
         System.out.println(profilePic.getName());
         System.out.println(user.toString());
-       try{
-           String path = FileUpload.saveImage(ImageType.USER_PROFILE, user.getUsername(), profilePic);
-           user.setProfilePic(path);
-           userService.createNewUser(user);
-           return "redirect:/";
-       }catch (Exception e){
-           System.out.println(e.toString());
-           redirectAttributes.addFlashAttribute("signup_form", user);
-           return "auth/signup";
-       }
-
-
-
+        try {
+            String path = FileUpload.saveImage(ImageType.USER_PROFILE, user.getUsername(), profilePic);
+            user.setProfilePic(path);
+            userService.createNewUser(user);
+            return "redirect:/";
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            redirectAttributes.addFlashAttribute("signup_form", user);
+            return "auth/signup";
+        }
     }
-
 
     @GetMapping("/login")
-    public String loginForm(){
-        return  "auth/login";
+    public String loginForm() {
+        return "auth/login";
     }
 
-    @PostMapping("/login")
-    public String login(){
+    @RequestMapping("/login-failed")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "auth/login";
+    }
+
+    @RequestMapping("/logout-success")
+    public String logoutSuccess() {
         return "redirect:/";
     }
-
-
 }

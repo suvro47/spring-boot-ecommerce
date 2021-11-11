@@ -12,10 +12,11 @@
 
     <h1 align="center">Please Create A New Account</h1>
     <div class="container">
-        <form th:object="${signup_form}"  method="POST" th:action="@{/signup}"  enctype="multipart/form-data">
+        <form th:object="${signup_form}" method="POST" th:action="@{/signup}" enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="username">@</span>
-                <input th:field = "*{username}"  type="text" class="form-control" placeholder="Username" aria-label="Username"
+                <input th:field="*{username}" type="text" class="form-control" placeholder="Username"
+                       aria-label="Username"
                        aria-describedby="basic-addon1">
             </div>
 
@@ -23,7 +24,7 @@
                 <div class="col">
                     <label for="firstname" class="form-label"> First Name </label>
                     <div class="input-group mb-3">
-                        <input th:field = "*{firstname}"  type="text" class="form-control" id="firstname"
+                        <input th:field="*{firstname}" type="text" class="form-control" id="firstname"
                                placeholder="First Name"
                                aria-label="firstname"
                                aria-describedby="basic-addon1">
@@ -32,7 +33,7 @@
                 <div class="col">
                     <label for="lastname" class="form-label"> Last Name </label>
                     <div class="input-group mb-3">
-                        <input th:field = "*{lastname}"  type="text" class="form-control" id="lastname"
+                        <input th:field="*{lastname}" type="text" class="form-control" id="lastname"
                                placeholder="Last Name"
                                aria-label="LastName"
                                aria-describedby="basic-addon1">
@@ -41,26 +42,26 @@
             </div>
 
             <div class="input-group mb-3">
-                <input th:field = "*{profilePic}"   type="file" class="form-control" id="profilePic">
-                <label class="input-group-text"  for="profilePic">Upload Profile Pic</label>
+                <input th:field="*{profilePic}" type="file" class="form-control" id="profilePic">
+                <label class="input-group-text" for="profilePic">Upload Profile Pic</label>
             </div>
 
-         <div class="row">
-             <div class="col-md-6">
-                 <label for="email" class="form-label">Email</label>
-                 <input th:field = "*{email}"  type="email" class="form-control" id="email" >
-             </div>
-             <div class="col-md-6">
-                 <label for="password" class="form-label">Password</label>
-                 <input th:field = "*{password}"   type="password" class="form-control" id="password">
-             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input th:field="*{email}" type="email" class="form-control" id="email">
+                </div>
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input th:field="*{password}" type="password" class="form-control" id="password">
+                </div>
 
-         </div>
+            </div>
             <br>
             <div class="col-12">
-                <label class="form-label"  for="role">Choose Account Type</label>
-                <select th:field="*{role}"   class="form-select" id="role">
-                    <option selected  value="BUYER">Buyer</option>
+                <label class="form-label" for="role">Choose Account Type</label>
+                <select th:field="*{role}" class="form-select" id="role">
+                    <option selected value="BUYER">Buyer</option>
                     <option value="SELLER">Seller</option>
                     <option value="ADMIN">Admin</option>
                 </select>
