@@ -14,11 +14,11 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @RequestMapping("/")
+    @RequestMapping("/products")
     public String getHomeMovies(Model model) {
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
-        return "products";
+        return "product/products";
     }
 
 }
