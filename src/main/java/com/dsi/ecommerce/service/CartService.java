@@ -8,5 +8,4 @@ public interface CartService {
         public void addCartItem(CartItem cartItem);
         public void deleteCartItem(CartItem cartItem);
         public void editCartItem(CartItem cartItem);
-
 }

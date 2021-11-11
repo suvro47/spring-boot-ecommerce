@@ -1,7 +1,9 @@
 package com.dsi.ecommerce.service.impl;
 
+import com.dsi.ecommerce.dao.UserDao;
 import com.dsi.ecommerce.dao.cart.CartDao;
 import com.dsi.ecommerce.dao.cart.CartItemDao;
+import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.model.cart.Cart;
 import com.dsi.ecommerce.model.cart.CartItem;
 import com.dsi.ecommerce.service.CartService;
@@ -19,9 +21,12 @@ public class CartServiceImpl implements CartService {
         @Autowired
         private CartItemDao cartItemDao;
 
+        @Autowired
+        private UserDao userDao;
 
-        public List<CartItem> getAllCartItem(Cart cart){
-                return cart.getCartItems();
+        public List<CartItem> getAllCartItem(){
+                User user = userDao.findById(1L).orElse(new User());
+                return user.getCart().getCartItems();
         }
 
         @Override

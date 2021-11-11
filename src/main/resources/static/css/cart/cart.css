@@ -37,6 +37,7 @@
 .item img{
     height: 100px;
     width: auto;
+    padding: 6px;
     margin-left: 10px;
     border-radius: 15px;
 }
