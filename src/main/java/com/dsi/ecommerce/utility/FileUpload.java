@@ -17,10 +17,8 @@ public class FileUpload {
 
         Path uploadPath = null;
 
-        if (imageType == ImageType.CAST_DP) {
-            uploadPath = Paths.get(staticPath + "images/casts/");
-        } else if (imageType == ImageType.MOVIE_POSTER) {
-            uploadPath = Paths.get(staticPath + "images/movies/");
+        if (imageType == ImageType.SHOP_POSTER) {
+            uploadPath = Paths.get(staticPath + "images/shops/");
         } else if (imageType == ImageType.USER_PROFILE)
             uploadPath = Paths.get(staticPath + "images/users/");
 

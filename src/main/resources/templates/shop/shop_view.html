@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Your Shop</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link href="../../static/css/style.css" rel="stylesheet"/>
+
+    <link th:href="@{/css/shop.css}" rel="stylesheet"/>
+    <link href="../../static/css/shop.css" rel="stylesheet"/>
+</head>
+<body>
+
+    <div th:insert="navbar :: navbar_body">...</div>
+    <div class="ui container" th:object="${shop}">
+
+        <div class="ui card" style="width:100%">
+            <img class="ui fluid image" style="width:100%; height: 200px"  th:src="@{${shop.poster}}">
+        </div>
+
+        <div class="ui secondary  menu">
+            <a class="active item">
+                <p th:text="${shop.name}">shop name</p>
+            </a>
+            <a class="item">
+                All Product
+            </a>
+            <a class="item">
+                Profile
+            </a>
+            <a class="item">
+                About Us
+            </a>
+            <div class="right menu">
+                <div class="item">
+                    <div class="ui icon input">
+                        <input type="text" placeholder="Search...">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+</html>

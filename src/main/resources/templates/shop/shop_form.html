@@ -1,35 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Shop</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link href="../../static/css/style.css" rel="stylesheet"/>
+
+    <link th:href="@{/css/shop.css}" rel="stylesheet"/>
+    <link href="../../static/css/shop.css" rel="stylesheet"/>
 </head>
 <body>
 
-    <div th:insert="navbar :: navbar_head">...</div>
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <div class="ui raised very padded container segment">
-       <div class="ui link cards">
-           <div class="card">
-               <div class="image">
-                   <img src="/images/matthew.png">
-               </div>
-           </div>
-       </div>
+    <div class="ui container">
+        <div class="ui link cards">
+            <div class="card" style="width : 100%;
+                                padding : 40px;
+                                background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+                                display : flex;
+                                flex-direction : row;
+                                justify-content : space-between;">
+                <h2> Already Registered ?  </h2>
+                <div class="ui animated button btn" tabindex="0" style="width: 120px; font-size: 18px;">
+                    <div class="visible content">Login</div>
+                    <div class="hidden content">
+                        <i class="sign-in alternate icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="ui raised very padded container segment">
 
-        <form class="ui form"  th:object="${shop}" th:action="@{/register_shop}" method="post" enctype="multipart/form-data">
+        <form class="ui form"  th:object="${new_shop}" th:action="@{/register_shop}" method="POST" enctype="multipart/form-data">
             <div class="field">
                 <label>Shop Name </label>
-                <input type="text">
+                <input  type="text" name="name" />
             </div>
 
             <div class="field">
                 <label>Text</label>
-                <textarea spellcheck="false"></textarea>
+                <textarea spellcheck="false" type="text" name="description"></textarea>
             </div>
 
             <div class="field">
