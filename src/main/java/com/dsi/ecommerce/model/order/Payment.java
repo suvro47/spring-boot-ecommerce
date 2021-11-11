@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-enum PaymentStatus {PENDING, PAID}
+enum PaymentStatus {PENDING, PAID, REFUNDED}
 enum PaymentMethod {Cash, bKash, Rocket, Nagad, Visa, Master}
 
 @Setter

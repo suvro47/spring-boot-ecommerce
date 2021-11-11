@@ -9,9 +9,32 @@
     <div th:insert="navbar :: navbar_head">...</div>
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <div class="container">
+    <div class="ui raised very padded container segment">
 
+        <form class="ui form"  th:object="${shop}" th:action="@{/register_shop}" method="post" enctype="multipart/form-data">
+            <div class="field">
+                <label>Shop Name </label>
+                <input type="text">
+            </div>
 
+            <div class="field">
+                <label>Text</label>
+                <textarea spellcheck="false"></textarea>
+            </div>
+
+            <div class="field">
+                <label>Poster</label>
+                <input type="file" name="file" />
+            </div>
+
+            <div class="field">
+                <div class="ui checkbox">
+                    <input type="checkbox" tabindex="0" class="hidden">
+                    <label>I agree to the Terms and Conditions</label>
+                </div>
+            </div>
+            <button class="ui button" type="submit">Submit</button>
+        </form>
 
     </div>
 
