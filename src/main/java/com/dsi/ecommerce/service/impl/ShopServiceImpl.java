@@ -3,7 +3,6 @@ package com.dsi.ecommerce.service.impl;
 import com.dsi.ecommerce.dao.ShopDao;
 import com.dsi.ecommerce.dto.ShopDto;
 import com.dsi.ecommerce.model.Shop;
-import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.service.ShopService;
 import com.dsi.ecommerce.utility.FileUpload;
 import com.dsi.ecommerce.utility.constants.ImageType;
@@ -31,7 +30,7 @@ public class ShopServiceImpl implements ShopService {
         shop.setRegisteringDate( new Date() );
 //      shop.setUser(new User());  // need to change
         Shop savedShop = shopDao.save(shop);
-        savedShop.setPoster(FileUpload.saveImage(ImageType.SHOP_POSTER, savedShop.getName(), file));
+        savedShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, savedShop.getName(), file));
         return savedShop;
     }
 }

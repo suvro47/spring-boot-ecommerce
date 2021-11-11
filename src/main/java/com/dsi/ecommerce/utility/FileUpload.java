@@ -17,7 +17,9 @@ public class FileUpload {
 
         Path uploadPath = null;
 
-        if (imageType == ImageType.SHOP_POSTER) {
+        if (imageType == ImageType.PRODUCT_IMAGE) {
+            uploadPath = Paths.get(staticPath + "images/products/");
+        } else if (imageType == ImageType.SHOP_BANNER) {
             uploadPath = Paths.get(staticPath + "images/shops/");
         } else if (imageType == ImageType.USER_PROFILE)
             uploadPath = Paths.get(staticPath + "images/users/");
@@ -34,7 +36,7 @@ public class FileUpload {
 
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            return "~/" + uploadPath.toString().substring(staticPath.length()) + "/" + newFileName;
+            return "/" + uploadPath.toString().substring(staticPath.length()) + "/" + newFileName;
 
         } catch (IOException e) {
 
