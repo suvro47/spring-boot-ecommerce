@@ -21,7 +21,7 @@
                 <a class="active item">Home</a>
                 <a class="item">Product</a>
                 <a class="item">Shop</a>
-                <div id="dropdown-btn" class="ui dropdown item">
+                <div class="ui dropdown item">
                     Categories <i class="dropdown icon"></i>
                     <div class="menu">
                         <a class="item">Category 1</a>
@@ -29,7 +29,6 @@
                         <a class="item">Category 3</a>
                     </div>
                 </div>
-
 
                 <div class="right menu">
                     <!-- Start: Search -->
@@ -51,13 +50,14 @@
             <div class="tablet mobile only row">
                 <a class="header item"> Project Name</a>
                 <div class="right menu">
-                    <a class="menu item" >
-                        <div id="menu-toggle-button" class="ui basic icon toggle button" >
+                    <a class="menu item">
+                        <div id="menu-toggle-button" class="ui basic icon toggle button">
                             <i class="content icon"></i>
                         </div>
                     </a>
                 </div>
-                <div class="ui vertical accordion borderless fluid menu" style="background-color: #00b5ad;border: 0px">
+                <div class="ui vertical accordion borderless fluid menu"
+                     style="background-color: lightblue;border: 0px">
                     <!-- Start: Search -->
                     <div class="item">
                         <div class="ui icon input">
@@ -66,14 +66,30 @@
                         </div>
                     </div>
                     <!-- End: Search -->
-                    <a class="active item"> Home</a>
-                    <a class="item"> About</a>
-                    <a class="item"> Contact</a>
+                    <a class="active item">Home</a>
+                    <a class="item">Product</a>
+                    <a class="item">Shop</a>
                     <div class="item">
-                        <div class="title">
-                            Dropdown<i class="dropdown icon"></i>
+                        <div class="accordion" style="margin-top: 0px">
+                            <div class="title" style="display: flex;justify-content: space-between" onclick="caretChanger()">
+                                <span>Categories</span>
+                                <i id="categories-caret" class="caret down icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="menu">
+                                    <a class="item">Category 1</a>
+                                    <a class="item">Category 2</a>
+                                    <a class="item">Category 3</a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+                    <div class="item">
+                        <hr>
+                    </div>
+                    <a class="item" th:href="@{/signup}"> Register</a>
+                    <a class="item" th:href="@{/login}"> Login</a>
                 </div>
                 <br>
             </div>
@@ -90,7 +106,6 @@
 <!-- Navbar END -->
 
 
-
 <div th:fragment="common_script">
     <!-- JQuery Link -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -100,16 +115,27 @@
     <script>
         $('.ui.vertical.menu').hide();
         $('.ui.dropdown').dropdown();
+        $('.ui.accordion').accordion();
         $(document).ready(function () {
             $("html").click((event) => {
-                if(event.target.id === "menu-toggle-button" || $(event.target).parents("#menu-toggle-button").length){
+                if (event.target.id === "menu-toggle-button" || $(event.target).parents("#menu-toggle-button").length) {
                     $('.ui.vertical.menu').toggle("250", "linear")
-                }
-                else if(!(event.target.id === "menu" || $(event.target).parents("#menu").length)) {
-                    $('.ui.vertical.menu').hide()
+                } else if (!(event.target.id === "menu" || $(event.target).parents("#menu").length)) {
+                    $('.ui.vertical.menu').hide("250", "linear")
                 }
             });
         });
+        function caretChanger(event){
+            console.log("came here.")
+            let caretIcon = document.getElementById("categories-caret");
+            if(caretIcon.classList.contains("down")){
+                caretIcon.classList.remove("down");
+                caretIcon.classList.add("up");
+            } else if(caretIcon.classList.contains("up")){
+                caretIcon.classList.remove("up");
+                caretIcon.classList.add("down");
+            }
+        }
     </script>
 </div>
 
