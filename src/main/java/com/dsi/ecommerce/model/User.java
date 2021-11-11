@@ -1,6 +1,7 @@
 package com.dsi.ecommerce.model;
 
 
+import com.dsi.ecommerce.utility.UserRoles;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "user")
+@Entity(name = "users")
 @Table(
         name = "users",
         uniqueConstraints = @UniqueConstraint(name = "username_unique",columnNames = "username")
@@ -35,6 +36,9 @@ public class User {
     private String email;
     @Column(name = "profile_pic")
     private String profilePic;
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    private String role;
+    private UserRoles role;
+    @Column(name = "active", nullable = false)
+    private boolean active;
 }
