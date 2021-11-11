@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -32,14 +33,16 @@ public class ConfigWebSecurity  extends WebSecurityConfigurerAdapter {
     protected  void configure(HttpSecurity https) throws Exception{
 
         https.authorizeRequests()
-//                .antMatchers("/admin").hasRole(UserRoles.ADMIN.toString())
+                .antMatchers("/admin").hasRole(UserRoles.ADMIN.toString())
                 .antMatchers("/").permitAll()
-//                .and().formLogin()
-//                .loginPage("auth/login.html")
-//                .loginProcessingUrl("/perform_login")
-//                .defaultSuccessUrl("/homepage.html", true)
-//                .failureUrl("/login.html?error=true")
-                ;
+                .and().formLogin()
+                .loginPage("/login").permitAll().failureUrl("/login-failed")
+                .and().
+                logout().invalidateHttpSession(true)
+                .clearAuthentication(true).
+                logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/logout-success").permitAll();
+
 
     }
 
