@@ -16,7 +16,7 @@ public class Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if(userDao.findAll().isEmpty()){
+        if(userDao.findByUsername("admin") == null){
             User admin = new User();
 
             admin.setUsername("admin");
