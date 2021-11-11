@@ -32,13 +32,14 @@ public class ConfigWebSecurity  extends WebSecurityConfigurerAdapter {
     protected  void configure(HttpSecurity https) throws Exception{
 
         https.authorizeRequests()
-                .antMatchers("/admin").hasRole(UserRoles.ADMIN.toString())
-                .antMatchers("/").permitAll();
+//                .antMatchers("/admin").hasRole(UserRoles.ADMIN.toString())
+                .antMatchers("/").permitAll()
 //                .and().formLogin()
 //                .loginPage("auth/login.html")
 //                .loginProcessingUrl("/perform_login")
 //                .defaultSuccessUrl("/homepage.html", true)
-//                .failureUrl("/login.html?error=true");
+//                .failureUrl("/login.html?error=true")
+                ;
 
     }
 
