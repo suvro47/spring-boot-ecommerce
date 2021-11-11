@@ -1,23 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="navbar_head">
-    <!-- Required meta tags -->
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <!-- Semantic UI CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
-</head>
+    <head th:fragment="navbar_head">
+        <!-- Required meta tags -->
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!-- Semantic UI CSS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
+        <link th:href="@{/css/style.css}" rel="stylesheet"/>
+        <link th:href="@{/css/cart/cart.css}" rel="stylesheet"/>
+        <script th:src="@{/css/cart/cart.js}" rel="text/javascript"></script>
+    </head>
 
-<body th:fragment="navbar_body">
 
-    <div class="container">
-        <h1 align="center">  put your nav here  | <a href="/register_shop"> sell on our site </a> </h1>
-    </div>
 
-    <!-- Semantic UI JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 
-</body>
+    <body th:fragment="navbar_body">
+        <div class="container">
+            <h1 align="center">  put your nav here  | <a href="/register_shop"> sell on our site </a>
+                <button class="ui primary button" onclick="openModal()">
+                    Open Carts
+                </button>
+            </h1>
+        </div>
+
+        <div id="custom-modal" style="display: block">
+            <div class="custom-container" onclick="closeModal()"></div>
+
+            <div class="cart">
+                <span onclick="closeModal()" >x</span>
+
+                <div class="item">
+                    <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9" alt="item-image"/>
+                    <div class="details">
+                        <p>Prouduct title</p>
+                        <p>$ 50</p>
+                    </div>
+                    <div class="quantity">
+                        <button> - </button>
+                        <p>23</p>
+                        <button> + </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
 </html>

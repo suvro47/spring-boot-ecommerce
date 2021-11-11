@@ -4,14 +4,27 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Semantic UI CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
     <link th:href="@{/css/cart/cart.css}" rel="stylesheet"/>
     <link href="../../static/css/cart/cart.css" rel="stylesheet"/>
 
     <title>Cart</title>
 </head>
-<body class="container">
+<body>
+    <div th:insert="navbar :: navbar_head">...</div>
+    <div th:insert="navbar :: navbar_body">...</div>
 
-hello2
+<div class="container">
+
+    hello
+
+
+</div>
+    <div class="ui link cards">
+        <div class="dard">
+            hello2
+        </div>
+    </div>
+
 </body>
 </html>
