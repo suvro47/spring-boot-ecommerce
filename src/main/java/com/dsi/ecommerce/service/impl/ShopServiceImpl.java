@@ -1,8 +1,13 @@
 package com.dsi.ecommerce.service.impl;
 
 import com.dsi.ecommerce.dao.ShopDao;
+import com.dsi.ecommerce.dao.UserDao;
 import com.dsi.ecommerce.dto.ShopDto;
+import com.dsi.ecommerce.exception.ResourceAlreadyExists;
+import com.dsi.ecommerce.exception.ResourceNotFoundException;
 import com.dsi.ecommerce.model.Shop;
+import com.dsi.ecommerce.model.User;
+import com.dsi.ecommerce.service.MyUserDetail;
 import com.dsi.ecommerce.service.ShopService;
 import com.dsi.ecommerce.utility.FileUpload;
 import com.dsi.ecommerce.utility.constants.ImageType;
@@ -15,22 +20,37 @@ import java.util.Date;
 @Service
 public class ShopServiceImpl implements ShopService {
 
+    @Autowired
     private ShopDao shopDao;
 
     @Autowired
-    public ShopServiceImpl(ShopDao shopDao) {
-        this.shopDao = shopDao;
+    private UserDao userDao;
+
+    @Override
+    public Shop saveShop(MyUserDetail principal, ShopDto shopDetails, MultipartFile file) throws ResourceNotFoundException, ResourceAlreadyExists {
+
+        Shop shop = shopDao.findShopByUserId(principal.getId());
+        if( shop != null ) throw new ResourceAlreadyExists("Shop already exist");
+
+        Shop newShop = new Shop();
+        newShop.setName(shopDetails.getName());
+        newShop.setDescription(shopDetails.getDescription());
+        newShop.setRegisteringDate( new Date() );
+        User loggedUser = userDao.findById(principal.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        newShop.setUser(loggedUser);
+        Shop savedShop = shopDao.save(newShop);
+        savedShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, savedShop.getName(), file));
+        return shopDao.save(newShop);
     }
 
     @Override
-    public Shop saveShop(ShopDto shopDetails, MultipartFile file) {
-        Shop shop = new Shop();
-        shop.setName(shopDetails.getName());
-        shop.setDescription(shopDetails.getDescription());
-        shop.setRegisteringDate( new Date() );
-//      shop.setUser(new User());  // need to change
-        Shop savedShop = shopDao.save(shop);
-        savedShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, savedShop.getName(), file));
-        return savedShop;
+    public Shop getShop(MyUserDetail principal) throws ResourceNotFoundException {
+
+        User loggedUser = userDao.getById(principal.getId());
+        Shop shop = loggedUser.getShop();
+        if( shop.getId() == null ) throw new ResourceNotFoundException("Shop Not found");
+        return shop;
     }
+
 }

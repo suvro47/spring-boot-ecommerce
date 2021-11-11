@@ -17,10 +17,10 @@
     <div class="ui container" th:object="${shop}">
 
         <div class="ui card" style="width:100%">
-            <img class="ui fluid image" style="width:100%; height: 200px"  th:src="@{${shop.poster}}">
+            <img class="ui fluid image" style="width:100%; height: 200px"  th:src="@{${shop.banner}}" alt="Shop banner">
         </div>
 
-        <div class="ui secondary  menu">
+        <div class="ui secondary menu" >
             <a class="active item">
                 <p th:text="${shop.name}">Your Shop</p>
             </a>
@@ -30,9 +30,7 @@
             <a class="item">
                 Profile
             </a>
-            <a class="item">
-                About Us
-            </a>
+
             <div class="right menu">
                 <div class="item">
                     <div class="ui icon input">
@@ -43,11 +41,8 @@
             </div>
         </div>
 
+
     </div>
-
-
-
-
 
 </body>
 </html>

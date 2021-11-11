@@ -3,8 +3,10 @@ package com.dsi.ecommerce.controller;
 import com.dsi.ecommerce.dto.ShopDto;
 import com.dsi.ecommerce.exception.ResourceAlreadyExists;
 import com.dsi.ecommerce.model.Shop;
+import com.dsi.ecommerce.service.MyUserDetail;
 import com.dsi.ecommerce.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,20 +27,34 @@ public class ShopController {
     }
 
     @RequestMapping(value="/register_shop", method= RequestMethod.POST)
-    public String registerSubmit(Model model, ShopDto shopDetails, MultipartFile file) {
+    public String registerSubmit(@AuthenticationPrincipal MyUserDetail principal, Model model, ShopDto shopDetails, MultipartFile file) {
 
         try {
-            final Shop savedShop = shopService.saveShop(shopDetails, file);
+            final Shop savedShop = shopService.saveShop(principal, shopDetails, file);
             model.addAttribute("shop", savedShop);
-            return "shop/shop_view";
+            return "redirect:/my_shop";
 
         } catch( Exception e ) {
+            System.out.println("Exception has occured " + e );
+            return "shop/shop_form";
+        }
+    }
+
+    @RequestMapping(value="/my_shop", method= RequestMethod.GET)
+    public String getShop(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
+
+        try {
+            Shop shop = shopService.getShop( principal );
+            model.addAttribute("shop", shop);
+            return "shop/shop_view";
+
+        } catch ( Exception e ) {
             System.out.println("An exception occured ");
             return "shop/shop_form";
         }
-
-
     }
+
+
 
 
 }
