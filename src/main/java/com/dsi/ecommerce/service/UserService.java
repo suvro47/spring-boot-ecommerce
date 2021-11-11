@@ -13,7 +13,7 @@ public interface UserService {
 
     public List<User> getAllUsers() throws UserNotFound;
 
-    public void deleteUser(Long userId) throws UserNotFound;
+    public void deleteUserByUsername(String username) throws UserNotFound;
 
     public User getUserById(Long userId) throws UserNotFound;
 
@@ -21,6 +21,6 @@ public interface UserService {
 
     public User getUserFromMyUserDetail(MyUserDetail userDetail ) throws UserNotFound;
 
-    public User updateUser(Long userId, User user) throws UserNotFound;
+    public User updateUser(String username, User user) throws UserNotFound;
 
 }
