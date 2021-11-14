@@ -24,7 +24,7 @@
     top: 0;
     right: 0;
     z-index: 1000;
-    /*animation: animate 1s ease-in-out forwards;*/
+    animation: animate 1s ease-in-out forwards;
 }
 
 .item{
