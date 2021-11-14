@@ -47,7 +47,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
 
-    @OneToOne( mappedBy="user" )
+    @OneToOne( mappedBy="user")
     private Shop shop;
 
     @OneToMany( mappedBy="user" )
@@ -62,6 +62,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRoles role;
+
     @Column(name = "active", nullable = false)
     private boolean active;
 }

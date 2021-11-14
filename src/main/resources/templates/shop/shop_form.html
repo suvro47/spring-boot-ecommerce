@@ -1,31 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <title>Shop</title>
-    <!-- Semantic UI CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
-</head>
-<body >
+    <div th:replace="navbar :: common_head">...</div>
 
-    <div th:insert="navbar :: navbar_head">...</div>
+</head>
+<body>
+
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <div class="ui raised very padded container segment" >
+    <div class="ui container">
+        <div class="ui link cards">
+            <div class="card" style="width : 100%; padding : 40px; background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c); display : flex; flex-direction : row; justify-content : space-between;">
+                <h2> Already Registered ?  </h2>
+                <a href="/login">
+                    <div class="ui animated button btn" tabindex="0" style="width: 120px; font-size: 18px;">
+                        <div class="visible content">Login</div>
+                        <div class="hidden content">
+                            <i class="sign-in alternate icon" > </i>
+                        </div>
+                    </div>
+                </a>
 
-        <form class="ui form"  th:object="${shop}" th:action="@{/register_shop}" method="post" enctype="multipart/form-data">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ui raised very padded container segment">
+
+        <form class="ui form"  th:object="${new_shop}" th:action="@{/register_shop}" method="POST" enctype="multipart/form-data">
             <div class="field">
                 <label>Shop Name </label>
-                <input type="text">
+                <input  type="text" name="name" />
             </div>
 
             <div class="field">
-                <label>Text</label>
-                <textarea spellcheck="false"></textarea>
+                <label>Description ( e.g. product type , your goal etc )</label>
+                <textarea spellcheck="false" type="text" name="description"></textarea>
             </div>
 
             <div class="field">
-                <label>Poster</label>
+                <label>Cover Photo</label>
                 <input type="file" name="file" />
             </div>
 
@@ -38,5 +55,8 @@
             <button class="ui button" type="submit">Submit</button>
         </form>
     </div>
+
+    <div th:insert="navbar :: common_script">...</div>
+
 </body>
 </html>

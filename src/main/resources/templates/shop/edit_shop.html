@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Your Shop</title>
+    <div th:replace="navbar :: common_head">...</div>
+
+</head>
+<body>
+
+    <div th:insert="navbar :: navbar_body">...</div>
+
+    <form class="ui form"  th:object="${shop}" th:action="@{'/update_shop/' + ${shop.id}}" method="POST" enctype="multipart/form-data">
+
+        <div class="ui container">
+            <div class="ui link cards">
+                <div class="ui card" style="width:100%; border-radius: 5px">
+                    <img class="ui fluid image" style="width:100%; height: 200px"  th:src="@{${shop.banner}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="ui raised very padded container segment">
+
+            <div class="field">
+                <label>Shop Name </label>
+                <input  type="text" th:field="*{name}" />
+
+            </div>
+
+            <div class="field">
+                <label>Description ( e.g. product type , your goal etc)</label>
+                <textarea spellcheck="false" type="text" th:field="*{description}"></textarea>
+            </div>
+
+            <div class="field">
+                <label>Cover Photo</label>
+                <input type="file" name="file"/>
+            </div>
+
+            <div class="field">
+                <div class="ui checkbox">
+                    <input type="checkbox" tabindex="0" class="hidden">
+                    <label>I agree to the Terms and Conditions</label>
+                </div>
+            </div>
+            <button class="ui button" type="submit">Submit</button>
+
+        </div>
+
+    </form>
+
+    <div th:insert="navbar :: common_script">...</div>
+
+</body>
+</html>
