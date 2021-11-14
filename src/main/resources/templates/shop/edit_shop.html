@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Shop</title>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
-    <link href="../../static/css/style.css" rel="stylesheet"/>
+    <div th:replace="navbar :: common_head">...</div>
 
 </head>
 <body>
@@ -53,7 +50,7 @@
 
     </form>
 
-
+    <div th:insert="navbar :: common_script">...</div>
 
 </body>
 </html>
