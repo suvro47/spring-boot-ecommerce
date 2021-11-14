@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Shop</title>
+    <!-- Semantic UI CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
 </head>
-<body>
+<body >
 
     <div th:insert="navbar :: navbar_head">...</div>
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <div class="ui raised very padded container segment">
+    <div class="ui raised very padded container segment" >
 
         <form class="ui form"  th:object="${shop}" th:action="@{/register_shop}" method="post" enctype="multipart/form-data">
             <div class="field">
@@ -35,8 +37,6 @@
             </div>
             <button class="ui button" type="submit">Submit</button>
         </form>
-
     </div>
-
 </body>
 </html>

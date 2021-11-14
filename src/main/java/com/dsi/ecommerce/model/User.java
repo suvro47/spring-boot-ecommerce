@@ -1,5 +1,6 @@
 package com.dsi.ecommerce.model;
 
+import com.dsi.ecommerce.model.cart.Cart;
 import com.dsi.ecommerce.model.order.Order;
 import com.dsi.ecommerce.utility.UserRoles;
 import lombok.*;
@@ -54,6 +55,10 @@ public class User {
 
     @OneToMany( mappedBy="user" )
     private List<ReviewReply> reviewReplies;
+
+    @OneToOne
+    private Cart cart;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRoles role;
