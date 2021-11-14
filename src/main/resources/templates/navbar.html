@@ -1,23 +1,144 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="navbar_head">
+<head th:fragment="common_head">
     <!-- Required meta tags -->
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Semantic UI CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
-    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
 </head>
 
-<body th:fragment="navbar_body">
+<body>
 
-    <div class="container">
-        <h1 align="center">  put your nav here  | <a href="/register_shop"> sell on our site </a>  </h1>
+<!-- Navbar Start -->
+<div class="navbar" th:fragment="navbar_body">
+    <div id="menu" class="ui fixed borderless huge menu" style="background-color: lightblue">
+        <div class="ui container grid">
+            <!--Start: Desktop Nav-->
+            <div class="computer only row">
+                <a class="header item">Project Name</a>
+                <a class="active item">Home</a>
+                <a class="item">Product</a>
+                <a class="item">Shop</a>
+                <div class="ui dropdown item">
+                    Categories <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item">Category 1</a>
+                        <a class="item">Category 2</a>
+                        <a class="item">Category 3</a>
+                    </div>
+                </div>
+
+                <div class="right menu">
+                    <!-- Start: Search -->
+                    <div class="item">
+                        <div class="ui icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                    <!-- End: Search -->
+                    <a class="item">Register</a>
+                    <a class="item">Login</a>
+
+                </div>
+            </div>
+            <!--End: Desktop Nav-->
+
+            <!--Start: Mobile Nav-->
+            <div class="tablet mobile only row">
+                <a class="header item"> Project Name</a>
+                <div class="right menu">
+                    <a class="menu item">
+                        <div id="menu-toggle-button" class="ui basic icon toggle button">
+                            <i class="content icon"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="ui vertical accordion borderless fluid menu"
+                     style="background-color: lightblue;border: 0px">
+                    <!-- Start: Search -->
+                    <div class="item">
+                        <div class="ui icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                    <!-- End: Search -->
+                    <a class="active item">Home</a>
+                    <a class="item">Product</a>
+                    <a class="item">Shop</a>
+                    <div class="item">
+                        <div class="accordion" style="margin-top: 0px">
+                            <div class="title" style="display: flex;justify-content: space-between" onclick="caretChanger()">
+                                <span>Categories</span>
+                                <i id="categories-caret" class="caret down icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="menu">
+                                    <a class="item">Category 1</a>
+                                    <a class="item">Category 2</a>
+                                    <a class="item">Category 3</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <hr>
+                    </div>
+                    <a class="item" th:href="@{/signup}"> Register</a>
+                    <a class="item" th:href="@{/login}"> Login</a>
+                </div>
+                <br>
+            </div>
+            <!--End: Mobile Nav-->
+        </div>
+
     </div>
+    <!--End: Nav  -->
 
+    <!-- Space After Navbar -->
+    <br><br><br>
+    <!--Space End After Navbar -->
+</div>
+<!-- Navbar END -->
+
+
+<div th:fragment="common_script">
+    <!-- JQuery Link -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Semantic UI JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <!-- Navbar Script -->
+    <script>
+        $('.ui.vertical.menu').hide();
+        $('.ui.dropdown').dropdown();
+        $('.ui.accordion').accordion();
+        $(document).ready(function () {
+            $("html").click((event) => {
+                if (event.target.id === "menu-toggle-button" || $(event.target).parents("#menu-toggle-button").length) {
+                    $('.ui.vertical.menu').toggle("250", "linear")
+                } else if (!(event.target.id === "menu" || $(event.target).parents("#menu").length)) {
+                    $('.ui.vertical.menu').hide("250", "linear")
+                }
+            });
+        });
+        function caretChanger(event){
+            console.log("came here.")
+            let caretIcon = document.getElementById("categories-caret");
+            if(caretIcon.classList.contains("down")){
+                caretIcon.classList.remove("down");
+                caretIcon.classList.add("up");
+            } else if(caretIcon.classList.contains("up")){
+                caretIcon.classList.remove("up");
+                caretIcon.classList.add("down");
+            }
+        }
+    </script>
+</div>
+
 
 </body>
 </html>

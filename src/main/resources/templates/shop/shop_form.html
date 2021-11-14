@@ -6,10 +6,8 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
-    <link href="../../static/css/style.css" rel="stylesheet"/>
+<!--    <link href="../../static/css/style.css" rel="stylesheet"/>-->
 
-    <link th:href="@{/css/shop.css}" rel="stylesheet"/>
-    <link href="../../static/css/shop.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -17,14 +15,8 @@
 
     <div class="ui container">
         <div class="ui link cards">
-            <div class="card" style="width : 100%;
-                                padding : 40px;
-                                background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
-                                display : flex;
-                                flex-direction : row;
-                                justify-content : space-between;">
+            <div class="card" style="width : 100%; padding : 40px; background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c); display : flex; flex-direction : row; justify-content : space-between;">
                 <h2> Already Registered ?  </h2>
-
                 <a href="/login">
                     <div class="ui animated button btn" tabindex="0" style="width: 120px; font-size: 18px;">
                         <div class="visible content">Login</div>
@@ -48,12 +40,12 @@
             </div>
 
             <div class="field">
-                <label>Text</label>
+                <label>Description ( e.g. product type , your goal etc )</label>
                 <textarea spellcheck="false" type="text" name="description"></textarea>
             </div>
 
             <div class="field">
-                <label>Poster</label>
+                <label>Cover Photo</label>
                 <input type="file" name="file" />
             </div>
 

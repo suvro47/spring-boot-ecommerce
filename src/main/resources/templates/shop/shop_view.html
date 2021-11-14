@@ -1,26 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Your Shop</title>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" >
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
     <link href="../../static/css/style.css" rel="stylesheet"/>
 
-    <link th:href="@{/css/shop.css}" rel="stylesheet"/>
-    <link href="../../static/css/shop.css" rel="stylesheet"/>
+    <style>
+
+        .ui.card, .ui.cards>.card {
+            background-color: #cccccc;
+            width:100%;
+            height: 300px;
+            border-radius: 10px;
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Resize the background image to cover the entire container */
+            position : relative;
+        }
+
+        .bg-image-edit {
+            display : flex;
+            flex-direction: row;
+            justify-content : flex-end;
+            padding : 10px;
+            position : absolute;
+        }
+
+        .edit.icon {
+            cursor: pointer;
+        }
+
+    </style>
+
 </head>
 <body>
 
     <div th:insert="navbar :: navbar_body">...</div>
+
     <div class="ui container" th:object="${shop}">
 
-        <div class="ui card" style="width:100%">
-            <img class="ui fluid image" style="width:100%; height: 200px"  th:src="@{${shop.banner}}" alt="Shop banner">
+        <div class="ui card bg-img" th:style="'background-image:url(' + ${shop.banner} + ');'">
+            <div class="button bg-image-edit">
+                <a sec:authorize="isAuthenticated()" th:href="@{'/update_shop/' + ${shop.id}}"  style="all:unset">
+                    <i class="edit icon"> </i>
+                </a>
+            </div>
         </div>
 
-        <div class="ui secondary menu" >
+        <div class="ui secondary menu">
             <a class="active item">
                 <p th:text="${shop.name}">Your Shop</p>
             </a>
@@ -40,7 +71,6 @@
                 </div>
             </div>
         </div>
-
 
     </div>
 

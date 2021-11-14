@@ -39,8 +39,7 @@ public class ShopServiceImpl implements ShopService {
         User loggedUser = userDao.findById(principal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         newShop.setUser(loggedUser);
-        Shop savedShop = shopDao.save(newShop);
-        savedShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, savedShop.getName(), file));
+        newShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
         return shopDao.save(newShop);
     }
 
@@ -51,6 +50,17 @@ public class ShopServiceImpl implements ShopService {
         Shop shop = loggedUser.getShop();
         if( shop.getId() == null ) throw new ResourceNotFoundException("Shop Not found");
         return shop;
+    }
+
+    @Override
+    public Shop updateShop(MyUserDetail principal, Long id, ShopDto shopDetails, MultipartFile file) throws ResourceNotFoundException {
+
+        Shop shop = shopDao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Shop not found"));
+        shop.setName(shopDetails.getName());
+        shop.setDescription(shopDetails.getDescription());
+        shop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
+        return shopDao.save(shop);
     }
 
 }

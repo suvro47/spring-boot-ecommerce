@@ -11,4 +11,7 @@ public interface ShopService {
     Shop saveShop(MyUserDetail principal, ShopDto shopDetails, MultipartFile file) throws ResourceNotFoundException, ResourceAlreadyExists;
 
     Shop getShop(MyUserDetail principal) throws ResourceNotFoundException;
+
+    Shop updateShop(MyUserDetail principal, Long id, ShopDto shopDetails, MultipartFile file) throws ResourceNotFoundException;
+
 }
