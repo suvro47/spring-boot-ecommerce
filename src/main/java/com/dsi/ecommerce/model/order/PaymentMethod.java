@@ -1,6 +1,6 @@
 package com.dsi.ecommerce.model.order;
 
-enum PaymentMethod {
+public enum PaymentMethod {
     Cash,
     bKash,
     Rocket,

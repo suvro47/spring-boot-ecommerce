@@ -30,11 +30,22 @@ public class Order {
     @Column(name = "order_status")
     private OrderStatus orderStatus;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status", nullable = false)
+    private PaymentStatus paymentStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method")
+    private PaymentMethod paymentMethod;
+
+    @Column(name = "transaction_id", columnDefinition = "VARCHAR(40)")
+    private String transactionId;
+
+    @Column(name = "paymentDateTimeMillis")
+    private Long paymentDateTimeMillis;
+
     @ManyToOne
     private User user;
-
-    @OneToOne
-    private Payment payment;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItem;

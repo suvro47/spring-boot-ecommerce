@@ -1,6 +1,6 @@
 package com.dsi.ecommerce.model.order;
 
-enum PaymentStatus {
+public enum PaymentStatus {
     PENDING,
     PAID,
     REFUNDED

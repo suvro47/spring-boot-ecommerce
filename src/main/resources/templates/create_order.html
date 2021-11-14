@@ -2,14 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <!-- Semantic UI CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet"/>
-        <link th:href="@{/css/style.css}" rel="stylesheet"/>
-        <title>Create Form</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <div th:replace="navbar :: common_head"></div>
+        <title>Submit Order</title>
     </head>
     <body>
         <nav th:insert="navbar :: navbar_body"></nav>
@@ -44,6 +38,19 @@
                     <label>Billing Address</label>
                     <div class="twelve wide field">
                         <input type="text" th:field="*{deliveryAddress}" name="shipping[address]" placeholder="Address"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Payment Method</label>
+                    <div class="twelve wide field">
+                        <select th:field="*{paymentMethod}">
+                            <option value="Cash" th:text="Cash"></option>
+                            <option value="bKash" th:text="bKash"></option>
+                            <option value="Rocket" th:text="Rocket"></option>
+                            <option value="Nagad" th:text="Nagad"></option>
+                            <option value="Visa" th:text="Visa"></option>
+                            <option value="Master" th:text="Master"></option>
+                        </select>
                     </div>
                 </div>
                 <input hidden th:value="272" name="totalPrice">
