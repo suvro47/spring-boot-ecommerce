@@ -27,47 +27,47 @@
     animation: animate 1s ease-in-out forwards;
 }
 
-.item{
+.items{
     display: flex;
     background-color: #c4c2c2;
     margin: 15px;
     border-radius: 15px;
     flex-wrap: wrap;
 }
-.item img{
+.items img{
     height: 100px;
     width: auto;
     padding: 6px;
     margin-left: 10px;
     border-radius: 15px;
 }
-.item .details{
+.items .details{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     flex: 1;
     padding-left: 30px;
 }
-.item .details p:nth-child(1){
+.items .details p:nth-child(1){
     margin: 0px;
     font-size: 23px;
 }
-.item .details p:nth-child(2){
+.items .details p:nth-child(2){
     margin: 0px;
     font-size: 20px;
     color: coral;
 }
 
-.item .quantity{
+.items .quantity{
     display: flex;
     align-items: center;
     margin-right: 10px;
 }
-.item .quantity p{
+.items .quantity p{
     margin: 0px;
     padding-inline: 10px;
 }
-.item .quantity button{
+.items .quantity button{
     height: 30px;
     width: 30px;
     border: none;
