@@ -2,16 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
     <head th:fragment="common_head">
-        <!-- Required meta tags -->
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <!-- Semantic UI CSS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
         <link th:href="@{/css/style.css}" rel="stylesheet"/>
         <link th:href="@{/css/cart/cart.css}" rel="stylesheet"/>
         <script th:src="@{/css/cart/cart.js}" rel="text/javascript"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
     </head>
 
 
@@ -49,7 +46,6 @@
                             <a class="item">Register</a>
                             <a class="item">Login</a>
                             <a class="item" th:href="@{/cart}" onclick="openModal()" > Cart</a>
-
                         </div>
                     </div>
                     <!--End: Desktop Nav-->
@@ -66,14 +62,12 @@
                         </div>
                         <div class="ui vertical accordion borderless fluid menu"
                              style="background-color: lightblue;border: 0px">
-                            <!-- Start: Search -->
                             <div class="item">
                                 <div class="ui icon input">
                                     <input type="text" placeholder="Search...">
                                     <i class="search link icon"></i>
                                 </div>
                             </div>
-                            <!-- End: Search -->
                             <a class="active item">Home</a>
                             <a class="item">Product</a>
                             <a class="item">Shop</a>
@@ -102,15 +96,10 @@
                         </div>
                         <br>
                     </div>
-                    <!--End: Mobile Nav-->
+
                 </div>
-
             </div>
-            <!--End: Nav  -->
 
-            <!-- Space After Navbar -->
-<!--            <br><br><br>-->
-            <!--Space End After Navbar -->
 
             <div id="custom-modal" style="display: block">
                 <div class="custom-container" onclick="closeModal()"></div>
@@ -118,19 +107,37 @@
                 <div class="cart">
                     <span onclick="closeModal()">x</span>
 
-                    <div class="item">
-                        <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
-                             alt="item-image"/>
-                        <div class="details">
-                            <p th:text="${title}">Product Title</p>
-                            <p>$ 50</p>
+                        <div th:each="cartItem : ${cartItems}">
+                            <div class="item">
+                                <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
+                                     alt="item-image"/>
+                                <div class="details">
+                                    <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
+                                    <p th:text="${cartItem.getProduct().getPrice()}">$ 50</p>
+                                </div>
+                                <div class="quantity">
+                                    <button> -</button>
+                                    <p th:text="${cartItem.getQuantity()}" >23</p>
+                                    <button> +</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="quantity">
-                            <button> -</button>
-                            <p>23</p>
-                            <button> +</button>
-                        </div>
-                    </div>
+
+
+
+<!--                    <div class="item">-->
+<!--                        <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"-->
+<!--                             alt="item-image"/>-->
+<!--                        <div class="details">-->
+<!--                            <p th:text="${title}">Product Title</p>-->
+<!--                            <p>$ 50</p>-->
+<!--                        </div>-->
+<!--                        <div class="quantity">-->
+<!--                            <button> -</button>-->
+<!--                            <p>23</p>-->
+<!--                            <button> +</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -138,11 +145,8 @@
 
 
         <div th:fragment="common_script">
-            <!-- JQuery Link -->
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <!-- Semantic UI JS -->
             <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-            <!-- Navbar Script -->
             <script>
                 $('.ui.vertical.menu').hide();
                 $('.ui.dropdown').dropdown();
@@ -169,7 +173,5 @@
                 }
             </script>
         </div>
-
-
     </body>
 </html>

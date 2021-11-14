@@ -71,7 +71,6 @@ public class Runner implements CommandLineRunner {
             cart = cartDao.save(cart);
             cartItem.setCart(cart);
 
-            cartItem.setCart(cart);
             cartItemDao.save(cartItem);
 
             admin.setCart(cart);
