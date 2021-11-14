@@ -2,7 +2,7 @@ package com.dsi.ecommerce.model;
 
 import com.dsi.ecommerce.model.cart.Cart;
 import com.dsi.ecommerce.model.order.Order;
-import com.dsi.ecommerce.utility.UserRoles;
+import com.dsi.ecommerce.utility.constants.UserRoles;
 import lombok.*;
 
 import javax.persistence.*;

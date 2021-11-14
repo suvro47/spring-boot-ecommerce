@@ -1,4 +1,4 @@
-package com.dsi.ecommerce.utility;
+package com.dsi.ecommerce.utility.constants;
 
 public enum UserRoles {
     SELLER,

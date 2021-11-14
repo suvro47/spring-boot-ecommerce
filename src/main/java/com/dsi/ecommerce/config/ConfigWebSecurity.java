@@ -1,6 +1,5 @@
 package com.dsi.ecommerce.config;
-import com.dsi.ecommerce.service.UserService;
-import com.dsi.ecommerce.utility.UserRoles;
+import com.dsi.ecommerce.utility.constants.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
