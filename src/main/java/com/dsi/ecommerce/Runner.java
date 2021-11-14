@@ -8,7 +8,7 @@ import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.model.cart.Cart;
 import com.dsi.ecommerce.model.cart.CartItem;
-import com.dsi.ecommerce.utility.UserRoles;
+import com.dsi.ecommerce.utility.constants.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
