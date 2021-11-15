@@ -13,15 +13,10 @@
 
 <div th:insert="navbar :: navbar_body">...</div>
 
-<div class="ui segment container" style="margin: 15px auto">
+<div class="ui segment container" style="margin: 15px auto" th:fragment="product_list">
     <p>No Products Available!!!</p>
 
-    <!-- <div class="ui cards">
-        <div class="ui link cards" style="margin: 5px auto;">
-
-        </div>
-    </div> -->
-    <div class="ui link cards centered">
+    <div class="ui link cards centered" >
         <div class="ui card" style="margin: 15px">
             <div class="image">
                 <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">

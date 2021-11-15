@@ -17,7 +17,7 @@
         Add Product
     </h2>
     <div class="ui segment container">
-    <form class="ui form" th:object="${product}" th:action="@{/add-product}" method="post" enctype="multipart/form-data">
+    <form class="ui form" th:object="${product}" th:action="@{/shop/${shop_id}/add-product}" method="post" enctype="multipart/form-data">
         <h4 class="ui dividing header">Product Information</h4>
         <div class="field">
             <label>Product Name</label>
