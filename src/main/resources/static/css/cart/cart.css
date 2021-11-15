@@ -30,8 +30,8 @@
 .items{
     display: flex;
     background-color: #c4c2c2;
-    margin: 15px;
-    border-radius: 15px;
+    margin: 20px;
+    border-radius: 18px;
     flex-wrap: wrap;
 }
 .items img{
@@ -40,6 +40,16 @@
     padding: 6px;
     margin-left: 10px;
     border-radius: 15px;
+}
+
+.items .remove-item{
+    color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    font-size: 25px;
+    cursor: pointer;
 }
 .items .details{
     display: flex;
@@ -72,11 +82,12 @@
     width: 30px;
     border: none;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 @keyframes animate {
     from{
-        right: -40%;
+        right: -30%;
     }
     to{
         right: 0;

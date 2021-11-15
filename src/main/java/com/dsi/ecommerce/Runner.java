@@ -45,7 +45,6 @@ public class Runner implements CommandLineRunner {
             admin.setEmail("admin@dsinnovator.com");
             admin.setProfilePic("/images/profile/default.png");
             admin.setRole(UserRoles.ADMIN);
-
             //
             admin = userDao.save(admin);
 

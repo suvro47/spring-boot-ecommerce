@@ -43,7 +43,6 @@ public class UserController {
             exception.printStackTrace();
             //todo: handle UserNotFound
         }
-
         return "user_profile";
     }
 
