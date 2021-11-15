@@ -21,6 +21,7 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
+@RequestMapping("/users")
 @Controller
 public class UserController {
     @Autowired
