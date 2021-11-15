@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products Form</title>
+    <div th:replace="navbar :: common_head">...</div>
+    <!-- Additional Style Insert Here -->
+</head>
+<body>
+
+
+<div th:insert="navbar :: navbar_body">...</div>
+
+<div class="ui segment container">
+    <h2 class="ui center aligned icon header">
+        <i class="circular gift icon"></i>
+        Add Product
+    </h2>
+    <div class="ui segment container">
+    <form class="ui form" th:object="${product}" th:action="@{/add-product}" method="post" enctype="multipart/form-data">
+        <h4 class="ui dividing header">Product Information</h4>
+        <div class="field">
+            <label>Product Name</label>
+            <input type="text" name="product_name" placeholder="Enter the name of the product">
+        </div>
+        <div class="field">
+            <label>Product Category</label>
+            <select class="ui fluid search dropdown" multiple="">
+                <option value="cloth">Cloth</option>
+                <option value="electronics">Electronics</option>
+                <option value="toy">Toy</option>
+                <option value="device">Device</option>
+                <option value="food">Food</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Product Description</label>
+            <textarea spellcheck="true"></textarea>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Available Quantity</label>
+                <input type="number" name="available_quantity" placeholder="Enter the available amount of items.(Ex: 20)">
+            </div>
+            <div class="field">
+                <label>৳ Unit Price</label>
+                <input type="number" name="unit_price" placeholder="Enter the price of the product.(Ex: 250.00)">
+            </div>
+        </div>
+        <div class="field">
+            <label>Product Image</label>
+            <input type="file" name="file">
+        </div>
+        <div style="display: flex;justify-content: center"><div class="ui primary button" tabindex="0" type="submit">Add Product</div></div>
+    </form></div>
+</div>
+<br>
+
+<div th:insert="navbar :: common_script">...</div>
+<!-- Additional Script Insert Here -->
+</body>
+</html>

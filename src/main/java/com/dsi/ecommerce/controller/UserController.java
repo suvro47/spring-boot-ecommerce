@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@RequestMapping("/users")
 @Controller
 public class UserController {
     @Autowired

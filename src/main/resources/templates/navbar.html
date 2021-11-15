@@ -10,16 +10,16 @@
 </head>
 
 <body>
-
 <!-- Navbar Start -->
+
 <div class="navbar" th:fragment="navbar_body">
     <div id="menu" class="ui fixed borderless huge menu" style="background-color: lightblue">
         <div class="ui container grid">
             <!--Start: Desktop Nav-->
             <div class="computer only row">
                 <a class="header item">Project Name</a>
-                <a class="active item">Home</a>
-                <a class="item">Product</a>
+                <a class="active item" th:href="@{'/'}">Home</a>
+                <a class="item" th:href="@{'/products'}">Product</a>
                 <a class="item">Shop</a>
                 <div class="ui dropdown item">
                     Categories <i class="dropdown icon"></i>
@@ -39,8 +39,8 @@
                         </div>
                     </div>
                     <!-- End: Search -->
-                    <a class="item">Register</a>
-                    <a class="item">Login</a>
+                    <a class="item" th:href="@{'/signup'}">Register</a>
+                    <a class="item" th:href="@{'/login'}">Login</a>
 
                 </div>
             </div>
@@ -66,8 +66,8 @@
                         </div>
                     </div>
                     <!-- End: Search -->
-                    <a class="active item">Home</a>
-                    <a class="item">Product</a>
+                    <a class="active item" th:href="@{'/'}">Home</a>
+                    <a class="item" th:href="@{'/products'}">Product</a>
                     <a class="item">Shop</a>
                     <div class="item">
                         <div class="accordion" style="margin-top: 0px">
@@ -88,8 +88,8 @@
                     <div class="item">
                         <hr>
                     </div>
-                    <a class="item" th:href="@{/signup}"> Register</a>
-                    <a class="item" th:href="@{/login}"> Login</a>
+                    <a class="item" th:href="@{'/signup'}"> Register</a>
+                    <a class="item" th:href="@{'/login'}"> Login</a>
                 </div>
                 <br>
             </div>
@@ -106,37 +106,14 @@
 <!-- Navbar END -->
 
 
+
 <div th:fragment="common_script">
     <!-- JQuery Link -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Semantic UI JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <!-- Navbar Script -->
-    <script>
-        $('.ui.vertical.menu').hide();
-        $('.ui.dropdown').dropdown();
-        $('.ui.accordion').accordion();
-        $(document).ready(function () {
-            $("html").click((event) => {
-                if (event.target.id === "menu-toggle-button" || $(event.target).parents("#menu-toggle-button").length) {
-                    $('.ui.vertical.menu').toggle("250", "linear")
-                } else if (!(event.target.id === "menu" || $(event.target).parents("#menu").length)) {
-                    $('.ui.vertical.menu').hide("250", "linear")
-                }
-            });
-        });
-        function caretChanger(event){
-            console.log("came here.")
-            let caretIcon = document.getElementById("categories-caret");
-            if(caretIcon.classList.contains("down")){
-                caretIcon.classList.remove("down");
-                caretIcon.classList.add("up");
-            } else if(caretIcon.classList.contains("up")){
-                caretIcon.classList.remove("up");
-                caretIcon.classList.add("down");
-            }
-        }
-    </script>
+    <script src="../js/navbar.js"></script>
 </div>
 
 
