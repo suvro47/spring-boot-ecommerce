@@ -1,163 +1,166 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
 
-    <head th:fragment="common_head">
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+<head th:fragment="common_head">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
 
-        <link th:href="@{/css/style.css}" rel="stylesheet"/>
-        <link th:href="@{/css/cart/cart.css}" rel="stylesheet"/>
-        <script th:src="@{/css/cart/cart.js}" rel="text/javascript"></script>
-    </head>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
 
-    <body>
+<body>
 
-    <!-- Navbar Start -->
-        <div class="navbar" th:fragment="navbar_body">
-            <div id="menu" class="ui fixed borderless huge menu" style="background-color: lightblue">
-                <div class="ui container grid">
-                    <!--Start: Desktop Nav-->
-                    <div class="computer only row">
-                        <a class="header item">Project Name</a>
-                        <a class="active item">Home</a>
-                        <a class="item">Product</a>
-                        <a class="item">Shop</a>
+<!-- Navbar Start -->
+<div class="navbar" th:fragment="navbar_body">
+    <div id="menu" class="ui fixed borderless huge menu" style="background-color: lightblue">
+        <div class="ui container grid">
+            <!--Start: Desktop Nav-->
+            <div class="computer only row">
+                <a class="header item">Project Name</a>
+                <a class="active item">Home</a>
+                <a class="item">Product</a>
+                <a class="item">Shop</a>
 
-                        <div class="ui dropdown item">
-                            Categories <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <a class="item">Category 1</a>
-                                <a class="item">Category 2</a>
-                                <a class="item">Category 3</a>
-                            </div>
-                        </div>
+                <div class="ui dropdown item">
+                    Categories <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item">Category 1</a>
+                        <a class="item">Category 2</a>
+                        <a class="item">Category 3</a>
+                    </div>
+                </div>
 
-                        <div class="right menu">
-                            <!-- Start: Search -->
-                            <div class="item">
-                                <div class="ui icon input">
-                                    <input type="text" placeholder="Search...">
-                                    <i class="search link icon"></i>
-                                </div>
-                            </div>
-                            <!-- End: Search -->
-                            <a class="item">Register</a>
-                            <a class="item">Login</a>
-                            <a class="item" th:href="@{/cart}" onclick="openModal()" > Cart</a>
+                <div class="right menu">
+                    <!-- Start: Search -->
+                    <div class="item">
+                        <div class="ui icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
                         </div>
                     </div>
-                    <!--End: Desktop Nav-->
+                    <!-- End: Search -->
+                    <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout</a>
+                    <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
+                    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
+                    <a class="item" th:href="@{/cart}" onclick="openModal()"> Cart</a>
+                </div>
+            </div>
+            <!--End: Desktop Nav-->
 
-                    <!--Start: Mobile Nav-->
-                    <div class="tablet mobile only row">
-                        <a class="header item"> Project Name</a>
-                        <div class="right menu">
-                            <a class="menu item">
-                                <div id="menu-toggle-button" class="ui basic icon toggle button">
-                                    <i class="content icon"></i>
-                                </div>
-                            </a>
+            <!--Start: Mobile Nav-->
+            <div class="tablet mobile only row">
+                <a class="header item"> Project Name</a>
+                <div class="right menu">
+                    <a class="menu item">
+                        <div id="menu-toggle-button" class="ui basic icon toggle button">
+                            <i class="content icon"></i>
                         </div>
-                        <div class="ui vertical accordion borderless fluid menu"
-                             style="background-color: lightblue;border: 0px">
-                            <div class="item">
-                                <div class="ui icon input">
-                                    <input type="text" placeholder="Search...">
-                                    <i class="search link icon"></i>
-                                </div>
-                            </div>
-                            <a class="active item">Home</a>
-                            <a class="item">Product</a>
-                            <a class="item">Shop</a>
-                            <div class="item">
-                                <div class="accordion" style="margin-top: 0px">
-                                    <div class="title" style="display: flex;justify-content: space-between" onclick="caretChanger()">
-                                        <span>Categories</span>
-                                        <i id="categories-caret" class="caret down icon"></i>
-                                    </div>
-                                    <div class="content">
-                                        <div class="menu">
-                                            <a class="item">Category 1</a>
-                                            <a class="item">Category 2</a>
-                                            <a class="item">Category 3</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="item">
-                                <hr>
-                            </div>
-                            <a class="item" th:href="@{/signup}"> Register</a>
-                            <a class="item" th:href="@{/login}"> Login</a>
-                            <a class="item" th:href="@{/cart}" onclick="openModal()" > Cart</a>
+                    </a>
+                </div>
+                <div class="ui vertical accordion borderless fluid menu"
+                     style="background-color: lightblue;border: 0px">
+                    <div class="item">
+                        <div class="ui icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
                         </div>
-                        <br>
                     </div>
-
-                </div>
-            </div>
-
-
-            <div id="custom-modal" style="display: block">
-                <div class="custom-container" onclick="closeModal()"></div>
-
-                <div class="cart">
-                    <span onclick="closeModal()">x</span>
-
-                        <div th:each="cartItem : ${cartItems}">
-                            <div class="items">
-                                <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
-                                     alt="item-image"/>
-                                <div class="details">
-                                    <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
-                                    <p th:text="${cartItem.getProduct().getPrice()}">$ 50</p>
-                                </div>
-                                <div class="quantity">
-                                    <button> -</button>
-                                    <p th:text="${cartItem.getQuantity()}" >23</p>
-                                    <button> +</button>
+                    <a class="active item">Home</a>
+                    <a class="item">Product</a>
+                    <a class="item">Shop</a>
+                    <div class="item">
+                        <div class="accordion" style="margin-top: 0px">
+                            <div class="title" style="display: flex;justify-content: space-between"
+                                 onclick="caretChanger()">
+                                <span>Categories</span>
+                                <i id="categories-caret" class="caret down icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="menu">
+                                    <a class="item">Category 1</a>
+                                    <a class="item">Category 2</a>
+                                    <a class="item">Category 3</a>
                                 </div>
                             </div>
+
                         </div>
+                    </div>
+                    <div class="item">
+                        <hr>
+                    </div>
+                    <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout</a>
+                    <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
+                    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
+                    <a class="item" th:href="@{/cart}" onclick="openModal()"> Cart</a>
                 </div>
+                <br>
             </div>
-            <br>
-            <br>
-            <br>
+
         </div>
-    <!-- Navbar END -->
+    </div>
 
-        <div th:fragment="common_script">
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-            <script>
-                $('.ui.vertical.menu').hide();
-                $('.ui.dropdown').dropdown();
-                $('.ui.accordion').accordion();
-                $(document).ready(function () {
-                    $("html").click((event) => {
-                        if (event.target.id === "menu-toggle-button" || $(event.target).parents("#menu-toggle-button").length) {
-                            $('.ui.vertical.menu').toggle("250", "linear")
-                        } else if (!(event.target.id === "menu" || $(event.target).parents("#menu").length)) {
-                            $('.ui.vertical.menu').hide("250", "linear")
-                        }
-                    });
-                });
-                function caretChanger(event){
-                    console.log("came here.")
-                    let caretIcon = document.getElementById("categories-caret");
-                    if(caretIcon.classList.contains("down")){
-                        caretIcon.classList.remove("down");
-                        caretIcon.classList.add("up");
-                    } else if(caretIcon.classList.contains("up")){
-                        caretIcon.classList.remove("up");
-                        caretIcon.classList.add("down");
-                    }
+
+    <div id="custom-modal" style="display: block">
+        <div class="custom-container" onclick="closeModal()"></div>
+
+        <div class="cart">
+            <span onclick="closeModal()">x</span>
+
+            <div th:each="cartItem : ${cartItems}">
+                <div class="items">
+                    <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
+                         alt="item-image"/>
+                    <div class="details">
+                        <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
+                        <p th:text="${cartItem.getProduct().getPrice()}">$ 50</p>
+                    </div>
+                    <div class="quantity">
+                        <button> -</button>
+                        <p th:text="${cartItem.getQuantity()}">23</p>
+                        <button> +</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+</div>
+<!-- Navbar END -->
+
+<div th:fragment="common_script">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script>
+        $('.ui.vertical.menu').hide();
+        $('.ui.dropdown').dropdown();
+        $('.ui.accordion').accordion();
+        $(document).ready(function () {
+            $("html").click((event) => {
+                if (event.target.id === "menu-toggle-button" || $(event.target).parents("#menu-toggle-button").length) {
+                    $('.ui.vertical.menu').toggle("250", "linear")
+                } else if (!(event.target.id === "menu" || $(event.target).parents("#menu").length)) {
+                    $('.ui.vertical.menu').hide("250", "linear")
                 }
-            </script>
-        </div>
-    </body>
+            });
+        });
+
+        function caretChanger(event) {
+            console.log("came here.")
+            let caretIcon = document.getElementById("categories-caret");
+            if (caretIcon.classList.contains("down")) {
+                caretIcon.classList.remove("down");
+                caretIcon.classList.add("up");
+            } else if (caretIcon.classList.contains("up")) {
+                caretIcon.classList.remove("up");
+                caretIcon.classList.add("down");
+            }
+        }
+    </script>
+</div>
+</body>
 </html>
