@@ -5,30 +5,46 @@
     <meta charset="UTF-8">
     <title>Your Shop</title>
     <div th:replace="navbar :: common_head">...</div>
+    <link ref="stylesheet" src="../../static/css/style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{/css/cart/cart.css}" rel="stylesheet"/>
+    <script th:src="@{/css/cart/cart.js}" rel="text/javascript"></script>
 
     <style>
 
-        .ui.card, .ui.cards>.card {
+        .shop-banner {
             background-color: #cccccc;
-            width:100%;
             height: 300px;
-            border-radius: 10px;
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Do not repeat the image */
-            background-size: cover; /* Resize the background image to cover the entire container */
             position : relative;
         }
 
-        .bg-image-edit {
-            display : flex;
-            flex-direction: row;
-            justify-content : flex-end;
+        .edit-btn {
             padding : 10px;
             position : absolute;
+            top : 10%;
+            right : 17%;
         }
 
         .edit.icon {
             cursor: pointer;
+        }
+
+        .description {
+            background-color : azure;
+            padding : 20px;
+            height: 250px;
+            flex : 1 200px;
+        }
+
+        .adv-img {
+            background: rgb(2,0,36);
+            background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,212,255,1) 52%, rgba(10,39,41,0.6085784655659139) 86%);
+            height: 250px;
+            flex : 2 500px;
         }
 
     </style>
@@ -40,36 +56,67 @@
 
     <div class="ui container" th:object="${shop}">
 
-        <div class="ui card bg-img" th:style="'background-image:url(' + ${shop.banner} + ');'">
-            <div class="button bg-image-edit">
+        <div class="ui container">
+
+            <div class="ui card shop-banner" style="width:100%; border-radius: 5px">
+                <img class="ui fluid image" style="width:100%; height: 300px"  th:src="@{${shop.banner}}">
+            </div>
+
+            <div class="button edit-btn">
                 <a sec:authorize="isAuthenticated()" th:href="@{'/update_shop/' + ${shop.id}}"  style="all:unset">
                     <i class="edit icon"> </i>
                 </a>
             </div>
         </div>
 
-        <div class="ui secondary menu">
-            <a class="active item">
-                <p th:text="${shop.name}">Your Shop</p>
-            </a>
-            <a class="item">
-                All Product
-            </a>
-            <a class="item">
-                Profile
-            </a>
+        <div class="ui container">
+            <div class="ui secondary menu">
+                <a class="active item">
+                    <p th:text="${shop.name}">Your Shop</p>
+                </a>
+                <a class="item">
+                    All Product
+                </a>
+                <a class="item">
+                    Profile
+                </a>
 
-            <div class="right menu">
-                <div class="item">
-                    <div class="ui icon input">
-                        <input type="text" placeholder="Search...">
-                        <i class="search link icon"></i>
+                <div class="right menu">
+                    <div class="item">
+                        <div class="ui icon input" style="width:190px">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <br>
+
+
+        <div class="ui container flex-container" style=" display:flex; flex-flow : row wrap; column-gap: 10px; row-gap: 10px;">
+
+            <div class="ui raised vary padded component segment description">
+                <h2 class="ui header">Our Goal</h2>
+                <p th:text="${shop.description}"> Domestic dogs inherited complex behaviors, such as bite inhibition,
+                    from their wolf ancestors, which would have been pack hunters with complex body language.
+                    These sophisticated forms of social cognition.
+                </p>
+            </div>
+
+            <div class="ui raised vary padded component adv-img">
+                <img class="ui fluid image" style="height:250px; width:100%; font-size : 30px; text-align : center; padding : 15px; " th:src="@{${shop.advertising_banner}}" alt="Shop Special Offer SALE">
+            </div>
+
+        </div>
+
+
+
+
+
     </div>
+
     <div th:insert="navbar :: common_script">...</div>
 
 

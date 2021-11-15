@@ -33,6 +33,9 @@ public class Shop {
     @Column(name = "banner", nullable = true, columnDefinition = "TEXT")
     private String banner;
 
+    @Column(name = "advertising_banner", nullable = true, columnDefinition = "TEXT")
+    private String advertising_banner;
+
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
