@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -27,7 +28,7 @@ public class ShopController {
     }
 
     @RequestMapping(value="/register_shop", method= RequestMethod.POST)
-    public String registerSubmit(@AuthenticationPrincipal MyUserDetail principal, Model model, ShopDto shopDetails, MultipartFile file) {
+    public String registerSubmit(@AuthenticationPrincipal MyUserDetail principal, ShopDto shopDetails, MultipartFile file) {
 
         try {
             shopService.saveShop(principal, shopDetails, file);
@@ -68,10 +69,10 @@ public class ShopController {
     }
 
     @RequestMapping(value="/update_shop/{id}", method= RequestMethod.POST)
-    public String updateSubmit(@AuthenticationPrincipal MyUserDetail principal, Model model,@PathVariable Long id, ShopDto shopDetails, MultipartFile file) {
-
+    public String updateSubmit(@AuthenticationPrincipal MyUserDetail principal,@PathVariable Long id, ShopDto shopDetails,
+                               @RequestParam("banner-file") MultipartFile file , @RequestParam("adv-file") MultipartFile file2 ) {
         try {
-            shopService.updateShop(principal, id, shopDetails, file);
+            shopService.updateShop(principal, id, shopDetails, file, file2);
             return "redirect:/my_shop";
 
         } catch( Exception e ) {
@@ -79,6 +80,25 @@ public class ShopController {
             return "shop/shop_view";
         }
     }
+
+
+
+    @RequestMapping(value="/delete_advertising_banner/{id}", method= RequestMethod.POST)
+    public String deleteAdvertisingBanner(@AuthenticationPrincipal MyUserDetail principal, @PathVariable Long id ) {
+
+        try {
+            shopService.deleteAdvertisingBanner(principal, id);
+            return "redirect:/my_shop";
+
+        } catch( Exception e ) {
+            System.out.println("Exception has occured " + e );
+            return "shop/shop_view";
+        }
+    }
+
+
+
+
 
 
 

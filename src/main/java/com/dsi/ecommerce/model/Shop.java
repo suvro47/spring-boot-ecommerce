@@ -34,7 +34,7 @@ public class Shop {
     private String banner;
 
     @Column(name = "advertising_banner", nullable = true, columnDefinition = "TEXT")
-    private String advertising_banner;
+    private String advertisingBanner;
 
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
