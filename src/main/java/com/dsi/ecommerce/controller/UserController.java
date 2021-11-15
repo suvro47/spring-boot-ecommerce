@@ -3,8 +3,10 @@ package com.dsi.ecommerce.controller;
 
 import com.dsi.ecommerce.exception.UserNotFoundException;
 import com.dsi.ecommerce.model.User;
+import com.dsi.ecommerce.service.MyUserDetail;
 import com.dsi.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequestMapping("/users")
@@ -34,7 +37,9 @@ public class UserController {
     }
 
     @RequestMapping("/{username}")
-    public String getUserProfile(@PathVariable("username") String username, Model model){
+    public String getUserProfile(@PathVariable("username") String username, Model model,
+                                 @AuthenticationPrincipal MyUserDetail currentUser){
+        System.out.println(currentUser.getAuthorities());
         try {
             User user = userService.getUserByUsername(username);
             model.addAttribute("user", user);
