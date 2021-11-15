@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createNewUser(User user) throws UserAlreadyExistsException {
-        if (userDao.findByUsername(user.getUsername()) != null){
+        if (userDao.findByUsername(user.getUsername()).isPresent()){
             throw new UserAlreadyExistsException(user);
         }
         user.setActive(true);
