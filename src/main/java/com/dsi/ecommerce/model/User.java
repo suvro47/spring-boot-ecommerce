@@ -1,7 +1,8 @@
 package com.dsi.ecommerce.model;
 
+import com.dsi.ecommerce.model.cart.Cart;
 import com.dsi.ecommerce.model.order.Order;
-import com.dsi.ecommerce.utility.UserRoles;
+import com.dsi.ecommerce.utility.constants.UserRoles;
 import lombok.*;
 
 import javax.persistence.*;
@@ -46,7 +47,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
 
-    @OneToOne( mappedBy="user" )
+    @OneToOne( mappedBy="user")
     private Shop shop;
 
     @OneToMany( mappedBy="user" )
@@ -54,9 +55,14 @@ public class User {
 
     @OneToMany( mappedBy="user" )
     private List<ReviewReply> reviewReplies;
+
+    @OneToOne
+    private Cart cart;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private UserRoles role;
+
     @Column(name = "active", nullable = false)
     private boolean active;
 }

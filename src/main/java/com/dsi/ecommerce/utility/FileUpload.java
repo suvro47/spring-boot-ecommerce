@@ -1,10 +1,7 @@
 package com.dsi.ecommerce.utility;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 
 import com.dsi.ecommerce.utility.constants.ImageType;
 import org.springframework.web.multipart.MultipartFile;
@@ -36,7 +33,7 @@ public class FileUpload {
 
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-            return "/" + uploadPath.toString().substring(staticPath.length()) + "/" + newFileName;
+            return "/" + uploadPath.toString().substring(staticPath.length()).replace("\\", "/") + "/" + newFileName;
 
         } catch (IOException e) {
 

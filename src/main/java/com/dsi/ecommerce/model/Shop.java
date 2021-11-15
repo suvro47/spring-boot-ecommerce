@@ -30,8 +30,8 @@ public class Shop {
     @Column(name = "rating", nullable = true, columnDefinition = "Decimal(10,2)")
     private Double rating;
 
-    @Column(name = "poster", nullable = true, columnDefinition = "TEXT")
-    private String poster;
+    @Column(name = "banner", nullable = true, columnDefinition = "TEXT")
+    private String banner;
 
     @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
