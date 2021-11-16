@@ -32,6 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product convertProductDTOtoProductEntity(Product product, ProductDTO productDTO, Shop shop, MultipartFile image){
+        product.setId(product.getId());
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setCategory(productDTO.getCategory());
