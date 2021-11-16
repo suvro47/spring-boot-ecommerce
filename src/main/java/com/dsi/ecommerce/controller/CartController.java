@@ -1,18 +1,11 @@
 package com.dsi.ecommerce.controller;
 
-import com.dsi.ecommerce.dao.ProductDao;
-import com.dsi.ecommerce.model.Product;
-import com.dsi.ecommerce.model.cart.Cart;
 import com.dsi.ecommerce.model.cart.CartItem;
 import com.dsi.ecommerce.service.impl.CartServiceImpl;
-import org.apache.catalina.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
@@ -20,35 +13,61 @@ public class CartController {
 
         @Autowired
         private CartServiceImpl cartService;
-        @Autowired
-        private ProductDao productDao;
+
+//        @Autowired
+//        private ProductDao productDao;
 
         @GetMapping("/cart")
-        public String home (Model model){
-
+        public String getAllCartItems (Model model){
                 List<CartItem> cartItemList = cartService.getAllCartItem();
                 model.addAttribute("cartItems", cartItemList);
+                model.addAttribute("totalCost", cartService.getTotalCost());
                 return "navbar";
         }
 
-        @RequestMapping("/add-to-cart")
-        public String addToCart (Model model){
+        @RequestMapping("/add-to-cart-product/{id}")
+        public String addToCart (@PathVariable(value = "id") Long id) {
+                cartService.addCartItem(id);
+                return "navbar";
+        }
+//                Product product = new Product();
+//                product.setCategory("Spice");
+//                product.setDescription("Spicy");
+//                product.setPrice(567.5);
+//                product.setName("Ginger");
+//                product.setSoldItems(232);
+//                product.setAvailableQuantity(388);
+//                product = productDao.save(product);
+//
+//                CartItem cartItem = new CartItem();
+//                cartItem.setProduct(product);
+//                cartItem.setQuantity(2);
+//
+//                cartService.addCartItem(cartItem);
+//                return home(model);
+//        }
 
-//                making fake cartitem
-                Product product = new Product();
-                product.setCategory("Vegitables");
-                product.setDescription("description");
-                product.setPrice(567.5);
-                product.setName("Tomato");
-                product.setSoldItems(3);
-                product.setAvailableQuantity(70);
-                product = productDao.save(product);
+        @RequestMapping("/delete-cart-item/{id}")
+        public String deleteFromCart (@PathVariable(value = "id") Long id){
+                cartService.deleteCartItem(id);
+                return "navbar";
+        }
 
-                CartItem cartItem = new CartItem();
-                cartItem.setProduct(product);
-                cartItem.setQuantity(10);
+        @RequestMapping("/clear-cart")
+        public String clearCart (){
+                cartService.clearCart();
+                return "navbar";
+        }
 
-                cartService.addCartItem(cartItem);
-                return home(model);
+        @RequestMapping("/increase-cart-item-quantity/{id}")
+        public String increaseQuantity (@PathVariable(value = "id") Long id) {
+                cartService.increaseQuanity(id);
+                return "navbar";
+        }
+
+        @RequestMapping("/decrease-cart-item-quantity/{id}")
+        public String decreaseQuantity (@PathVariable(value = "id") Long id) {
+                cartService.decreaseQuanity(id);
+                return "navbar";
         }
 }

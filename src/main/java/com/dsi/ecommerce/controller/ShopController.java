@@ -2,8 +2,10 @@ package com.dsi.ecommerce.controller;
 
 import com.dsi.ecommerce.dto.ShopDto;
 import com.dsi.ecommerce.model.Shop;
+import com.dsi.ecommerce.model.cart.CartItem;
 import com.dsi.ecommerce.service.MyUserDetail;
 import com.dsi.ecommerce.service.ShopService;
+import com.dsi.ecommerce.service.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,16 +16,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 public class ShopController {
 
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    private CartServiceImpl cartService;
+
     @RequestMapping(value="/register_shop", method= RequestMethod.GET)
     public String registerPage(Model model) {
         ShopDto shop = new ShopDto();
         model.addAttribute("new_shop", shop);
+
+        List<CartItem> cartItemList = cartService.getAllCartItem();
+        model.addAttribute("cartItems", cartItemList);
+        model.addAttribute("totalCost", cartService.getTotalCost());
+
         return "shop/shop_form";
     }
 
@@ -44,8 +56,12 @@ public class ShopController {
     public String getShop(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
 
         try {
+            List<CartItem> cartItemList = cartService.getAllCartItem();
+            model.addAttribute("cartItems", cartItemList);
+            model.addAttribute("totalCost", cartService.getTotalCost());
             Shop shop = shopService.getShop( principal );
             model.addAttribute("shop", shop);
+            model.addAttribute("products", shop.getProducts());
             return "shop/shop_view";
 
         } catch ( Exception e ) {
@@ -60,10 +76,16 @@ public class ShopController {
         try {
             Shop shop = shopService.getShop(principal);
             model.addAttribute("shop", shop);
+            List<CartItem> cartItemList = cartService.getAllCartItem();
+            model.addAttribute("cartItems", cartItemList);
+            model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/edit_shop";
 
         } catch( Exception e ) {
             System.out.println("Exception has occured " + e );
+            List<CartItem> cartItemList = cartService.getAllCartItem();
+            model.addAttribute("cartItems", cartItemList);
+            model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/shop_view";
         }
     }
@@ -80,7 +102,6 @@ public class ShopController {
             return "shop/shop_view";
         }
     }
-
 
 
     @RequestMapping(value="/delete_advertising_banner/{id}", method= RequestMethod.POST)

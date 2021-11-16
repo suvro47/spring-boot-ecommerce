@@ -34,7 +34,7 @@ public class Product {
     @Column(name = "available_quantity", nullable = false)
     private Integer availableQuantity;
 
-    @Column(name = "sold_items", nullable = false)
+    @Column(name = "sold_items", columnDefinition = "integer default 0")
     private Integer soldItems;
 
     @ManyToOne

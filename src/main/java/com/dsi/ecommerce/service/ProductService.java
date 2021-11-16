@@ -1,13 +1,18 @@
 package com.dsi.ecommerce.service;
 
-import com.dsi.ecommerce.dao.ProductDao;
+import com.dsi.ecommerce.dto.ProductDTO;
 import com.dsi.ecommerce.exception.ResourceNotFoundException;
 import com.dsi.ecommerce.model.Product;
+import com.dsi.ecommerce.model.Shop;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 public interface ProductService {
 
-    ProductDao convertsProductEntityToProductDTO(Product product);
+    ProductDTO convertsProductEntityToProductDTO(Product product);
+
+    Product convertProductDTOtoProductEntity(Product product, ProductDTO productDTO, Shop shop, MultipartFile image);
 
     void saveProduct(Product product);
 
@@ -15,9 +20,7 @@ public interface ProductService {
 
     void deleteProduct(Product product);
 
-    Product getProductById(Long id) throws Exception;
-
-    Product getProduct(Long shopId, Long productId) throws ResourceNotFoundException;
+    Product getProduct(Long shopId, Long productId) throws ResourceNotFoundException, ResourceNotFoundException;
 
 
 }
