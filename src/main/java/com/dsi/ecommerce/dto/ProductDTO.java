@@ -10,7 +10,6 @@ import javax.persistence.Column;
 public class ProductDTO {
     private String name;
     private String description;
-    private String image;
     private String category;
     private Double price;
     private Integer availableQuantity;

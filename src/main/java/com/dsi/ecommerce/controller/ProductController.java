@@ -1,6 +1,7 @@
 package com.dsi.ecommerce.controller;
 
 import com.dsi.ecommerce.dto.ProductDTO;
+import com.dsi.ecommerce.dto.ShopDto;
 import com.dsi.ecommerce.exception.ResourceNotFoundException;
 import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.model.Shop;
@@ -11,9 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -53,24 +53,38 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/shop/{shop_id}/add-product", method = RequestMethod.POST)
-    public String addProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID, Model model) {
-        System.out.println("Hello");
+    public String addProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID, Model model, ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image) throws ResourceNotFoundException {
+        System.out.println("Product: "+ productDTO);
+        Shop shop = shopService.getShop(principal);
+        Product product = productService.convertProductDTOtoProductEntity(new Product(), productDTO, shop, image);
+        productService.saveProduct(product);
         return "index";
-//        try {
-//            Shop shop = shopService.getShop(principal);
-//            if (shop.getId() == shopID){
-//                ProductDTO productDTO = new ProductDTO();
-//                model.addAttribute("product", productDTO);
-//                return "product/products_add_form";
-//            }
-//            else {
-//                System.out.println("-----------------Permission Denied!----------------");
-//                return "index";
-//            }
-//        } catch (Exception e) {
-//            System.out.println("An exception occured ");
-//            return "index";
-//        }
     }
+
+    @RequestMapping(value = "/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.GET)
+    public String getProductEditForm(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, Model model) {
+        try {
+            Shop shop = shopService.getShop(principal);
+            Product product = productService.getProductById(productID);
+            if (shop.getId() == shopID){
+                ProductDTO productDTO = productService.convertsProductEntityToProductDTO(product);
+                System.out.println("Product:"+productDTO);
+                model.addAttribute("product", productDTO);
+                model.addAttribute("shop_id", shopID);
+                model.addAttribute("image",product.getImage());
+                return "product/products_edit_form";
+//                return "index";
+            }
+            else {
+                System.out.println("-----------------Permission Denied!----------------");
+                return "index";
+            }
+        } catch (Exception e) {
+            System.out.println("An exception occured ");
+            return "index";
+        }
+    }
+
+
 
 }
