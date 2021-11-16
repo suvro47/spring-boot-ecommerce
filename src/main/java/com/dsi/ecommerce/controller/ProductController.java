@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 @Controller
@@ -63,7 +64,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/shop/{shop_id}/add-product", method = RequestMethod.POST)
-    public String addProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID, Model model, ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image) throws ResourceNotFoundException {
+    public String addProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID, @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image) throws ResourceNotFoundException {
         System.out.println("Product: "+ productDTO);
         Shop shop = shopService.getShop(principal);
         Product product = productService.convertProductDTOtoProductEntity(new Product(), productDTO, shop, image);
@@ -78,9 +79,9 @@ public class ProductController {
             Product product = productService.getProductById(productID);
             if (shop.getId() == shopID){
                 ProductDTO productDTO = productService.convertsProductEntityToProductDTO(product);
-                System.out.println("Product:"+productDTO);
                 model.addAttribute("product", productDTO);
                 model.addAttribute("shop_id", shopID);
+                model.addAttribute("product_id", productID);
                 model.addAttribute("image",product.getImage());
                 return "product/products_edit_form";
 //                return "index";
@@ -93,6 +94,40 @@ public class ProductController {
             System.out.println("An exception occured ");
             return "index";
         }
+    }
+
+    @RequestMapping(value = "/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.POST)
+    public String editProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image) throws ResourceNotFoundException {
+        try{
+            Shop shop = shopService.getShop(principal);
+            Product oldProduct = productService.getProductById(productID);
+            Product product = productService.convertProductDTOtoProductEntity(oldProduct, productDTO, shop, image);
+            productService.saveProduct(product);
+        }
+        catch (Exception e){
+            System.out.println("An exception occured.");
+        }
+
+        return "index";
+    }
+
+    @RequestMapping(value = "/shop/{shop_id}/delete-product/{product_id}", method = RequestMethod.GET)
+    public String deleteProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID) throws ResourceNotFoundException {
+        try{
+            Shop shop = shopService.getShop(principal);
+            Product product = productService.getProductById(productID);
+            if (shop.getId() == shopID){
+                productService.deleteProduct(product);
+            }
+            else {
+                System.out.println("-----------------Permission Denied!----------------");
+            }
+            return "index";
+        }
+        catch (Exception e){
+            System.out.println("An exception occured.");
+        }
+        return "index";
     }
 
 
