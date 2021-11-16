@@ -24,7 +24,7 @@
 
             <div class="field">
                 <label>Shop Name </label>
-                <input  type="text" th:field="*{name}" />
+                <input type="text" th:field="*{name}" />
 
             </div>
 
@@ -34,13 +34,18 @@
             </div>
 
             <div class="field">
-                <label>Cover Photo</label>
-                <input type="file" name="file"/>
+                <label>Shop Banner</label>
+                <input type="file" name="banner-file" required />
+            </div>
+
+            <div class="field">
+                <label>Offer SALE Banner </label>
+                <input type="file" name="adv-file" required />
             </div>
 
             <div class="field">
                 <div class="ui checkbox">
-                    <input type="checkbox" tabindex="0" class="hidden">
+                    <input type="checkbox" tabindex="0">
                     <label>I agree to the Terms and Conditions</label>
                 </div>
             </div>

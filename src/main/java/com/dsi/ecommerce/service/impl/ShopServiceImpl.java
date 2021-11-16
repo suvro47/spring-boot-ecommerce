@@ -53,14 +53,25 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop updateShop(MyUserDetail principal, Long id, ShopDto shopDetails, MultipartFile file) throws ResourceNotFoundException {
+    public Shop updateShop(MyUserDetail principal, Long id, ShopDto shopDetails, MultipartFile file, MultipartFile file2)
+            throws ResourceNotFoundException {
 
         Shop shop = shopDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Shop not found"));
         shop.setName(shopDetails.getName());
         shop.setDescription(shopDetails.getDescription());
         shop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
+        shop.setAdvertisingBanner(FileUpload.saveImage(ImageType.ADVERTISING_BANNER, shopDetails.getName(), file2));
         return shopDao.save(shop);
     }
+
+    @Override
+    public void deleteAdvertisingBanner(MyUserDetail principal, Long id) throws ResourceNotFoundException {
+        Shop shop = shopDao.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Shop not found"));
+        shop.setAdvertisingBanner(null);
+        shopDao.save(shop);
+    }
+
 
 }
