@@ -17,7 +17,6 @@
     <style>
 
         .banner-container {
-            background-color: #cccccc;
             height: 300px;
             position : relative;
             margin-bottom: 15px;
@@ -37,19 +36,22 @@
         .description {
             height: 250px;
             flex : 1 200px;
+            padding : 20px;
         }
 
         .adv-img {
-            background-color : #ebf8e1;
+            background-color : ghostwhite;
             height: 250px;
             flex : 2 500px;
             position : relative;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border : 1px solid rgb(240, 240, 240);
+            border-radius: 5px;
         }
 
         .product-container {
             display : flex;
             justify-content : space-around;
-
         }
 
     </style>
@@ -64,7 +66,7 @@
         <div class="ui container banner-container">
 
             <div class="ui card shop-banner" style="width:100%; border-radius: 5px">
-                <img class="ui fluid image" style="width:100%; height: 300px"  th:src="@{${shop.banner}}">
+                <img class="ui fluid image" style="width:100%; height: 300px; padding:20px"  th:src="@{${shop.banner}}">
             </div>
 
             <div class="button edit-btn">
@@ -96,7 +98,7 @@
 
                 <div class="right menu">
                     <div class="item">
-                        <div class="ui icon input" style="width:190px">
+                        <div class="ui icon input" style="width:185px">
                             <input type="text" placeholder="Search...">
                             <i class="search link icon"></i>
                         </div>
@@ -110,7 +112,7 @@
 
         <div class="ui container flex-container" style=" display:flex; flex-flow : row wrap; column-gap: 10px; row-gap: 10px;">
 
-            <div class="ui raised vary padded component segment description" style="background-color : paleturquoise">
+            <div class="ui raised vary padded component segment description">
                 <h2 class="ui header">Our Goal</h2>
                 <p th:text="${shop.description}"> Domestic dogs inherited complex behaviors, such as bite inhibition,
                     from their wolf ancestors, which would have been pack hunters with complex body language.
@@ -119,7 +121,7 @@
             </div>
 
             <div class="adv-img">
-                <img style="height:250px; width:100%; font-size : 30px; text-align : center; padding : 40px;" th:src="@{${shop.advertisingBanner}}" alt="No special Offer SALE right now">
+                <img style="height:250px; width:100%; font-size : 30px; text-align : center; padding : 20px;" th:src="@{${shop.advertisingBanner}}" alt="No special Offer SALE right now">
                 <div class="button edit-btn">
                     <a sec:authorize="isAuthenticated()" th:href="@{'/delete_advertising_banner/' + ${shop.id}}"  style="all:unset">
                         <i class="trash alternate outline bin  icon"> </i>
@@ -127,10 +129,12 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    <br>
+    <div class="ui raised very padded container segments" style="display:flex; flex-direction:row; justify-content: space-between; align-items: center;">
+        <div style="padding:12px 15px; font-size:20px; font-weight:500;">  <i class="gift icon"> </i> Just for you </div>
+        <div style="padding:12px 15px; font-size:20px; font-weight:500;">  <i class="shopping bag icon"> </i> Add more </div>
+    </div>
 
     <div class="ui container product-container">
 
@@ -148,56 +152,6 @@
                 </div>
                 <div class="content">
                     <a class="header">Kala Chosma</a>
-                    <div class="meta">
-                        <span class="date">Created in Sep 2014</span>
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a>
-                        <i class="users icon"></i>
-                        Add to cart
-                    </a>
-                </div>
-            </div>
-
-
-            <div class="card">
-                <div class="blurring dimmable image">
-                    <div class="ui dimmer">
-                        <div class="content">
-                            <div class="center">
-                                <div class="ui inverted button">View Details</div>
-                            </div>
-                        </div>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80">
-                </div>
-                <div class="content">
-                    <a class="header">Kala Chosma </a>
-                    <div class="meta">
-                        <span class="date">Created in Sep 2014</span>
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a>
-                        <i class="users icon"></i>
-                        Add to cart
-                    </a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="blurring dimmable image">
-                    <div class="ui dimmer">
-                        <div class="content">
-                            <div class="center">
-                                <div class="ui inverted button">View Details</div>
-                            </div>
-                        </div>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80">
-                </div>
-                <div class="content">
-                    <a class="header">Kala Chasma</a>
                     <div class="meta">
                         <span class="date">Created in Sep 2014</span>
                     </div>
