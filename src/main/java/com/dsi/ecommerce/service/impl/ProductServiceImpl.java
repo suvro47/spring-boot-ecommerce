@@ -2,6 +2,7 @@ package com.dsi.ecommerce.service.impl;
 
 import com.dsi.ecommerce.dao.ProductDao;
 import com.dsi.ecommerce.dto.ProductDTO;
+import com.dsi.ecommerce.exception.ResourceNotFoundException;
 import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+
     @Autowired
     private ProductDao productDao;
 
@@ -44,5 +46,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getProductById(Long id) throws Exception {
         return productDao.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Movie id: " + id));
+    }
+
+    @Override
+    public Product getProduct(Long shopId, Long productId) throws ResourceNotFoundException {
+
+        Product product = productDao.findById(productId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+
+        return product;
     }
 }

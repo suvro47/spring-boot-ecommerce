@@ -11,8 +11,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
 
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
-    <link th:href="@{/css/cart/cart.css}" rel="stylesheet"/>
-    <script th:src="@{/css/cart/cart.js}" rel="text/javascript"></script>
 
     <style>
 
@@ -29,7 +27,7 @@
             right : 1%;
         }
 
-        .edit.icon {
+        .cursor {
             cursor: pointer;
         }
 
@@ -40,12 +38,10 @@
         }
 
         .adv-img {
-            background-color : ghostwhite;
             height: 250px;
             flex : 2 500px;
             position : relative;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            border : 1px solid rgb(240, 240, 240);
+            box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             border-radius: 5px;
         }
 
@@ -71,10 +67,9 @@
 
             <div class="button edit-btn">
                 <a sec:authorize="isAuthenticated()" th:href="@{'/update_shop/' + ${shop.id}}"  style="all:unset">
-                    <i class="edit icon"> </i>
+                    <i class="edit icon cursor"> </i>
                 </a>
             </div>
-
         </div>
 
         <div class="ui container">
@@ -122,7 +117,7 @@
 
             <div class="adv-img">
                 <img style="height:250px; width:100%; font-size : 30px; text-align : center; padding : 20px;" th:src="@{${shop.advertisingBanner}}" alt="No special Offer SALE right now">
-                <div class="button edit-btn">
+                <div class="button edit-btn cursor">
                     <a sec:authorize="isAuthenticated()" th:href="@{'/delete_advertising_banner/' + ${shop.id}}"  style="all:unset">
                         <i class="trash alternate outline bin  icon"> </i>
                     </a>
@@ -131,9 +126,14 @@
         </div>
     </div>
 
-    <div class="ui raised very padded container segments" style="display:flex; flex-direction:row; justify-content: space-between; align-items: center;">
+    <div class="ui very padded container segments" style="display:flex; flex-direction:row; justify-content: space-between; align-items: center;">
         <div style="padding:12px 15px; font-size:20px; font-weight:500;">  <i class="gift icon"> </i> Just for you </div>
-        <div style="padding:12px 15px; font-size:20px; font-weight:500;">  <i class="shopping bag icon"> </i> Add more </div>
+
+        <a class="cursor" sec:authorize="isAuthenticated()" th:href="@{'/update_shop/' + ${shop.id}}"  style="all:unset">
+            <div class="cursor" style="padding:12px 15px; font-size:20px; font-weight:500;">
+                <i class="shopping bag icon"> </i> Add more
+            </div>
+        </a>
     </div>
 
     <div class="ui container product-container">
@@ -153,12 +153,13 @@
                 <div class="content">
                     <a class="header">Kala Chosma</a>
                     <div class="meta">
-                        <span class="date">Created in Sep 2014</span>
+                        <span class="date">Price $49 </span>
                     </div>
                 </div>
                 <div class="extra content">
-                    <a>
-                        <i class="users icon"></i>
+<!--                    <a th:href="@{'shop/' + ${shop.id} + '/product/'+ ${shop.id}}">-->
+                    <a th:href="@{'/users/shop/1/product/1'}">
+                        <i class="shopping basket icon"></i>
                         Add to cart
                     </a>
                 </div>
