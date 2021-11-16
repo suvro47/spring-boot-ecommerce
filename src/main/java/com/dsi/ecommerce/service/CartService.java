@@ -4,7 +4,7 @@ import com.dsi.ecommerce.model.cart.CartItem;
 import java.util.List;
 
 public interface CartService {
-        public List<CartItem> getAllCartItem();
+        public List<CartItem> getAllCartItem(MyUserDetail loggedUser);
         public void addCartItem(Long id);
         public void deleteCartItem(Long id);
         public void increaseQuanity(Long id);

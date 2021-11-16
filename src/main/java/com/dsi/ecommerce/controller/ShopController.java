@@ -27,11 +27,11 @@ public class ShopController {
     private CartServiceImpl cartService;
 
     @RequestMapping(value="/register_shop", method= RequestMethod.GET)
-    public String registerPage(Model model) {
+    public String registerPage(@AuthenticationPrincipal MyUserDetail principal, Model model) {
         ShopDto shop = new ShopDto();
         model.addAttribute("new_shop", shop);
 
-        List<CartItem> cartItemList = cartService.getAllCartItem();
+        List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
 
@@ -43,7 +43,7 @@ public class ShopController {
 
         try {
             shopService.saveShop(principal, shopDetails, file);
-            List<CartItem> cartItemList = cartService.getAllCartItem();
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
             model.addAttribute("cartItems", cartItemList);
             model.addAttribute("totalCost", cartService.getTotalCost());
             return "redirect:/my_shop";
@@ -56,7 +56,7 @@ public class ShopController {
 
     @RequestMapping(value="/my_shop", method= RequestMethod.GET)
     public String getShop(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
-        List<CartItem> cartItemList = cartService.getAllCartItem();
+        List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
         try {
@@ -77,14 +77,14 @@ public class ShopController {
         try {
             Shop shop = shopService.getShop(principal);
             model.addAttribute("shop", shop);
-            List<CartItem> cartItemList = cartService.getAllCartItem();
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
             model.addAttribute("cartItems", cartItemList);
             model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/edit_shop";
 
         } catch( Exception e ) {
             System.out.println("Exception has occured " + e );
-            List<CartItem> cartItemList = cartService.getAllCartItem();
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
             model.addAttribute("cartItems", cartItemList);
             model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/shop_view";
@@ -96,14 +96,14 @@ public class ShopController {
 
         try {
             shopService.updateShop(principal, id, shopDetails, file);
-            List<CartItem> cartItemList = cartService.getAllCartItem();
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
             model.addAttribute("cartItems", cartItemList);
             model.addAttribute("totalCost", cartService.getTotalCost());
             return "redirect:/my_shop";
 
         } catch( Exception e ) {
             System.out.println("Exception has occured " + e );
-            List<CartItem> cartItemList = cartService.getAllCartItem();
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
             model.addAttribute("cartItems", cartItemList);
             model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/shop_view";

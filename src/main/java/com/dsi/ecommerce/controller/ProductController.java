@@ -32,11 +32,11 @@ public class ProductController {
     private CartServiceImpl cartService;
 
     @RequestMapping("/products")
-    public String getAllProducts(Model model) {
+    public String getAllProducts(@AuthenticationPrincipal MyUserDetail principal, Model model) {
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
 
-        List<CartItem> cartItemList = cartService.getAllCartItem();
+        List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
 

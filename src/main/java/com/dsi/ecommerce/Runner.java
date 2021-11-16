@@ -64,6 +64,7 @@ public class Runner implements CommandLineRunner {
             Cart cart = new Cart();
 
             List<CartItem> list = new ArrayList<CartItem>();
+
             list.add(cartItem);
 
             cart.setCartItems(list);
