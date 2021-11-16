@@ -28,11 +28,11 @@ public class ShopController {
     private CartServiceImpl cartService;
 
     @RequestMapping(value="/register_shop", method= RequestMethod.GET)
-    public String registerPage(Model model) {
+    public String registerPage(@AuthenticationPrincipal MyUserDetail principal, Model model) {
         ShopDto shop = new ShopDto();
         model.addAttribute("new_shop", shop);
 
-        List<CartItem> cartItemList = cartService.getAllCartItem();
+        List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
 
@@ -40,14 +40,17 @@ public class ShopController {
     }
 
     @RequestMapping(value="/register_shop", method= RequestMethod.POST)
-    public String registerSubmit(@AuthenticationPrincipal MyUserDetail principal, ShopDto shopDetails, MultipartFile file) {
+    public String registerSubmit(@AuthenticationPrincipal MyUserDetail principal, ShopDto shopDetails, MultipartFile file, Model model) {
 
         try {
             shopService.saveShop(principal, shopDetails, file);
+
             return "redirect:/my_shop";
 
         } catch( Exception e ) {
-            System.out.println("Exception has occured " + e );
+                List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+                model.addAttribute("cartItems", cartItemList);
+                model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/shop_form";
         }
     }
@@ -55,17 +58,18 @@ public class ShopController {
     @RequestMapping(value="/my_shop", method= RequestMethod.GET)
     public String getShop(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
 
+        List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+        model.addAttribute("cartItems", cartItemList);
+        model.addAttribute("totalCost", cartService.getTotalCost());
+
         try {
-            List<CartItem> cartItemList = cartService.getAllCartItem();
-            model.addAttribute("cartItems", cartItemList);
-            model.addAttribute("totalCost", cartService.getTotalCost());
+
             Shop shop = shopService.getShop( principal );
             model.addAttribute("shop", shop);
             model.addAttribute("products", shop.getProducts());
             return "shop/shop_view";
 
         } catch ( Exception e ) {
-            System.out.println("An exception occured ");
             return "shop/shop_form";
         }
     }
@@ -76,14 +80,13 @@ public class ShopController {
         try {
             Shop shop = shopService.getShop(principal);
             model.addAttribute("shop", shop);
-            List<CartItem> cartItemList = cartService.getAllCartItem();
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
             model.addAttribute("cartItems", cartItemList);
             model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/edit_shop";
 
         } catch( Exception e ) {
-            System.out.println("Exception has occured " + e );
-            List<CartItem> cartItemList = cartService.getAllCartItem();
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
             model.addAttribute("cartItems", cartItemList);
             model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/shop_view";
@@ -92,27 +95,34 @@ public class ShopController {
 
     @RequestMapping(value="/update_shop/{id}", method= RequestMethod.POST)
     public String updateSubmit(@AuthenticationPrincipal MyUserDetail principal,@PathVariable Long id, ShopDto shopDetails,
-                               @RequestParam("banner-file") MultipartFile file , @RequestParam("adv-file") MultipartFile file2 ) {
+                               @RequestParam("banner-file") MultipartFile file , @RequestParam("adv-file") MultipartFile file2, Model model ) {
         try {
             shopService.updateShop(principal, id, shopDetails, file, file2);
             return "redirect:/my_shop";
 
         } catch( Exception e ) {
-            System.out.println("Exception has occured " + e );
+                List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+                model.addAttribute("cartItems", cartItemList);
+                model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/shop_view";
         }
     }
 
 
     @RequestMapping(value="/delete_advertising_banner/{id}", method= RequestMethod.POST)
-    public String deleteAdvertisingBanner(@AuthenticationPrincipal MyUserDetail principal, @PathVariable Long id ) {
+    public String deleteAdvertisingBanner(@AuthenticationPrincipal MyUserDetail principal, @PathVariable Long id, Model model ) {
 
         try {
+
             shopService.deleteAdvertisingBanner(principal, id);
             return "redirect:/my_shop";
 
         } catch( Exception e ) {
-            System.out.println("Exception has occured " + e );
+
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+            model.addAttribute("cartItems", cartItemList);
+            model.addAttribute("totalCost", cartService.getTotalCost());
+
             return "shop/shop_view";
         }
     }
