@@ -1,4 +1,4 @@
-let closeBtn = document.getElementById('close')
+
 
 function closeModal(){
     let d = document.getElementById("custom-modal")
