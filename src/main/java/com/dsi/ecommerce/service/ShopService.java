@@ -12,6 +12,7 @@ public interface ShopService {
 
     Shop getShop(MyUserDetail principal) throws ResourceNotFoundException;
 
-    Shop updateShop(MyUserDetail principal, Long id, ShopDto shopDetails, MultipartFile file) throws ResourceNotFoundException;
+    Shop updateShop(MyUserDetail principal, Long id, ShopDto shopDetails, MultipartFile file, MultipartFile file2 ) throws ResourceNotFoundException;
 
+    void deleteAdvertisingBanner(MyUserDetail principal, Long id) throws ResourceNotFoundException;
 }

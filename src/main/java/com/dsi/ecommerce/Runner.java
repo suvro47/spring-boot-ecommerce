@@ -34,7 +34,9 @@ public class Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if(userDao.findByUsername("admin").isEmpty()){
+
+        if(userDao.findByUsername("admin").isEmpty()) {
+
             User admin = new User();
 
             admin.setUsername("admin");
@@ -45,9 +47,19 @@ public class Runner implements CommandLineRunner {
             admin.setEmail("admin@dsinnovator.com");
             admin.setProfilePic("/images/profile/default.png");
             admin.setRole(UserRoles.ADMIN);
-
             //
             admin = userDao.save(admin);
+
+            User seller = new User();
+            seller.setUsername("seller");
+            seller.setActive(true);
+            seller.setPassword(new BCryptPasswordEncoder().encode("seller"));
+            seller.setFirstname("Super");
+            seller.setLastname("Seller");
+            seller.setEmail("seller@dsinnovator.com");
+            seller.setProfilePic("/images/profile/default.png");
+            seller.setRole(UserRoles.SELLER);
+            userDao.save(seller);
 
             Product product = new Product();
             product.setCategory("grocery");
@@ -65,6 +77,7 @@ public class Runner implements CommandLineRunner {
             Cart cart = new Cart();
 
             List<CartItem> list = new ArrayList<CartItem>();
+
             list.add(cartItem);
 
             cart.setCartItems(list);
@@ -74,7 +87,6 @@ public class Runner implements CommandLineRunner {
             cartItemDao.save(cartItem);
 
             admin.setCart(cart);
-
 
             cartItemDao.save(cartItem);
 
