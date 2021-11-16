@@ -5,9 +5,11 @@ import com.dsi.ecommerce.dto.ShopDto;
 import com.dsi.ecommerce.exception.ResourceNotFoundException;
 import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.model.Shop;
+import com.dsi.ecommerce.model.cart.CartItem;
 import com.dsi.ecommerce.service.MyUserDetail;
 import com.dsi.ecommerce.service.ProductService;
 import com.dsi.ecommerce.service.ShopService;
+import com.dsi.ecommerce.service.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,10 +28,18 @@ public class ProductController {
     @Autowired
     private ShopService shopService;
 
+    @Autowired
+    private CartServiceImpl cartService;
+
     @RequestMapping("/products")
     public String getAllProducts(Model model) {
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
+
+        List<CartItem> cartItemList = cartService.getAllCartItem();
+        model.addAttribute("cartItems", cartItemList);
+        model.addAttribute("totalCost", cartService.getTotalCost());
+
         return "product/products";
     }
 
