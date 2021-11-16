@@ -8,7 +8,7 @@ import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.model.cart.Cart;
 import com.dsi.ecommerce.model.cart.CartItem;
-import com.dsi.ecommerce.utility.UserRoles;
+import com.dsi.ecommerce.utility.constants.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,7 +34,7 @@ public class Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if(userDao.findByUsername("admin") == null){
+        if(userDao.findByUsername("admin").isEmpty()){
             User admin = new User();
 
             admin.setUsername("admin");
@@ -73,7 +73,6 @@ public class Runner implements CommandLineRunner {
             cartItemDao.save(cartItem);
 
             admin.setCart(cart);
-
 
             cartItemDao.save(cartItem);
 

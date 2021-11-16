@@ -1,5 +1,5 @@
 
-.cart span{
+.cart span {
     color: red;
     font-size: 30px;
     margin: 10px 10px;
@@ -15,7 +15,9 @@
     height: 100vh;
     z-index: 1000;
 }
-.cart{
+
+
+.cart {
     background-color: white;
     height: 100vh;
     overflow: scroll;
@@ -27,14 +29,22 @@
     animation: animate 1s ease-in-out forwards;
 }
 
-.items{
+.empty-cart{
+    color: red;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.items {
     display: flex;
     background-color: #c4c2c2;
     margin: 20px;
     border-radius: 18px;
     flex-wrap: wrap;
 }
-.items img{
+
+.items img {
     height: 100px;
     width: auto;
     padding: 6px;
@@ -42,42 +52,46 @@
     border-radius: 15px;
 }
 
-.items .remove-item{
+.items .remove-item {
     color: red;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    margin-top: 30px;
     margin-left: 10px;
-    font-size: 25px;
+    font-size: 20px;
     cursor: pointer;
 }
-.items .details{
+
+.items .details {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     flex: 1;
     padding-left: 30px;
 }
-.items .details p:nth-child(1){
+
+.items .details p:nth-child(1) {
     margin: 0px;
     font-size: 23px;
 }
-.items .details p:nth-child(2){
+
+.items .details p:nth-child(2) {
     margin: 0px;
     font-size: 20px;
     color: coral;
 }
 
-.items .quantity{
+.items .quantity {
     display: flex;
     align-items: center;
     margin-right: 10px;
 }
-.items .quantity p{
+
+.items .quantity p {
     margin: 0px;
     padding-inline: 10px;
 }
-.items .quantity button{
+
+.items .quantity button {
     height: 30px;
     width: 30px;
     border: none;
@@ -85,11 +99,38 @@
     cursor: pointer;
 }
 
+.cart-details {
+    font-size: 23px;
+    position: static;
+}
+
+.cart-details p {
+    color: green;
+    text-align: right;
+    margin-right: 23px;
+}
+
+.cart-details div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.cart-btn {
+    padding: 10px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+.cart-details .check {
+    background-color: green;
+}
+
 @keyframes animate {
-    from{
-        right: -30%;
+    from {
+        right: -35%;
     }
-    to{
+    to {
         right: 0;
     }
 }

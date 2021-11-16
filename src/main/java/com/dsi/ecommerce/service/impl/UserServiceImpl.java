@@ -7,6 +7,7 @@ import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.service.MyUserDetail;
 import com.dsi.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createNewUser(User user) throws UserAlreadyExistsException {
-        if (userDao.findByUsername(user.getUsername()) != null){
+        if (userDao.findByUsername(user.getUsername()).isPresent()){
             throw new UserAlreadyExistsException(user);
         }
         user.setActive(true);
@@ -51,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUsername(String username) throws UserNotFoundException {
-        User user = userDao.findByUsername(username);
+        User user = userDao.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username + " not found."));
         if (user == null){
             throw new UserNotFoundException(username);
         }
