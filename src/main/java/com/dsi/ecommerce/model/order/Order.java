@@ -41,12 +41,13 @@ public class Order {
     @Column(name = "transaction_id", columnDefinition = "VARCHAR(40)")
     private String transactionId;
 
-    @Column(name = "paymentDateTimeMillis")
+    @Column(name = "payment_date_time_millis")
     private Long paymentDateTimeMillis;
-
+ 
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItem;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    private List<OrderItem> orderItems;
 }

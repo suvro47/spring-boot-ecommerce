@@ -1,4 +1,4 @@
-package com.dsi.ecommerce.dao;
+package com.dsi.ecommerce.dao.cart;
 
 import com.dsi.ecommerce.model.cart.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;

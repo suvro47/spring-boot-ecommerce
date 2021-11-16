@@ -1,11 +1,14 @@
 package com.dsi.ecommerce.model.order;
 
 import com.dsi.ecommerce.model.Product;
+import com.dsi.ecommerce.model.cart.CartItem;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -26,6 +29,23 @@ public class OrderItem {
     @OneToOne
     private Product product;
 
-    @ManyToOne
-    private Order order;
+    @Column(name = "order_id")
+    private Long orderId;
+
+    public static OrderItem getSingleOrderItemFromCartItem(CartItem cartItem){
+        OrderItem orderItem = new OrderItem();
+        orderItem.setProduct(cartItem.getProduct());
+        orderItem.setQuantity(cartItem.getQuantity());
+        orderItem.setSubTotal(cartItem.getSubTotal());
+
+        return orderItem;
+    }
+
+    public static List<OrderItem> getOrderItemsFromCartItems(List<CartItem> cartItems){
+        return cartItems.stream().map(OrderItem::getSingleOrderItemFromCartItem).collect(Collectors.toList());
+    }
+
+    public Double getSubTotal() {
+        return this.quantity * this.product.getPrice();
+    }
 }
