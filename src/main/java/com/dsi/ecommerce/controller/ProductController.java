@@ -31,6 +31,7 @@ public class ProductController {
 
     @RequestMapping("/products")
     public String getAllProducts(Model model) {
+
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
 
@@ -46,7 +47,10 @@ public class ProductController {
     public String getProduct(Model model, @PathVariable(value="id") Long shopId , @PathVariable(value="id2") Long productId ) {
 
         try {
-            Product product = productService.getProduct(shopId, 3l);
+            List<CartItem> cartItemList = cartService.getAllCartItem();
+            model.addAttribute("cartItems", cartItemList);
+            model.addAttribute("totalCost", cartService.getTotalCost());
+            Product product = productService.getProduct(shopId, productId);
             model.addAttribute("product", product);
             System.out.println(product.getName());
         } catch (Exception e) {

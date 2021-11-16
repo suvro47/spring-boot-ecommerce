@@ -161,10 +161,14 @@
                             </div>
                         </div>
 
-                        <div class="extra content">
-                            <a th:href="@{'shop/' + ${shop.id} + '/product/'+ ${product.id}}">
-                                <i class="shopping basket icon"></i>
-                                Add to cart
+                        <div class="extra content"  style="margin : auto;">
+                            <a th:href="@{'/users/shop/' + ${shop.id} + '/product/'+ ${product.id}}">
+                                <div class="ui animated teal button" tabindex="0">
+                                    <div class="visible content">Add To Cart </div>
+                                    <div class="hidden content">
+                                        <i class="shopping basket icon"></i>
+                                    </div>
+                                </div>
                             </a>
                         </div>
                     </div>
