@@ -39,8 +39,8 @@ public class ShopServiceImpl implements ShopService {
         User loggedUser = userDao.findById(principal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         newShop.setUser(loggedUser);
-        newShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
-        shop.setAdvertisingBanner("/images/shops/default_offer.png");
+        if( file != null ) newShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
+        newShop.setAdvertisingBanner("/images/shops/default_offer.png");
         return shopDao.save(newShop);
     }
 

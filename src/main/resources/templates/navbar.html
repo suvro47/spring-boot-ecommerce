@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:fragment="common_head">
     <meta charset="utf-8"/>
@@ -23,8 +24,8 @@
                 <a class="header item">DSi</a>
                 <a class="active item" th:href="@{'/'}">Home</a>
                 <a class="item" th:href="@{'/products'}">Product</a>
-                <a class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi</a>
-                
+                <a sec:authorize="hasAuthority('SELLER')" class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi</a>
+
                 <div class="ui dropdown item">
                     Categories <i class="dropdown icon"></i>
                     <div class="menu">
@@ -111,30 +112,35 @@
         <div class="custom-container" onclick="closeModal()"></div>
         <div class="cart">
             <span onclick="closeModal()">x</span>
-            <p th:if="${cartItems.size() == 0}" class="empty-cart">No item in the cart!</p>
-            <div th:each="cartItem : ${cartItems}">
-                <div class="items" th:id="${cartItem.getId()}">
-                    <i class="remove-item trash alternate outline icon "
-                       th:onclick="deleteCartItem([[${cartItem.getId()}]])"></i>
-                    <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
-                         alt="item-image"/>
-                    <div class="details">
-                        <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
-                        <p th:text=" '$  ' + ${cartItem.getProduct().getPrice()}">$ 50</p>
-                    </div>
-                    <div class="quantity">
-                        <button th:onclick="decreaseQuantity([[${cartItem.getId()}]])"> -</button>
-                        <p th:id="'q'+ ${cartItem.getId()+''}" th:text="${cartItem.getQuantity()}">23</p>
-                        <button th:onclick="increaseQuantity([[${cartItem.getId()}]])">+</button>
+            <p th:if="${cartItems.isEmpty()}" class="empty-cart">No item in the cart!</p>
+            
+            <div th:if="${!cartItems.isEmpty()}">
+                
+                
+                <div th:each="cartItem : ${cartItems}">
+                    <div class="items" th:id="${cartItem.getId()}">
+                        <i class="remove-item trash alternate outline icon "
+                           th:onclick="deleteCartItem([[${cartItem.getId()}]])"></i>
+                        <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
+                             alt="item-image"/>
+                        <div class="details">
+                            <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
+                            <p th:text=" '$  ' + ${cartItem.getProduct().getPrice()}">$ 50</p>
+                        </div>
+                        <div class="quantity">
+                            <button th:onclick="decreaseQuantity([[${cartItem.getId()}]])"> -</button>
+                            <p th:id="'q'+ ${cartItem.getId()+''}" th:text="${cartItem.getQuantity()}">23</p>
+                            <button th:onclick="increaseQuantity([[${cartItem.getId()}]])">+</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div th:if="${cartItems.size()} > 0" class="cart-details">
-                <p id="cost" th:text=" 'Total Amount: $ ' + ${totalCost}">total cost</p>
-                <div>
-                    <button class="cart-btn" onclick="clearCart()">Clear Cart</button>
-                    <button class="cart-btn check">Checkout</button>
+                
+                <div class="cart-details">
+                    <p id="cost" th:text=" 'Total Amount: $ ' + ${totalCost}">total cost</p>
+                    <div>
+                        <button class="cart-btn" onclick="clearCart()">Clear Cart</button>
+                        <button class="cart-btn check">Checkout</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -146,7 +152,6 @@
 
 
 <!-- Break From Top Start -->
-
 
 
 <div th:fragment="common_script">

@@ -24,18 +24,12 @@ public class Runner implements CommandLineRunner {
     private UserDao userDao;
 
     @Autowired
-    private ProductDao productDao;
-
-    @Autowired
-    private CartItemDao cartItemDao;
-
-    @Autowired
     private CartDao cartDao;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
-        if(userDao.findByUsername("admin").isEmpty()) {
+        if( userDao.findByUsername("admin").isEmpty() ) {
 
             User admin = new User();
 
@@ -47,50 +41,13 @@ public class Runner implements CommandLineRunner {
             admin.setEmail("admin@dsinnovator.com");
             admin.setProfilePic("/images/profile/default.png");
             admin.setRole(UserRoles.ADMIN);
-            //
             admin = userDao.save(admin);
 
-            User seller = new User();
-            seller.setUsername("seller");
-            seller.setActive(true);
-            seller.setPassword(new BCryptPasswordEncoder().encode("seller"));
-            seller.setFirstname("Super");
-            seller.setLastname("Seller");
-            seller.setEmail("seller@dsinnovator.com");
-            seller.setProfilePic("/images/profile/default.png");
-            seller.setRole(UserRoles.SELLER);
-            userDao.save(seller);
-
-            Product product = new Product();
-            product.setCategory("grocery");
-            product.setDescription("description");
-            product.setPrice(567.5);
-            product.setName("Smart watch");
-            product.setSoldItems(3);
-            product.setAvailableQuantity(70);
-            product = productDao.save(product);
-
-            CartItem cartItem = new CartItem();
-            cartItem.setProduct(product);
-            cartItem.setQuantity(5);
-
             Cart cart = new Cart();
-
             List<CartItem> list = new ArrayList<CartItem>();
-            list.add(cartItem);
-
             cart.setCartItems(list);
             cart = cartDao.save(cart);
-            cartItem.setCart(cart);
-
-            cartItemDao.save(cartItem);
-
             admin.setCart(cart);
-
-            cartItemDao.save(cartItem);
-
-            cartDao.save(cart);
-            //
 
             userDao.save(admin);
         }

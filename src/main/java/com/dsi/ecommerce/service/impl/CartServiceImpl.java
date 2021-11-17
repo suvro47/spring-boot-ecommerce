@@ -8,10 +8,10 @@ import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.model.cart.CartItem;
 import com.dsi.ecommerce.service.CartService;
+import com.dsi.ecommerce.service.MyUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,15 +29,14 @@ public class CartServiceImpl implements CartService {
         @Autowired
         private ProductDao productDao;
 
-
-        public List<CartItem> getAllCartItem(){
-                User user = userDao.findById(1L).orElse(new User());
+        public List<CartItem> getAllCartItem(MyUserDetail loggeduser) {
+                User user = userDao.findById(loggeduser.getId()).orElse(new User());
                 return user.getCart().getCartItems();
         }
 
         @Override
         public void addCartItem(Long id) {
-                User user = userDao.findById(1L).orElse(new User());
+                User user = userDao.findById(3L).orElse(new User());
                 Product product = productDao.findById(id).orElse(new Product());
 
                 CartItem cartItem = new CartItem();

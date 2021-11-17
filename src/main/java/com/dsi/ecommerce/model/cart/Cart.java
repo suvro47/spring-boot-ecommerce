@@ -19,7 +19,7 @@ public class Cart {
         private Double totalCost;
 
         @OneToMany(mappedBy = "cart")
-        private List<CartItem> cartItems = new ArrayList<>();
+        private List<CartItem> cartItems = new ArrayList<CartItem>();
 
         public Double getTotalCost() {
                 Double total = 0.0;
