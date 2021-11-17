@@ -61,8 +61,11 @@ public class ShopServiceImpl implements ShopService {
                 .orElseThrow(() -> new ResourceNotFoundException("Shop not found"));
         shop.setName(shopDetails.getName());
         shop.setDescription(shopDetails.getDescription());
+
+        /* this hell is not working .... */
         if( file != null ) shop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
         if( file2 != null ) shop.setAdvertisingBanner(FileUpload.saveImage(ImageType.ADVERTISING_BANNER, shopDetails.getName(), file2));
+
         return shopDao.save(shop);
     }
 

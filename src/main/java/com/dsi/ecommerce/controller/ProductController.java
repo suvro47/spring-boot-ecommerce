@@ -46,7 +46,7 @@ public class ProductController {
 
 
 
-    @RequestMapping("/users/shop/{id}/product/{id2}")
+    @RequestMapping("/user/shop/{id}/product/{id2}")
     public String getProduct(@AuthenticationPrincipal MyUserDetail principal,Model model, @PathVariable(value="id") Long shopId , @PathVariable(value="id2") Long productId ) {
 
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
@@ -99,7 +99,7 @@ public class ProductController {
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
-        return "redirect:/my_shop";
+        return "redirect:/seller/my_shop";
     }
 
     @RequestMapping(value = "/seller/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.GET)

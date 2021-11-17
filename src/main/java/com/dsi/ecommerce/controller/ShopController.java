@@ -101,15 +101,15 @@ public class ShopController {
             return "redirect:/seller/my_shop";
 
         } catch( Exception e ) {
-                List<CartItem> cartItemList = cartService.getAllCartItem(principal);
-                model.addAttribute("cartItems", cartItemList);
-                model.addAttribute("totalCost", cartService.getTotalCost());
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+            model.addAttribute("cartItems", cartItemList);
+            model.addAttribute("totalCost", cartService.getTotalCost());
             return "shop/shop_view";
         }
     }
 
 
-    @RequestMapping(value="/delete_advertising_banner/{id}", method= RequestMethod.POST)
+    @RequestMapping(value="/delete_advertising_banner/{id}", method= RequestMethod.GET)
     public String deleteAdvertisingBanner(@AuthenticationPrincipal MyUserDetail principal, @PathVariable Long id, Model model ) {
         try {
             shopService.deleteAdvertisingBanner(principal, id);
@@ -120,7 +120,6 @@ public class ShopController {
             List<CartItem> cartItemList = cartService.getAllCartItem(principal);
             model.addAttribute("cartItems", cartItemList);
             model.addAttribute("totalCost", cartService.getTotalCost());
-
             return "shop/shop_view";
         }
     }
