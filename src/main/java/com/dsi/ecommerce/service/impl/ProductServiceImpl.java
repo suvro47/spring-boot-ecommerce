@@ -5,7 +5,7 @@ import com.dsi.ecommerce.dto.ProductDTO;
 import com.dsi.ecommerce.exception.ResourceNotFoundException;
 import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.model.Shop;
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.service.ProductService;
 import com.dsi.ecommerce.utility.FileUpload;
 import com.dsi.ecommerce.utility.constants.ImageType;

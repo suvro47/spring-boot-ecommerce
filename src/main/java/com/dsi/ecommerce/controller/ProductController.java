@@ -5,7 +5,7 @@ import com.dsi.ecommerce.exception.ResourceNotFoundException;
 import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.model.Shop;
 import com.dsi.ecommerce.model.cart.CartItem;
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.service.ProductService;
 import com.dsi.ecommerce.service.ShopService;
 import com.dsi.ecommerce.service.impl.CartServiceImpl;

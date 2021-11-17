@@ -4,11 +4,12 @@ import com.dsi.ecommerce.dao.ProductDao;
 import com.dsi.ecommerce.dao.UserDao;
 import com.dsi.ecommerce.dao.cart.CartDao;
 import com.dsi.ecommerce.dao.cart.CartItemDao;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.model.Product;
 import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.model.cart.CartItem;
 import com.dsi.ecommerce.service.CartService;
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.model.MyUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +31,11 @@ public class CartServiceImpl implements CartService {
         @Autowired
         private ProductDao productDao;
 
-
         public List<CartItem> getAllCartItem(MyUserDetail loggeduser){
                 User user = userDao.findById(loggeduser.getId()).orElse(new User());
                 return user.getCart().getCartItems();
         }
+
 
         @Override
         public void addCartItem(Long id) {

@@ -1,7 +1,7 @@
 package com.dsi.ecommerce.controller;
 
 import com.dsi.ecommerce.model.cart.CartItem;
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.service.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
