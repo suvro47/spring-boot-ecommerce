@@ -39,7 +39,8 @@ public class ShopServiceImpl implements ShopService {
         User loggedUser = userDao.findById(principal.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         newShop.setUser(loggedUser);
-        newShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
+        if( file != null ) newShop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
+        newShop.setAdvertisingBanner("/images/shops/default_offer.png");
         return shopDao.save(newShop);
     }
 
@@ -60,8 +61,8 @@ public class ShopServiceImpl implements ShopService {
                 .orElseThrow(() -> new ResourceNotFoundException("Shop not found"));
         shop.setName(shopDetails.getName());
         shop.setDescription(shopDetails.getDescription());
-        shop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
-        shop.setAdvertisingBanner(FileUpload.saveImage(ImageType.ADVERTISING_BANNER, shopDetails.getName(), file2));
+        if( file != null ) shop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
+        if( file2 != null ) shop.setAdvertisingBanner(FileUpload.saveImage(ImageType.ADVERTISING_BANNER, shopDetails.getName(), file2));
         return shopDao.save(shop);
     }
 
@@ -69,7 +70,7 @@ public class ShopServiceImpl implements ShopService {
     public void deleteAdvertisingBanner(MyUserDetail principal, Long id) throws ResourceNotFoundException {
         Shop shop = shopDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Shop not found"));
-        shop.setAdvertisingBanner(null);
+        shop.setAdvertisingBanner("/images/shops/default_offer.png");
         shopDao.save(shop);
     }
 

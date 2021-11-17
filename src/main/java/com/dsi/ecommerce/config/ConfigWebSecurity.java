@@ -34,10 +34,10 @@ public class ConfigWebSecurity extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity https) throws Exception {
 
                 https.authorizeRequests()
-                        .antMatchers("/admin").hasAnyAuthority(UserRoles.ADMIN.toString())
-                        .antMatchers("/users/**").hasAnyAuthority(UserRoles.SELLER.toString(), UserRoles.BUYER.toString(),
+                        .antMatchers("/admin/**").hasAnyAuthority(UserRoles.ADMIN.toString())
+                        .antMatchers("/user/**").hasAnyAuthority(UserRoles.SELLER.toString(), UserRoles.BUYER.toString(),
                                 UserRoles.ADMIN.toString())
-                        .antMatchers("/my_shop", "/update_shop").hasAnyAuthority(UserRoles.SELLER.toString())
+                        .antMatchers("/seller/**").hasAnyAuthority(UserRoles.SELLER.toString(), UserRoles.ADMIN.toString())
                         .antMatchers("/").permitAll()
                         .and().formLogin()
                         .loginPage("/login").permitAll().failureUrl("/login-failed")
@@ -46,8 +46,6 @@ public class ConfigWebSecurity extends WebSecurityConfigurerAdapter {
                         .clearAuthentication(true).
                         logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/logout-success").permitAll();
-
-
         }
 
 }

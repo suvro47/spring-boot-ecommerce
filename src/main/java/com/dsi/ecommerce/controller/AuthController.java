@@ -51,6 +51,10 @@ public class AuthController {
                 System.out.println(profilePic.getName());
                 System.out.println(user.toString());
 
+                List<CartItem> cartItemList = new ArrayList<CartItem>();
+                model.addAttribute("cartItems", cartItemList);
+                model.addAttribute("totalCost", 0.0);
+
 
                 try {
                         String path = FileUpload.saveImage(ImageType.USER_PROFILE, user.getUsername(), profilePic);
@@ -59,13 +63,7 @@ public class AuthController {
                         return "redirect:/";
                 } catch (Exception e) {
                         System.out.println(e.toString());
-
-                        List<CartItem> cartItemList = new ArrayList<CartItem>();
-                        model.addAttribute("cartItems", cartItemList);
-                        model.addAttribute("totalCost", 0.0);
-
                         redirectAttributes.addFlashAttribute("signup_form", user);
-
                         return "auth/signup";
                 }
         }

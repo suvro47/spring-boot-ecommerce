@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
@@ -12,39 +12,53 @@
 
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <div class="ui segment container" style="margin: 15px auto" th:fragment="product_list">
-        <div class="ui container product-container">
+    <div class="ui segment container" style="margin-top:20px; margin-bottom:50px;" th:object="${products}">
 
-            <div class="ui special cards">
-                <div class="card">
+        <div th:if="${products.isEmpty()}" class="ui segment container" style="margin: 15px auto" th:fragment="product_list">
+            <p>No Products Available!!!</p>
+        </div>
+
+        <div th:if="${!products.isEmpty()}" class="ui container">
+            <div class="ui special cards" style="display:flex; flex-flow: row wrap; justify-content: center; row-gap:20px; column-gap:15px; align-items: center; margin:20px 0;">
+                <div th:each="product: ${products}" class="card" style="">
                     <div class="blurring dimmable image">
-                        <div class="ui dimmer">
+                        <div class="ui dimmer"> r
                             <div class="content">
                                 <div class="center">
                                     <div class="ui inverted button">View Details</div>
                                 </div>
                             </div>
                         </div>
-                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80">
+
+                        <img style="height:250px;"  th:src="@{${product.image}}">
+
                     </div>
+
                     <div class="content">
-                        <a class="header">Kala Chosma</a>
+                        <a class="header" th:text="${product.name}"> Product Title </a>
                         <div class="meta">
-                            <span class="date">Price $49 </span>
+                            <span class="date"> Price : $ [[${product.price}]] </span>
                         </div>
                     </div>
-                    <div class="extra content">
-                        <!--                    <a th:href="@{'shop/' + ${shop.id} + '/product/'+ ${shop.id}}">-->
-                        <a th:href="@{'/users/shop/1/product/1'}">
-                            <i class="shopping basket icon"></i>
-                            Add to cart
+
+                    <div class="extra content"  style="margin : auto;">
+                        <a th:href="@{'/user/shop/' + ${product.getShop().getId()} + '/product/'+ ${product.id}}">
+                            <div class="ui animated teal button" tabindex="0">
+                                <div class="visible content">Add To Cart </div>
+                                <div class="hidden content">
+                                    <i class="shopping basket icon"></i>
+                                </div>
+                            </div>
                         </a>
                     </div>
                 </div>
 
             </div>
+
         </div>
     </div>
+
+    <div style="height:50px"> </div>
 
     <div th:insert="navbar :: common_script">...</div>
     <!-- Additional Script Insert Here -->

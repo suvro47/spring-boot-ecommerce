@@ -12,7 +12,6 @@ import com.dsi.ecommerce.service.MyUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,8 +29,7 @@ public class CartServiceImpl implements CartService {
         @Autowired
         private ProductDao productDao;
 
-
-        public List<CartItem> getAllCartItem(MyUserDetail loggeduser){
+        public List<CartItem> getAllCartItem(MyUserDetail loggeduser) {
                 User user = userDao.findById(loggeduser.getId()).orElse(new User());
                 return user.getCart().getCartItems();
         }

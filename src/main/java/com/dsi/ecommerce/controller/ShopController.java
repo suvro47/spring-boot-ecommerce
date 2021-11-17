@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Controller
+@RequestMapping("/seller")
 public class ShopController {
 
     @Autowired
@@ -42,15 +43,17 @@ public class ShopController {
     @RequestMapping(value="/register_shop", method= RequestMethod.POST)
     public String registerSubmit(@AuthenticationPrincipal MyUserDetail principal, ShopDto shopDetails, MultipartFile file, Model model) {
 
+        System.out.println("Hi...................");
+
         try {
             shopService.saveShop(principal, shopDetails, file);
-
-            return "redirect:/my_shop";
+            return "redirect:/seller/my_shop";
 
         } catch( Exception e ) {
-                List<CartItem> cartItemList = cartService.getAllCartItem(principal);
-                model.addAttribute("cartItems", cartItemList);
-                model.addAttribute("totalCost", cartService.getTotalCost());
+            List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+            model.addAttribute("cartItems", cartItemList);
+            model.addAttribute("totalCost", cartService.getTotalCost());
+            System.out.println("Exception : " +  e );
             return "shop/shop_form";
         }
     }
@@ -63,7 +66,6 @@ public class ShopController {
         model.addAttribute("totalCost", cartService.getTotalCost());
 
         try {
-
             Shop shop = shopService.getShop( principal );
             model.addAttribute("shop", shop);
             model.addAttribute("products", shop.getProducts());
@@ -98,7 +100,7 @@ public class ShopController {
                                @RequestParam("banner-file") MultipartFile file , @RequestParam("adv-file") MultipartFile file2, Model model ) {
         try {
             shopService.updateShop(principal, id, shopDetails, file, file2);
-            return "redirect:/my_shop";
+            return "redirect:/seller/my_shop";
 
         } catch( Exception e ) {
                 List<CartItem> cartItemList = cartService.getAllCartItem(principal);
@@ -111,11 +113,9 @@ public class ShopController {
 
     @RequestMapping(value="/delete_advertising_banner/{id}", method= RequestMethod.POST)
     public String deleteAdvertisingBanner(@AuthenticationPrincipal MyUserDetail principal, @PathVariable Long id, Model model ) {
-
         try {
-
             shopService.deleteAdvertisingBanner(principal, id);
-            return "redirect:/my_shop";
+            return "redirect:/seller/my_shop";
 
         } catch( Exception e ) {
 

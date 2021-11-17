@@ -21,7 +21,7 @@ public class FileUpload {
         } else if (imageType == ImageType.USER_PROFILE) {
             uploadPath = Paths.get(staticPath + "images/users/");
         } else if( imageType == ImageType.ADVERTISING_BANNER )
-            uploadPath = Paths.get(staticPath + "images/advertises/");
+            uploadPath = Paths.get(staticPath + "images/shops/");
 
 
         try {

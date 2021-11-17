@@ -30,7 +30,9 @@ public class ProductController {
     private CartServiceImpl cartService;
 
     @RequestMapping("/products")
+
     public String getAllProducts(@AuthenticationPrincipal MyUserDetail principal, Model model) {
+
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
 
@@ -42,14 +44,16 @@ public class ProductController {
     }
 
 
+
     @RequestMapping("/users/shop/{id}/product/{id2}")
     public String getProduct(@AuthenticationPrincipal MyUserDetail principal,Model model, @PathVariable(value="id") Long shopId , @PathVariable(value="id2") Long productId ) {
 
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
+
         try {
-            Product product = productService.getProduct(shopId, 3l);
+            Product product = productService.getProduct(shopId, productId);
             model.addAttribute("product", product);
             System.out.println(product.getName());
         } catch (Exception e) {
@@ -59,7 +63,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/shop/{shop_id}/add-product", method = RequestMethod.GET)
+    @RequestMapping(value = "/seller/shop/{shop_id}/add-product", method = RequestMethod.GET)
     public String getProductAddForm(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID, Model model) {
 
         try {
@@ -84,7 +88,7 @@ public class ProductController {
         }
     }
 
-    @RequestMapping(value = "/shop/{shop_id}/add-product", method = RequestMethod.POST)
+    @RequestMapping(value = "/seller/shop/{shop_id}/add-product", method = RequestMethod.POST)
     public String addProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID,
                              @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image, Model model) throws ResourceNotFoundException {
         System.out.println("Product: "+ productDTO);
@@ -97,8 +101,9 @@ public class ProductController {
         return "redirect:/my_shop";
     }
 
-    @RequestMapping(value = "/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/seller/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.GET)
     public String getProductEditForm(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, Model model) {
+
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
@@ -125,8 +130,10 @@ public class ProductController {
         }
     }
 
+
     @RequestMapping(value = "/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.POST)
     public String editProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image, Model model) throws ResourceNotFoundException {
+
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
@@ -143,6 +150,7 @@ public class ProductController {
 
         return "index";
     }
+
 
     @RequestMapping(value = "/shop/{shop_id}/delete-product/{product_id}", method = RequestMethod.GET)
     public String deleteProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, Model model) throws ResourceNotFoundException {

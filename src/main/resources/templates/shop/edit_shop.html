@@ -10,7 +10,7 @@
 
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <form class="ui form"  th:object="${shop}" th:action="@{'/update_shop/' + ${shop.id}}" method="POST" enctype="multipart/form-data">
+    <form class="ui form"  th:object="${shop}" th:action="@{'/seller/update_shop/' + ${shop.id}}" method="POST" enctype="multipart/form-data">
 
         <div class="ui container">
             <div class="ui link cards">
@@ -35,12 +35,12 @@
 
             <div class="field">
                 <label>Shop Banner</label>
-                <input type="file" name="banner-file" required />
+                <input type="file" name="banner-file" />
             </div>
 
             <div class="field">
                 <label>Offer SALE Banner </label>
-                <input type="file" name="adv-file" required />
+                <input type="file" name="adv-file" />
             </div>
 
             <div class="field">

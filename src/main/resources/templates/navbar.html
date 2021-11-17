@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:fragment="common_head">
     <meta charset="utf-8"/>
@@ -23,8 +24,8 @@
                 <a class="header item">DSi</a>
                 <a class="active item" th:href="@{'/'}">Home</a>
                 <a class="item" th:href="@{'/products'}">Product</a>
-                <a class="item" th:href="@{/my_shop}">Sell on DSi</a>
-                
+                <a sec:authorize="hasAuthority('SELLER')" class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi</a>
+
                 <div class="ui dropdown item">
                     Categories <i class="dropdown icon"></i>
                     <div class="menu">
@@ -111,9 +112,9 @@
         <div class="custom-container" onclick="closeModal()"></div>
         <div class="cart">
             <span onclick="closeModal()">x</span>
-            <p th:if="${cartItems.size() == 0}" class="empty-cart">No item in the cart!</p>
+            <p th:if="${cartItems.isEmpty()}" class="empty-cart">No item in the cart!</p>
             
-            <div th:if="${cartItems.size()} > 0">
+            <div th:if="${!cartItems.isEmpty()}">
                 
                 
                 <div th:each="cartItem : ${cartItems}">

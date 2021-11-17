@@ -20,7 +20,7 @@
             margin-bottom: 15px;
         }
 
-        .edit-btn {
+        .btn {
             padding : 10px;
             position : absolute;
             top : 5%;
@@ -45,11 +45,6 @@
             border-radius: 5px;
         }
 
-        .product-container {
-            display : flex;
-            justify-content : space-around;
-        }
-
     </style>
 
 </head>
@@ -65,8 +60,8 @@
                 <img class="ui fluid image" style="width:100%; height: 300px; padding:20px"  th:src="@{${shop.banner}}">
             </div>
 
-            <div class="button edit-btn">
-                <a sec:authorize="isAuthenticated()" th:href="@{'/update_shop/' + ${shop.id}}"  style="all:unset">
+            <div class="button btn">
+                <a sec:authorize="isAuthenticated()" th:href="@{'/seller/update_shop/' + ${shop.id}}"  style="all:unset">
                     <i class="edit icon cursor"> </i>
                 </a>
             </div>
@@ -117,9 +112,14 @@
 
             <div class="adv-img">
                 <img style="height:250px; width:100%; font-size : 30px; text-align : center; padding : 20px;" th:src="@{${shop.advertisingBanner}}" alt="No special Offer SALE right now">
-                <div class="button edit-btn cursor">
-                    <a sec:authorize="isAuthenticated()" th:href="@{'/delete_advertising_banner/' + ${shop.id}}"  style="all:unset">
+                <div class="button btn cursor" id="add-btn">
+                    <a sec:authorize="isAuthenticated()" th:href="@{'/seller/delete_advertising_banner/' + ${shop.id}}" style="all:unset">
                         <i class="trash alternate outline bin  icon"> </i>
+                    </a>
+                </div>
+                <div class="button btn cursor" id="dlt-btn" style="right:5%;">
+                    <a sec:authorize="isAuthenticated()" th:href="@{'/seller/update_shop/' + ${shop.id}}"   style="all:unset">
+                        <i class="paperclip icon"></i>
                     </a>
                 </div>
             </div>
@@ -129,9 +129,9 @@
     <div class="ui very padded container segments" style="display:flex; flex-direction:row; justify-content: space-between; align-items: center;">
         <div style="padding:12px 15px; font-size:20px; font-weight:500;">  <i class="gift icon"> </i> Just for you </div>
 
-        <a class="cursor" sec:authorize="isAuthenticated()" th:href="@{'/shop/' + ${shop.id} + '/add-product'}"  style="all:unset">
-            <div class="cursor" style="padding:12px 15px; font-size:20px; font-weight:500;">
-                <i class="shopping bag icon"> </i> Add more
+        <a class="cursor" sec:authorize="isAuthenticated()" th:href="@{'/seller/shop/' + ${shop.id} + '/add-product'}"  style="all:unset">
+            <div class="cursor" style="padding:12px 15px; font-size:18px; font-weight:600;">
+                <i class="shopping bag icon"> </i> Add Product
             </div>
         </a>
     </div>
@@ -139,7 +139,7 @@
     <div class="ui segment container" style="margin: 15px auto" th:object="${products}">
 
             <div class="ui container">
-                <div class="ui special cards" style="display:flex; flex-flow: row wrap; justify-content: space-around;">
+                <div class="ui special cards" style="display:flex; flex-flow: row wrap; justify-content: center; row-gap:20px; column-gap:15px; align-items: center; margin:20px 0;">
                     <div th:each="product: ${products}" class="card" style="margin-top:20px;">
                         <div class="blurring dimmable image">
                             <div class="ui dimmer">
@@ -161,10 +161,14 @@
                             </div>
                         </div>
 
-                        <div class="extra content">
-                            <a th:href="@{'shop/' + ${shop.id} + '/product/'+ ${product.id}}">
-                                <i class="shopping basket icon"></i>
-                                Add to cart
+                        <div class="extra content"  style="margin : auto;">
+                            <a th:href="@{'/user/shop/' + ${shop.id} + '/product/'+ ${product.id}}">
+                                <div class="ui animated teal button" tabindex="0">
+                                    <div class="visible content">Add To Cart </div>
+                                    <div class="hidden content">
+                                        <i class="shopping basket icon"></i>
+                                    </div>
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -172,8 +176,9 @@
                 </div>
 
             </div>
-
     </div>
+
+    <div style="height:50px"> </div>
 
     <div th:insert="navbar :: common_script">...</div>
 
