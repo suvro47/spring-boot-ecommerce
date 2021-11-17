@@ -4,10 +4,9 @@ import com.dsi.ecommerce.dao.UserDao;
 import com.dsi.ecommerce.exception.UserAlreadyExistsException;
 import com.dsi.ecommerce.exception.UserNotFoundException;
 import com.dsi.ecommerce.model.User;
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserById(Long userId) throws UserNotFoundException {
-        User user = userDao.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
-
-        return user;
+        return userDao.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
     }
 
     @Override
@@ -56,7 +53,6 @@ public class UserServiceImpl implements UserService {
         if (user == null){
             throw new UserNotFoundException(username);
         }
-
         return user;
     }
 

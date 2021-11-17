@@ -1,4 +1,4 @@
-package com.dsi.ecommerce.service;
+package com.dsi.ecommerce.model;
 
 import com.dsi.ecommerce.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

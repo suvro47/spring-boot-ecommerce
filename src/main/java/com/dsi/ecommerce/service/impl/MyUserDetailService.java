@@ -2,7 +2,7 @@ package com.dsi.ecommerce.service.impl;
 
 import com.dsi.ecommerce.dao.UserDao;
 import com.dsi.ecommerce.model.User;
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.model.MyUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -3,6 +3,7 @@ package com.dsi.ecommerce.service;
 import com.dsi.ecommerce.dto.ShopDto;
 import com.dsi.ecommerce.exception.ResourceAlreadyExists;
 import com.dsi.ecommerce.exception.ResourceNotFoundException;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.model.Shop;
 import org.springframework.web.multipart.MultipartFile;
 

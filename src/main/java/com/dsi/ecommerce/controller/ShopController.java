@@ -2,7 +2,7 @@ package com.dsi.ecommerce.controller;
 
 import com.dsi.ecommerce.dto.ShopDto;
 import com.dsi.ecommerce.model.Shop;
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

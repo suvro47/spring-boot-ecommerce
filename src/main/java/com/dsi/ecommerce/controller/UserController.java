@@ -3,7 +3,7 @@ package com.dsi.ecommerce.controller;
 
 import com.dsi.ecommerce.exception.UserNotFoundException;
 import com.dsi.ecommerce.model.User;
-import com.dsi.ecommerce.service.MyUserDetail;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.service.UserService;
 import com.dsi.ecommerce.utility.constants.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
