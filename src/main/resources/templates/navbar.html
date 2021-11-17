@@ -47,7 +47,7 @@
                     <a class="item" th:href="@{/logout-success}" sec:authorize="isAuthenticated()"> Logout</a>
                     <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
                     <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
-                    <a class="item" onclick="openModal()">Cart</a>
+                    <a class="item" th:onclick="sendRequest( [[${_csrf.headerName}]] , [[${_csrf.token}]])">Cart</a>
                 </div>
             </div>
             <!--End: Desktop Nav-->

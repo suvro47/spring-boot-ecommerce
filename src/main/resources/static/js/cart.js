@@ -13,9 +13,14 @@ function deleteCartItem(id) {
     document.getElementById(id).remove();
 }
 
-function increaseQuantity(id) {
+function increaseQuantity(id, header, token) {
     let quantity = document.getElementById(`q${id}`).innerText;
     document.getElementById(`q${id}`).innerHTML = parseInt(quantity) + 1;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8080/cart",true);
+    xhr.setRequestHeader(header,token);
+    xhr.send(id);
 }
 
 function decreaseQuantity(id) {
@@ -32,4 +37,10 @@ function clearCart() {
         }
         document.getElementById("cost").innerHTML = "'Total Amount: $ 0.00"
     }
+}
+
+function sendRequest(){
+
+
+    xhr.send("helllooo");
 }
