@@ -40,10 +40,8 @@ public class ShopController {
         return "shop/shop_form";
     }
 
-    @RequestMapping(value="/register_shop", method= RequestMethod.POST)
+    @RequestMapping(value="/register_shop/submit", method= RequestMethod.POST)
     public String registerSubmit(@AuthenticationPrincipal MyUserDetail principal, ShopDto shopDetails, MultipartFile file, Model model) {
-
-        System.out.println("Hi...................");
 
         try {
             shopService.saveShop(principal, shopDetails, file);
@@ -72,7 +70,7 @@ public class ShopController {
             return "shop/shop_view";
 
         } catch ( Exception e ) {
-            return "shop/shop_form";
+            return "redirect:/seller/register_shop";
         }
     }
 

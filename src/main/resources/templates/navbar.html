@@ -24,7 +24,8 @@
                 <a class="header item">DSi</a>
                 <a class="active item" th:href="@{'/'}">Home</a>
                 <a class="item" th:href="@{'/products'}">Product</a>
-                <a sec:authorize="hasAuthority('SELLER')" class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi</a>
+                <a sec:authorize="hasAuthority('SELLER')" class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi </a>
+
 
                 <div class="ui dropdown item">
                     Categories <i class="dropdown icon"></i>
@@ -44,10 +45,11 @@
                         </div>
                     </div>
                     <!-- End: Search -->
-                    <a class="item" th:href="@{/logout-success}" sec:authorize="isAuthenticated()"> Logout</a>
-                    <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
-                    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
-                    <a class="item" onclick="openModal()">Cart</a>
+                    <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout </a>
+                    <a class="item" th:href="@{/user_profile}" sec:authorize="isAuthenticated()"> <span style="font-width:700;" sec:authentication="name">...</span> </a>
+                    <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register </a>
+                    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login </a>
+                    <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i class="shopping bag icon"></i> </a>
                 </div>
             </div>
             <!--End: Desktop Nav-->
@@ -95,7 +97,7 @@
                             <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout</a>
                             <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
                             <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
-                            <a class="item" onclick="openModal()"> Cart</a>
+                            <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i class="shopping bag icon"></i> </a>
                         </div>
                     </div>
                 </div>
