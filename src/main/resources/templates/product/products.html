@@ -10,14 +10,51 @@
 
 <body>
 
+    <div th:insert="navbar :: navbar_body">...</div>
 
-<div th:insert="navbar :: navbar_body">...</div>
+    <div class="ui segment container" style="margin: 15px auto" th:fragment="product_list">
+        <div class="ui container product-container">
 
-<div class="ui segment">
-    <p>No Products Available!!!</p>
-</div>
+            <div class="ui special cards">
+                <div class="card">
+                    <div class="blurring dimmable image">
+                        <div class="ui dimmer">
+                            <div class="content">
+                                <div class="center">
+                                    <div class="ui inverted button">View Details</div>
+                                </div>
+                            </div>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=580&q=80">
+                    </div>
+                    <div class="content">
+                        <a class="header">Kala Chosma</a>
+                        <div class="meta">
+                            <span class="date">Price $49 </span>
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <!--                    <a th:href="@{'shop/' + ${shop.id} + '/product/'+ ${shop.id}}">-->
+                        <a th:href="@{'/users/shop/1/product/1'}">
+                            <i class="shopping basket icon"></i>
+                            Add to cart
+                        </a>
+                    </div>
+                </div>
 
-<div th:insert="navbar :: common_script">...</div>
-<!-- Additional Script Insert Here -->
+            </div>
+        </div>
+    </div>
+
+    <div th:insert="navbar :: common_script">...</div>
+    <!-- Additional Script Insert Here -->
+
+    <script>
+
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+
+    </script>
 </body>
 </html>

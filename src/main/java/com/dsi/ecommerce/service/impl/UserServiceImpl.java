@@ -1,15 +1,21 @@
 package com.dsi.ecommerce.service.impl;
 
 import com.dsi.ecommerce.dao.UserDao;
+import com.dsi.ecommerce.dao.cart.CartDao;
 import com.dsi.ecommerce.exception.UserAlreadyExistsException;
 import com.dsi.ecommerce.exception.UserNotFoundException;
 import com.dsi.ecommerce.model.User;
 import com.dsi.ecommerce.model.MyUserDetail;
+import com.dsi.ecommerce.model.cart.Cart;
+import com.dsi.ecommerce.model.cart.CartItem;
+import com.dsi.ecommerce.model.MyUserDetail;
 import com.dsi.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +24,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao ;
 
+    @Autowired
+    private CartDao cartDao;
+
     @Override
     public User createNewUser(User user) throws UserAlreadyExistsException {
         if (userDao.findByUsername(user.getUsername()).isPresent()){
@@ -25,6 +34,13 @@ public class UserServiceImpl implements UserService {
         }
         user.setActive(true);
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+
+        Cart cart = new Cart();
+        List<CartItem> list = new ArrayList<CartItem>();
+        cart.setCartItems(list);
+        cart = cartDao.save(cart);
+
+        user.setCart(cart);
         return userDao.save(user);
     }
 
@@ -53,6 +69,7 @@ public class UserServiceImpl implements UserService {
         if (user == null){
             throw new UserNotFoundException(username);
         }
+
         return user;
     }
 

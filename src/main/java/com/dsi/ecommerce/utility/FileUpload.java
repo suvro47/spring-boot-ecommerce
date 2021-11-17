@@ -18,8 +18,11 @@ public class FileUpload {
             uploadPath = Paths.get(staticPath + "images/products/");
         } else if (imageType == ImageType.SHOP_BANNER) {
             uploadPath = Paths.get(staticPath + "images/shops/");
-        } else if (imageType == ImageType.USER_PROFILE)
+        } else if (imageType == ImageType.USER_PROFILE) {
             uploadPath = Paths.get(staticPath + "images/users/");
+        } else if( imageType == ImageType.ADVERTISING_BANNER )
+            uploadPath = Paths.get(staticPath + "images/advertises/");
+
 
         try {
             if (!Files.exists(uploadPath)) {

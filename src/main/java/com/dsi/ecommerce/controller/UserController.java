@@ -39,6 +39,7 @@ public class UserController {
     }
 
     @RequestMapping("/{username}")
+
     public String getUserProfile(@PathVariable("username") String username, Model model,
                                  @AuthenticationPrincipal MyUserDetail currentUser){
 
@@ -54,7 +55,6 @@ public class UserController {
 
             return "user_profile";
         }else  return "redirect:/users/" + currentUser.getUsername();
-
     }
 
     @RequestMapping(value = "/{username}/edit", method = RequestMethod.GET)
