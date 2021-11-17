@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Controller
+@RequestMapping("/seller")
 public class ShopController {
 
     @Autowired
@@ -44,7 +45,7 @@ public class ShopController {
 
         try {
             shopService.saveShop(principal, shopDetails, file);
-            return "redirect:/my_shop";
+            return "redirect:/seller/my_shop";
 
         } catch( Exception e ) {
             System.out.println("Exception has occured " + e );
@@ -55,10 +56,11 @@ public class ShopController {
     @RequestMapping(value="/my_shop", method= RequestMethod.GET)
     public String getShop(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
 
+        List<CartItem> cartItemList = cartService.getAllCartItem();
+        model.addAttribute("cartItems", cartItemList);
+        model.addAttribute("totalCost", cartService.getTotalCost());
+
         try {
-            List<CartItem> cartItemList = cartService.getAllCartItem();
-            model.addAttribute("cartItems", cartItemList);
-            model.addAttribute("totalCost", cartService.getTotalCost());
             Shop shop = shopService.getShop( principal );
             model.addAttribute("shop", shop);
             model.addAttribute("products", shop.getProducts());
@@ -95,7 +97,7 @@ public class ShopController {
                                @RequestParam("banner-file") MultipartFile file , @RequestParam("adv-file") MultipartFile file2 ) {
         try {
             shopService.updateShop(principal, id, shopDetails, file, file2);
-            return "redirect:/my_shop";
+            return "redirect:/seller/my_shop";
 
         } catch( Exception e ) {
             System.out.println("Exception has occured " + e );
@@ -104,12 +106,12 @@ public class ShopController {
     }
 
 
-    @RequestMapping(value="/delete_advertising_banner/{id}", method= RequestMethod.POST)
+    @RequestMapping(value="/delete_advertising_banner/{id}", method= RequestMethod.GET)
     public String deleteAdvertisingBanner(@AuthenticationPrincipal MyUserDetail principal, @PathVariable Long id ) {
 
         try {
             shopService.deleteAdvertisingBanner(principal, id);
-            return "redirect:/my_shop";
+            return "redirect:/seller/my_shop";
 
         } catch( Exception e ) {
             System.out.println("Exception has occured " + e );

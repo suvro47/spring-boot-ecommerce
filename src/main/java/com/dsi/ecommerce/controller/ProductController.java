@@ -43,7 +43,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping("/users/shop/{id}/product/{id2}")
+    @RequestMapping("/user/shop/{id}/product/{id2}")
     public String getProduct(Model model, @PathVariable(value="id") Long shopId , @PathVariable(value="id2") Long productId ) {
 
         try {
@@ -60,7 +60,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/shop/{shop_id}/add-product", method = RequestMethod.GET)
+    @RequestMapping(value = "/seller/shop/{shop_id}/add-product", method = RequestMethod.GET)
     public String getProductAddForm(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID, Model model) {
 
         try {
@@ -85,7 +85,7 @@ public class ProductController {
         }
     }
 
-    @RequestMapping(value = "/shop/{shop_id}/add-product", method = RequestMethod.POST)
+    @RequestMapping(value = "/seller/shop/{shop_id}/add-product", method = RequestMethod.POST)
     public String addProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID,
                              @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image) throws ResourceNotFoundException {
         System.out.println("Product: "+ productDTO);
@@ -95,7 +95,7 @@ public class ProductController {
         return "redirect:/my_shop";
     }
 
-    @RequestMapping(value = "/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/seller/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.GET)
     public String getProductEditForm(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, Model model) {
         try {
             Shop shop = shopService.getShop(principal);
@@ -119,7 +119,7 @@ public class ProductController {
         }
     }
 
-    @RequestMapping(value = "/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/seller/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.POST)
     public String editProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image) throws ResourceNotFoundException {
         try{
             Shop shop = shopService.getShop(principal);
@@ -134,7 +134,7 @@ public class ProductController {
         return "index";
     }
 
-    @RequestMapping(value = "/shop/{shop_id}/delete-product/{product_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/seller/shop/{shop_id}/delete-product/{product_id}", method = RequestMethod.GET)
     public String deleteProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID) throws ResourceNotFoundException {
         try{
             Shop shop = shopService.getShop(principal);
