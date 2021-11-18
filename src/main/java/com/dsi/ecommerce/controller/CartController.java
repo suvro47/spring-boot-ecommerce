@@ -17,9 +17,11 @@ public class CartController {
         private CartServiceImpl cartService;
 
         @GetMapping("/cart")
-        public String getAllCartItems (){
-//                List<CartItem> cartItemList = cartService.getAllCartItem();
-                return "Success";
+        public String getAllCartItems (@AuthenticationPrincipal MyUserDetail principal, Model model){
+                List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+                model.addAttribute("cartItems", cartItemList);
+                model.addAttribute("totalCost", cartService.getTotalCost());
+                return "navbar";
         }
 
         @PostMapping("/add-to-cart-product/{id}")

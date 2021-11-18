@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -31,21 +32,21 @@ public class ProductController {
 
     @RequestMapping("/products")
 
-    public String getAllProducts(@AuthenticationPrincipal MyUserDetail principal, Model model) {
+    public String getAllProducts( Model model ) {
 
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
 
-        List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+        List<CartItem> cartItemList = new ArrayList<>();
         model.addAttribute("cartItems", cartItemList);
-        model.addAttribute("totalCost", cartService.getTotalCost());
+        model.addAttribute("totalCost",0.0);
 
         return "product/products";
     }
 
 
 
-    @RequestMapping("/users/shop/{id}/product/{id2}")
+    @RequestMapping("/user/shop/{id}/product/{id2}")
     public String getProduct(@AuthenticationPrincipal MyUserDetail principal,Model model, @PathVariable(value="id") Long shopId , @PathVariable(value="id2") Long productId ) {
 
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
@@ -98,7 +99,7 @@ public class ProductController {
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
-        return "redirect:/my_shop";
+        return "redirect:/seller/my_shop";
     }
 
     @RequestMapping(value = "/seller/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.GET)

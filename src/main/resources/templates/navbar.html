@@ -18,14 +18,14 @@
     <div id="menu" class="ui fixed borderless huge menu" style="background-color: lightblue">
         <div class="ui container grid">
             
-            
             <!--Start: Desktop Nav-->
             <div class="computer only row">
                 <a class="header item">DSi</a>
                 <a class="active item" th:href="@{'/'}">Home</a>
                 <a class="item" th:href="@{'/products'}">Product</a>
-                <a sec:authorize="hasAuthority('SELLER')" class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi</a>
-
+                <a sec:authorize="hasAuthority('SELLER')" class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi </a>
+                
+                
                 <div class="ui dropdown item">
                     Categories <i class="dropdown icon"></i>
                     <div class="menu">
@@ -44,10 +44,17 @@
                         </div>
                     </div>
                     <!-- End: Search -->
-                    <a class="item" th:href="@{/logout-success}" sec:authorize="isAuthenticated()"> Logout</a>
-                    <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
-                    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
-                    <a class="item" th:onclick="sendRequest( [[${_csrf.headerName}]] , [[${_csrf.token}]])">Cart</a>
+                    
+                    <!--                    <a class="item" th:onclick="sendRequest( [[${_csrf.headerName}]] , [[${_csrf.token}]])">Cart</a>-->
+                    
+                    <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout </a>
+                    <a class="item" th:href="@{/user_profile}" sec:authorize="isAuthenticated()"> <span
+                            style="font-width:700;" sec:authentication="name">...</span> </a>
+                    <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register </a>
+                    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login </a>
+                    <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i
+                            class="shopping bag icon"></i> </a>
+                
                 </div>
             </div>
             <!--End: Desktop Nav-->
@@ -95,7 +102,8 @@
                             <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout</a>
                             <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
                             <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
-                            <a class="item" onclick="openModal()"> Cart</a>
+                            <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i
+                                    class="shopping bag icon"></i> </a>
                         </div>
                     </div>
                 </div>
@@ -112,36 +120,51 @@
         <div class="custom-container" onclick="closeModal()"></div>
         <div class="cart">
             <span onclick="closeModal()">x</span>
+            <!--            <button class="cart-btn check" th:onclick="deleteCartItem([[${_csrf.headerName}]], [[${_csrf.token}]])">Checkout</button>-->
+            
             <p th:if="${cartItems.isEmpty()}" class="empty-cart">No item in the cart!</p>
             
             <div th:if="${!cartItems.isEmpty()}">
                 
-                
                 <div th:each="cartItem : ${cartItems}">
                     <div class="items" th:id="${cartItem.getId()}">
-                        <i class="remove-item trash alternate outline icon "
-                           th:onclick="deleteCartItem([[${cartItem.getId()}]])"></i>
+                        <i class="remove-item trash alternate outline icon"
+                           th:onclick="deleteCartItem([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])"></i>
+<!--                        <button th:onclick="addToCart([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">-->
+<!--                            Add to Cart-->
+<!--                        </button>-->
                         <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
                              alt="item-image"/>
+                        
                         <div class="details">
                             <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
                             <p th:text=" '$  ' + ${cartItem.getProduct().getPrice()}">$ 50</p>
                         </div>
+                        
                         <div class="quantity">
-                            <button th:onclick="decreaseQuantity([[${cartItem.getId()}]])"> -</button>
-                            <p th:id="'q'+ ${cartItem.getId()+''}" th:text="${cartItem.getQuantity()}">23</p>
-                            <button th:onclick="increaseQuantity([[${cartItem.getId()}]])">+</button>
+                            <button th:onclick="decreaseQuantity([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">
+                                -
+                            </button>
+                            <p th:id="'q'+ ${cartItem.getProduct().getId()+''}" th:text="${cartItem.getQuantity()}">
+                                23</p>
+                            <button th:onclick="increaseQuantity([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">
+                                +
+                            </button>
                         </div>
+                    
                     </div>
                 </div>
                 
                 <div class="cart-details">
                     <p id="cost" th:text=" 'Total Amount: $ ' + ${totalCost}">total cost</p>
                     <div>
-                        <button class="cart-btn" onclick="clearCart()">Clear Cart</button>
+                        <button class="cart-btn" th:onclick="clearCart([[${_csrf.headerName}]], [[${_csrf.token}]])">
+                            Clear Cart
+                        </button>
                         <button class="cart-btn check">Checkout</button>
                     </div>
                 </div>
+            
             </div>
         </div>
     </div>
@@ -182,6 +205,8 @@
                 caretIcon.classList.add("down");
             }
         }
+    
+    
     </script>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

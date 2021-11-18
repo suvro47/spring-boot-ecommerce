@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,10 +20,11 @@ public class HomeController {
     private CartServiceImpl cartService;
 
     @GetMapping("/")
-    public String homePage(@AuthenticationPrincipal MyUserDetail principal, Model model) {
-        List<CartItem> cartItemList = cartService.getAllCartItem(principal);
+    public String homePage(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
+        List<CartItem> cartItemList = principal == null ? new ArrayList<CartItem>() : cartService.getAllCartItem(principal);
+
         model.addAttribute("cartItems", cartItemList);
-        model.addAttribute("totalCost", cartService.getTotalCost());
+        model.addAttribute("totalCost", principal == null ? 0.0 : cartService.getTotalCost());
         return "index";
     }
 }
