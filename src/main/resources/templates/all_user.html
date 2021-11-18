@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+    <link rel="stylesheet" th:href="@{/css/all_users.css}">
+    <title>All Users</title>
+</head>
+<body>
+<!--navbar-->
+<div th:insert="navbar :: navbar_body">...</div>
+<!--main body-->
+
+<div class="ui middle aligned center aligned grid">
+    <h1 class="ui header center aligned">Users</h1>
+    <table class="ui sortable celled compact table center aligned contained">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Active Status</th>
+            <th>#</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${users}" th:each="user : ${users}">
+            <td class="" th:text="${user.getId()}">ID</td>
+            <td class="" >
+                <a th:href="@{'/users/'+${user.getUsername()}}" class="ui label basic medium" >
+                    <img class="ui right spaced avatar image" th:src="@{${user.getProfilePic()}}">
+                    <span th:text="${user.getUsername()}">Username</span>
+                </a>
+            </td>
+            <td class=" ui " th:text="${user.getFirstname()}+' '+${user.getLastname()}">Name</td>
+            <td class="" >
+                <div class="ui label large">
+                    <i class="mail icon"></i>
+                    <span th:text="${user.getEmail()}">Email</span>
+                </div>
+            </td>
+            <td class="" ><div class="ui label basic" th:text="${user.getRole()}">Role</div> </td>
+            <td>
+                <i th:if="${user.isActive()}" class="large green checkmark icon"></i>
+                <i th:unless="${user.isActive()}" class="large red x icon"></i>
+            </td>
+            <td >
+                <div class="ui buttons">
+                    <a th:href="@{'/users/'+${user.getUsername()}+'/edit'}" class="ui button basic yellow">Edit</a>
+                    <a th:href="@{'/users/'+${user.getUsername()}+'/delete'}" class="ui button basic red">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th colspan="7">
+                <a th:href="@{/signup}" class="ui center floated small primary labeled icon button">
+                    <i class="user icon"></i> Add User
+                </a>
+            </th>
+        </tr>
+        </tfoot>
+    </table>
+</div>
+
+<!--scripts-->
+<div th:insert="navbar :: common_script">...</div>
+</body>
+</html>

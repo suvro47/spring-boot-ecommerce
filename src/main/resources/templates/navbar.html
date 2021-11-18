@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:fragment="common_head">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    <link th:href="@{/css/cart.css}" rel="stylesheet"/>
+</head>
+
+<body>
+<!-- Navbar Body Div Start -->
+<div class="navbar" th:fragment="navbar_body">
+    
+    <!-- Navbar Start -->
+    <div id="menu" class="ui fixed borderless huge menu" style="background-color: #40bfbf; color : whitesmoke;">
+        <div class="ui container grid">
+            
+            <!--Start: Desktop Nav-->
+            <div class="computer only row">
+                <a class="header item">DSi</a>
+                <a class="active item" th:href="@{'/'}">Home</a>
+                <a class="item" th:href="@{'/products'}">Product</a>
+                <a sec:authorize="hasAuthority('SELLER')" class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi </a>
+
+
+                <div class="ui dropdown item">
+                    Categories <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item">Category 1</a>
+                        <a class="item">Category 2</a>
+                        <a class="item">Category 3</a>
+                    </div>
+                </div>
+                
+                <div class="right menu">
+                    <!-- Start: Search -->
+                    <div class="item">
+                        <div class="ui icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                    <!-- End: Search -->
+                    <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout </a>
+                    <a class="item" th:href="@{/user_profile}" sec:authorize="isAuthenticated()"> <span style="font-width:700;" sec:authentication="name">...</span> </a>
+                    <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register </a>
+                    <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login </a>
+                    <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i class="shopping bag icon"></i> </a>
+                </div>
+            </div>
+            <!--End: Desktop Nav-->
+            
+            
+            <!--Start: Mobile Nav-->
+            <div class="tablet mobile only row">
+                <a class="header item"> DSi</a>
+                <div class="right menu">
+                    <a class="menu item">
+                        <div id="menu-toggle-button" class="ui basic icon toggle button">
+                            <i class="content icon"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="ui vertical accordion borderless fluid menu"
+                     style="background-color: lightblue;border: 0px">
+                    <div class="item">
+                        <div class="ui icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                    <a class="active item">Home</a>
+                    <a class="item">Product</a>
+                    <a class="item">Sell on DSi</a>
+                    <div class="item">
+                        <div class="accordion" style="margin-top: 0px">
+                            <div class="title" style="display: flex;justify-content: space-between"
+                                 onclick="caretChanger()">
+                                <span>Categories</span>
+                                <i id="categories-caret" class="caret down icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="menu">
+                                    <a class="item">Category 1</a>
+                                    <a class="item">Category 2</a>
+                                    <a class="item">Category 3</a>
+                                </div>
+                            </div>
+                            
+                            <div class="item">
+                                <hr>
+                            </div>
+                            <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout</a>
+                            <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
+                            <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
+                            <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i class="shopping bag icon"></i> </a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <!--END: Mobile Nav-->
+        
+        
+        </div>
+    </div>
+    
+    <!-- Cart Modal Start -->
+    <div th:if="${cartItems}">
+    <div id="custom-modal" style="display: none">
+        <div class="custom-container" onclick="closeModal()"></div>
+        <div class="cart">
+            <span onclick="closeModal()">x</span>
+            <p th:if="${cartItems.isEmpty()}" class="empty-cart">No item in the cart!</p>
+            
+            <div th:if="${!cartItems.isEmpty()}">
+                
+                
+                <div th:each="cartItem : ${cartItems}">
+                    <div class="items" th:id="${cartItem.getId()}">
+                        <i class="remove-item trash alternate outline icon "
+                           th:onclick="deleteCartItem([[${cartItem.getId()}]])"></i>
+                        <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
+                             alt="item-image"/>
+                        <div class="details">
+                            <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
+                            <p th:text=" '$  ' + ${cartItem.getProduct().getPrice()}">$ 50</p>
+                        </div>
+                        <div class="quantity">
+                            <button th:onclick="decreaseQuantity([[${cartItem.getId()}]])"> -</button>
+                            <p th:id="'q'+ ${cartItem.getId()+''}" th:text="${cartItem.getQuantity()}">23</p>
+                            <button th:onclick="increaseQuantity([[${cartItem.getId()}]])">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cart-details">
+                    <p id="cost" th:text=" 'Total Amount: $ ' + ${totalCost}">total cost</p>
+                    <div>
+                        <button class="cart-btn" onclick="clearCart()">Clear Cart</button>
+                        <button class="cart-btn check">Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Cart Modal END -->
+
+
+    <!-- Break From Top Start -->
+    <br><br>
+    <!-- Break From Top END -->
+
+</div>
+<!-- Navbar End -->
+
+
+<!-- Break From Top Start -->
+
+
+<div th:fragment="common_script">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script th:src="@{'/js/navbar.js'}"></script>
+    <script th:src="@{'/js/cart.js'}"></script>
+</div>
+</body>
+</html>

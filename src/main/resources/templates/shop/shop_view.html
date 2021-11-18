@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Shop</title>
+    <div th:replace="navbar :: common_head">...</div>
+    <link ref="stylesheet" src="../../static/css/style.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+
+    <style>
+
+        .banner-container {
+            height: 300px;
+            position : relative;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            padding : 10px;
+            position : absolute;
+            top : 5%;
+            right : 1%;
+        }
+
+        .cursor {
+            cursor: pointer;
+        }
+
+        .description {
+            height: 250px;
+            flex : 1 200px;
+            padding : 20px;
+        }
+
+        .adv-img {
+            height: 250px;
+            flex : 2 500px;
+            position : relative;
+            box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 5px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div th:insert="navbar :: navbar_body">...</div>
+
+    <div class="ui container" th:object="${shop}" style="margin-top:60px;">
+
+        <div class="ui container banner-container">
+
+            <div class="ui card shop-banner" style="width:100%; border-radius: 5px">
+                <img class="ui fluid image" style="width:100%; height: 300px; padding:20px"  th:src="@{${shop.banner}}">
+            </div>
+
+            <div class="button btn">
+                <a sec:authorize="isAuthenticated()" th:href="@{'/seller/update_shop/' + ${shop.id}}"  style="all:unset">
+                    <i class="edit icon cursor"> </i>
+                </a>
+            </div>
+        </div>
+
+        <div class="ui container">
+            <div class="ui secondary menu">
+                <a class="active item">
+                    <p th:text="${shop.name}">Your Shop</p>
+                </a>
+
+                <div class="ui dropdown item">
+                    Categories <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item">Category 1</a>
+                        <a class="item">Category 2</a>
+                        <a class="item">Category 3</a>
+                    </div>
+                </div>
+
+                <a class="item">
+                    Profile
+                </a>
+
+                <div class="right menu">
+                    <div class="item">
+                        <div class="ui icon input" style="width:185px">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+
+        <div class="ui container flex-container" style=" display:flex; flex-flow : row wrap; column-gap: 10px; row-gap: 10px;">
+
+            <div class="ui raised vary padded component segment description">
+                <h2 class="ui header">Our Goal</h2>
+                <p th:text="${shop.description}"> Domestic dogs inherited complex behaviors, such as bite inhibition,
+                    from their wolf ancestors, which would have been pack hunters with complex body language.
+                    These sophisticated forms of social cognition.
+                </p>
+            </div>
+
+            <div class="adv-img">
+                <img style="height:250px; width:100%; font-size : 30px; text-align : center; padding : 20px;" th:src="@{${shop.advertisingBanner}}" alt="No special Offer SALE right now">
+                <div class="button btn cursor" id="add-btn">
+                    <a sec:authorize="isAuthenticated()" th:href="@{'/seller/delete_advertising_banner/' + ${shop.id}}" style="all:unset">
+                        <i class="trash alternate outline bin  icon"> </i>
+                    </a>
+                </div>
+                <div class="button btn cursor" id="dlt-btn" style="right:5%;">
+                    <a sec:authorize="isAuthenticated()" th:href="@{'/seller/update_shop/' + ${shop.id}}"   style="all:unset">
+                        <i class="paperclip icon"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui very padded container segments" style="display:flex; flex-direction:row; justify-content: space-between; align-items: center;">
+        <div style="padding:12px 15px; font-size:20px; font-weight:500;">  <i class="gift icon"> </i> Just for you </div>
+
+        <a class="cursor" sec:authorize="isAuthenticated()" th:href="@{'/seller/shop/' + ${shop.id} + '/add-product'}"  style="all:unset">
+            <div class="cursor" style="padding:12px 15px; font-size:18px; font-weight:600;">
+                <i class="shopping bag icon"> </i> Add Product
+            </div>
+        </a>
+    </div>
+
+
+    <div th:unless="${#lists.isEmpty(products)}">
+    <div class="ui segment container" style="margin: 15px auto" th:object="${products}">
+            <div class="ui container">
+                <div class="ui special cards" style="display:flex; flex-flow: row wrap; justify-content: center; row-gap:20px; column-gap:15px; align-items: center; margin:20px 0;">
+                    <div th:each="product: ${products}" class="card" style="margin-top:20px;">
+                        <div class="blurring dimmable image">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <div class="ui inverted button">View Details</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <img style="height:250px;"  th:src="@{${product.image}}">
+
+                        </div>
+
+                        <div class="content">
+                            <a class="header" th:text="${product.name}"> Product Title </a>
+                            <div class="meta">
+                                <span class="date"> Price : $ [[${product.price}]] </span>
+                            </div>
+                        </div>
+
+                        <div class="extra content"  style="margin : auto;">
+                            <a th:href="@{'/user/shop/' + ${shop.id} + '/product/'+ ${product.id}}">
+                                <div class="ui animated teal button" tabindex="0">
+                                    <div class="visible content">Add To Cart </div>
+                                    <div class="hidden content">
+                                        <i class="shopping basket icon"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+    </div>
+    </div>
+
+    <div style="height:50px"> </div>
+
+    <div th:insert="navbar :: common_script">...</div>
+
+    <script>
+
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+
+    </script>
+
+
+</body>
+</html>
