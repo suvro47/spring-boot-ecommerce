@@ -101,7 +101,8 @@
     <!-- Navbar End -->
 
     <!-- Cart Modal Start -->
-    <div id="custom-modal" style="display: none">
+    <div th:if="${cartItems}">
+    <div id="custom-modal" style="display: block">
         <div class="custom-container" onclick="closeModal()"></div>
         <div class="cart">
             <span onclick="closeModal()">x</span>
@@ -122,9 +123,11 @@
             </div>
         </div>
     </div>
+    </div>
     <!-- Cart Modal END -->
+
     <!-- Break From Top Start -->
-    <br><br><br>
+    <br><br>
     <!-- Break From Top END -->
 </div>
 <!-- Navbar Body Div END -->

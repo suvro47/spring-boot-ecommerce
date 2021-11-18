@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
@@ -17,73 +17,25 @@
     <p>No Products Available!!!</p>
 
     <div class="ui link cards centered" >
-        <div class="ui card" style="margin: 15px">
+        <div class="ui card" style="margin: 15px" th:each="product : ${products}">
             <div class="image">
-                <img src="https://semantic-ui.com/images/avatar2/large/matthew.png">
+                <img th:src="@{${product.image}}" th:alt="${product.name}">
             </div>
             <div class="content">
-                <div class="header">Matt Giampietro Aka Cowboy Of The West</div>
-                <div class="meta">
-                    <a>Friends</a>
-                </div>
-                <div class="description">
-                    Matthew is an interior designer living in New York.
-                </div>
+                <div class="header" th:text="${product.name}"></div>
+                <div class="meta"><a th:text="${product.category}">Friends</a></div>
+<!--                <div class="description" th:text="${product.shop?.getName()}"></div>-->
             </div>
             <div class="extra content">
               <span class="right floated">
-                Joined in 2013
+                <span style="color: darkorange"><i class="star icon"></i>4.5/5</span>
               </span>
-                <span>
-                <i class="user icon"></i>
-                75 Friends
-              </span>
+                <span style="color: darkorange"><span style="font-weight: bold;">৳ </span><span th:text="${product.price}"></span></span>
             </div>
-        </div>
-        <div class="ui card" style="margin: 15px">
-            <div class="image">
-                <img src="https://semantic-ui.com/images/avatar2/large/molly.png">
-            </div>
-            <div class="content">
-                <div class="header">Molly</div>
-                <div class="meta">
-                    <span class="date">Coworker</span>
-                </div>
-                <div class="description">
-                    Molly is a personal assistant living in Paris.
-                </div>
-            </div>
-            <div class="extra content">
-      <span class="right floated">
-        Joined in 2011
-      </span>
-                <span>
-        <i class="user icon"></i>
-        35 Friends
-      </span>
-            </div>
-        </div>
-        <div class="ui card" style="margin: 15px">
-            <div class="image">
-                <img src="https://semantic-ui.com/images/avatar2/large/elyse.png">
-            </div>
-            <div class="content">
-                <div class="header">Elyse</div>
-                <div class="meta">
-                    <a>Coworker</a>
-                </div>
-                <div class="description">
-                    Elyse is a copywriter working in New York.
-                </div>
-            </div>
-            <div class="extra content">
-      <span class="right floated">
-        Joined in 2014
-      </span>
-                <span>
-        <i class="user icon"></i>
-        151 Friends
-      </span>
+            <div class="extra content" href="https://www.facebook.com/" style="margin: 0;padding: 0">
+              <a href="https://semantic-ui.com/" style="background-color: lightblue;display: block;margin: 0px;padding: 10px;width: 100%;text-align: center">
+                  <span style="color: black;font-weight: bolder"><i class="shopping bag icon"></i>Add to cart </span>
+              </a>
             </div>
         </div>
     </div>
