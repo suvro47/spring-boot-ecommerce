@@ -1,9 +1,9 @@
 package com.dsi.ecommerce.model.cart;
 
 import com.dsi.ecommerce.model.Product;
-import com.dsi.ecommerce.model.cart.Cart;
-import lombok.*;
 import javax.persistence.*;
+import lombok.*;
+
 
 @Getter
 @Setter
@@ -30,8 +30,4 @@ public class CartItem {
         public Double getSubTotal() {
                 return this.quantity * this.product.getPrice();
         }
-
-
-
-
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
@@ -10,39 +10,66 @@
 
 <body>
 
+    <div th:insert="navbar :: navbar_body">...</div>
 
-<div th:insert="navbar :: navbar_body">...</div>
+    <div class="ui segment container" style="margin-top:20px; margin-bottom:50px;" th:object="${products}">
 
-<div class="ui segment container" style="margin: 15px auto" th:fragment="product_list">
-    <p>No Products Available!!!</p>
+        <div th:if="${products.isEmpty()}" class="ui segment container" style="margin: 15px auto" th:fragment="product_list">
+            <p>No Products Available!!!</p>
+        </div>
 
-    <div class="ui link cards centered" >
-        <div class="ui card" style="margin: 15px" th:each="product : ${products}">
-            <div class="image">
-                <img th:src="@{${product.image}}" th:alt="${product.name}">
+        <div th:if="${!products.isEmpty()}" class="ui container">
+            <div class="ui special cards" style="display:flex; flex-flow: row wrap; justify-content: center; row-gap:20px; column-gap:15px; align-items: center; margin:20px 0;">
+                <div th:each="product: ${products}" class="card" style="">
+                    <div class="blurring dimmable image">
+                        <div class="ui dimmer"> r
+                            <div class="content">
+                                <div class="center">
+                                    <div class="ui inverted button">View Details</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <img style="height:250px;"  th:src="@{${product.image}}">
+
+                    </div>
+
+                    <div class="content">
+                        <a class="header" th:text="${product.name}"> Product Title </a>
+                        <div class="meta">
+                            <span class="date"> Price : $ [[${product.price}]] </span>
+                        </div>
+                    </div>
+
+                    <div class="extra content"  style="margin : auto;">
+                        <a th:href="@{'/user/shop/' + ${product.getShop()?.getId()} + '/product/'+ ${product.id}}">
+                            <div class="ui animated teal button" tabindex="0">
+                                <div class="visible content">Add To Cart </div>
+                                <div class="hidden content">
+                                    <i class="shopping basket icon"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
             </div>
-            <div class="content">
-                <div class="header" th:text="${product.name}"></div>
-                <div class="meta"><a th:text="${product.category}">Friends</a></div>
-<!--                <div class="description" th:text="${product.shop?.getName()}"></div>-->
-            </div>
-            <div class="extra content">
-              <span class="right floated">
-                <span style="color: darkorange"><i class="star icon"></i>4.5/5</span>
-              </span>
-                <span style="color: darkorange"><span style="font-weight: bold;">৳ </span><span th:text="${product.price}"></span></span>
-            </div>
-            <div class="extra content" href="https://www.facebook.com/" style="margin: 0;padding: 0">
-              <a href="https://semantic-ui.com/" style="background-color: lightblue;display: block;margin: 0px;padding: 10px;width: 100%;text-align: center">
-                  <span style="color: black;font-weight: bolder"><i class="shopping bag icon"></i>Add to cart </span>
-              </a>
-            </div>
+
         </div>
     </div>
 
-</div>
+    <div style="height:50px"> </div>
 
-<div th:insert="navbar :: common_script">...</div>
-<!-- Additional Script Insert Here -->
+    <div th:insert="navbar :: common_script">...</div>
+    <!-- Additional Script Insert Here -->
+
+    <script>
+
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
+
+    </script>
 </body>
 </html>
+

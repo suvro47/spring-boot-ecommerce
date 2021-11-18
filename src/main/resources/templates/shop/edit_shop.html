@@ -10,7 +10,7 @@
 
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <form class="ui form"  th:object="${shop}" th:action="@{'/update_shop/' + ${shop.id}}" method="POST" enctype="multipart/form-data">
+    <form class="ui form"  th:object="${shop}" th:action="@{'/seller/update_shop/' + ${shop.id}}" method="POST" enctype="multipart/form-data">
 
         <div class="ui container">
             <div class="ui link cards">
@@ -24,23 +24,27 @@
 
             <div class="field">
                 <label>Shop Name </label>
-                <input  type="text" th:field="*{name}" />
-
+                <input type="text" th:field="*{name}" required />
             </div>
 
             <div class="field">
                 <label>Description ( e.g. product type , your goal etc)</label>
-                <textarea spellcheck="false" type="text" th:field="*{description}"></textarea>
+                <textarea spellcheck="false" type="text" th:field="*{description}" required></textarea>
             </div>
 
             <div class="field">
-                <label>Cover Photo</label>
-                <input type="file" name="file"/>
+                <label>Shop Banner</label>
+                <input type="file" name="banner-file" />
+            </div>
+
+            <div class="field">
+                <label>Offer SALE Banner </label>
+                <input type="file" name="adv-file" />
             </div>
 
             <div class="field">
                 <div class="ui checkbox">
-                    <input type="checkbox" tabindex="0" class="hidden">
+                    <input type="checkbox" tabindex="0">
                     <label>I agree to the Terms and Conditions</label>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Products Form</title>
@@ -17,7 +17,7 @@
         Add Product
     </h2>
 
-    <form action="#" class="ui form" th:object="${product}" th:action="@{'/shop/'+${shop_id}+'/add-product'}" method="post" enctype="multipart/form-data">
+    <form  class="ui form" th:object="${product}" th:action="@{'/seller/shop/'+${shop_id}+'/add-product'}" method="post" enctype="multipart/form-data">
         <h4 class="ui dividing header">Product Information</h4>
         <div class="field">
             <label>Product Name</label>

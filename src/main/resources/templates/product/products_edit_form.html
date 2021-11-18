@@ -17,7 +17,7 @@
         Edit Product
     </h2>
 
-    <form action="#" class="ui form" th:object="${product}" th:action="@{'/shop/'+${shop_id}+'/edit-product/'+${product_id}}" method="post" enctype="multipart/form-data">
+    <form action="#" class="ui form" th:object="${product}" th:action="@{'/seller/shop/'+${shop_id}+'/edit-product/'+${product_id}}" method="post" enctype="multipart/form-data">
         <h4 class="ui dividing header">Product Information</h4>
         <div class="field">
             <label>Product Name</label>
@@ -50,7 +50,7 @@
         </div>
         <div class="field">
             <label>Product Image</label>
-            <div style="display: block;border: 2px;border-color: black;"><img th:src="@{${image}}" style="width: 150px;height: auto"></div>
+            <div style="display: block;border: 2px black;"><img th:src="@{${image}}" style="width: 150px;height: auto"></div>
             <input type="file" name="image">
         </div>
         <div style="display: flex;justify-content: center">
