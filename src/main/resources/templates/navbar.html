@@ -110,7 +110,8 @@
     </div>
     
     <!-- Cart Modal Start -->
-    <div id="custom-modal" style="display: none !important;">
+    <div th:if="${cartItems}">
+    <div id="custom-modal" style="display: none">
         <div class="custom-container" onclick="closeModal()"></div>
         <div class="cart">
             <span onclick="closeModal()">x</span>
@@ -147,8 +148,14 @@
             </div>
         </div>
     </div>
+    </div>
     <!-- Cart Modal END -->
-    <br><br><br><br>
+
+
+    <!-- Break From Top Start -->
+    <br><br>
+    <!-- Break From Top END -->
+
 </div>
 <!-- Navbar End -->
 
@@ -157,41 +164,10 @@
 
 
 <div th:fragment="common_script">
-    
-    
-    <script>
-        $('.ui.vertical.menu').hide();
-        $('.ui.dropdown').dropdown();
-        $('.ui.accordion').accordion();
-        $(document).ready(function () {
-            $("html").click((event) => {
-                if (event.target.id === "menu-toggle-button" || $(event.target).parents("#menu-toggle-button").length) {
-                    $('.ui.vertical.menu').toggle("250", "linear")
-                } else if (!(event.target.id === "menu" || $(event.target).parents("#menu").length)) {
-                    $('.ui.vertical.menu').hide("250", "linear")
-                }
-            });
-        });
-        
-        function caretChanger(event) {
-            console.log("came here.")
-            let caretIcon = document.getElementById("categories-caret");
-            if (caretIcon.classList.contains("down")) {
-                caretIcon.classList.remove("down");
-                caretIcon.classList.add("up");
-            } else if (caretIcon.classList.contains("up")) {
-                caretIcon.classList.remove("up");
-                caretIcon.classList.add("down");
-            }
-        }
-    </script>
-    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
     <script th:src="@{'/js/navbar.js'}"></script>
     <script th:src="@{'/js/cart.js'}"></script>
-    <link th:href="@{/css/cart.css}" rel="stylesheet"/>
 </div>
 </body>
 </html>

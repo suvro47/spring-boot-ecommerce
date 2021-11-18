@@ -9,6 +9,8 @@ import com.dsi.ecommerce.service.MyUserDetail;
 import com.dsi.ecommerce.service.ProductService;
 import com.dsi.ecommerce.service.ShopService;
 import com.dsi.ecommerce.service.impl.CartServiceImpl;
+import com.dsi.ecommerce.utility.FileUpload;
+import com.dsi.ecommerce.utility.constants.ImageType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -91,10 +93,11 @@ public class ProductController {
 
     @RequestMapping(value = "/seller/shop/{shop_id}/add-product", method = RequestMethod.POST)
     public String addProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="shop_id") Long shopID,
-                             @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image, Model model) throws ResourceNotFoundException {
-        System.out.println("Product: "+ productDTO);
+                             @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image,
+                             Model model) throws ResourceNotFoundException {
         Shop shop = shopService.getShop(principal);
-        Product product = productService.convertProductDTOtoProductEntity(new Product(), productDTO, shop, image);
+        String imageName = FileUpload.saveImage(ImageType.PRODUCT_IMAGE, productDTO.getName(), image);
+        Product product = productService.convertProductDTOtoProductEntity(new Product(), productDTO, shop, imageName);
         productService.saveProduct(product);
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
@@ -132,28 +135,27 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/seller/shop/{shop_id}/edit-product/{product_id}", method = RequestMethod.POST)
     public String editProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, @ModelAttribute("product") ProductDTO productDTO, @RequestParam(value = "image") MultipartFile image, Model model) throws ResourceNotFoundException {
-
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", cartService.getTotalCost());
-
         try{
             Shop shop = shopService.getShop(principal);
             Product oldProduct = productService.getProduct(shopID, productID);
-            Product product = productService.convertProductDTOtoProductEntity(oldProduct, productDTO, shop, image);
+            System.out.println("Method");
+            String imageName = (image.isEmpty())?oldProduct.getImage(): FileUpload.saveImage(ImageType.PRODUCT_IMAGE, productDTO.getName(), image);
+            Product product = productService.convertProductDTOtoProductEntity(oldProduct, productDTO, shop, imageName);
             productService.saveProduct(product);
         }
         catch (Exception e){
             System.out.println("An exception occured.");
         }
-
         return "index";
     }
 
 
-    @RequestMapping(value = "/shop/{shop_id}/delete-product/{product_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/seller/shop/{shop_id}/delete-product/{product_id}", method = RequestMethod.GET)
     public String deleteProduct(@AuthenticationPrincipal MyUserDetail principal, @PathVariable(value="product_id") Long productID, @PathVariable(value="shop_id") Long shopID, Model model) throws ResourceNotFoundException {
         List<CartItem> cartItemList = cartService.getAllCartItem(principal);
         model.addAttribute("cartItems", cartItemList);

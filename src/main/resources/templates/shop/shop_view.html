@@ -136,8 +136,9 @@
         </a>
     </div>
 
-    <div class="ui segment container" style="margin: 15px auto" th:object="${products}">
 
+    <div th:unless="${#lists.isEmpty(products)}">
+    <div class="ui segment container" style="margin: 15px auto" th:object="${products}">
             <div class="ui container">
                 <div class="ui special cards" style="display:flex; flex-flow: row wrap; justify-content: center; row-gap:20px; column-gap:15px; align-items: center; margin:20px 0;">
                     <div th:each="product: ${products}" class="card" style="margin-top:20px;">
@@ -176,6 +177,7 @@
                 </div>
 
             </div>
+    </div>
     </div>
 
     <div style="height:50px"> </div>
