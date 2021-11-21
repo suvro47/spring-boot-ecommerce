@@ -25,7 +25,7 @@
                         <div class="ui dimmer"> r
                             <div class="content">
                                 <div class="center">
-                                    <div class="ui inverted button">View Details</div>
+                                    <a class="ui inverted button" th:href="@{'/user/shop/' + ${product.getShop()?.getId()} + '/product/'+ ${product.id}}">View Details</a>
                                 </div>
                             </div>
                         </div>
@@ -40,17 +40,6 @@
                             <span class="right floated" style="color: orange"><i class="star icon" style="font-weight: bolder"></i>4.5/5</span>
                             <span class="date" style="color: orange"> <span style="font-weight: bolder">৳ </span> [[${product.price}]] </span>
                         </div>
-                    </div>
-
-                    <div class="extra content"  style="margin : auto;">
-                        <a th:href="@{'/user/shop/' + ${product.getShop()?.getId()} + '/product/'+ ${product.id}}">
-                            <div class="ui animated teal button" tabindex="0">
-                                <div class="visible content">Add To Cart </div>
-                                <div class="hidden content">
-                                    <i class="shopping basket icon"></i>
-                                </div>
-                            </div>
-                        </a>
                     </div>
                 </div>
 

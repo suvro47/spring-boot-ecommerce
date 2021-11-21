@@ -52,8 +52,7 @@
                             style="font-width:700;" sec:authentication="name">...</span> </a>
                     <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register </a>
                     <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login </a>
-                    <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i
-                            class="shopping bag icon"></i> </a>
+                    <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i class="shopping cart icon"></i> </a>
                 
                 </div>
             </div>
@@ -119,7 +118,7 @@
     <div th:if="${cartItems}">
         <div id="custom-modal" style="display: none">
             <div class="custom-container" onclick="closeModal()"></div>
-            <div class="cart">
+            <div class="_cart">
                 <span onclick="closeModal()">x</span>
                 <!--            <button class="cart-btn check" th:onclick="deleteCartItem([[${_csrf.headerName}]], [[${_csrf.token}]])">Checkout</button>-->
                 
