@@ -18,15 +18,14 @@
     <div id="menu" class="ui fixed borderless huge menu" style="background-color: lightblue">
         <div class="ui container grid">
             
-            
             <!--Start: Desktop Nav-->
             <div class="computer only row">
                 <a class="header item">DSi</a>
                 <a class="active item" th:href="@{'/'}">Home</a>
                 <a class="item" th:href="@{'/products'}">Product</a>
                 <a sec:authorize="hasAuthority('SELLER')" class="item" th:href="@{'/seller/my_shop'}"> Sell on DSi </a>
-
-
+                
+                
                 <div class="ui dropdown item">
                     Categories <i class="dropdown icon"></i>
                     <div class="menu">
@@ -45,11 +44,17 @@
                         </div>
                     </div>
                     <!-- End: Search -->
+                    
+                    <!--                    <a class="item" th:onclick="sendRequest( [[${_csrf.headerName}]] , [[${_csrf.token}]])">Cart</a>-->
+                    
                     <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout </a>
-                    <a class="item" th:href="@{/user_profile}" sec:authorize="isAuthenticated()"> <span style="font-width:700;" sec:authentication="name">...</span> </a>
+                    <a class="item" th:href="@{/user_profile}" sec:authorize="isAuthenticated()"> <span
+                            style="font-width:700;" sec:authentication="name">...</span> </a>
                     <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register </a>
                     <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login </a>
-                    <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i class="shopping bag icon"></i> </a>
+                    <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i
+                            class="shopping bag icon"></i> </a>
+                
                 </div>
             </div>
             <!--End: Desktop Nav-->
@@ -97,7 +102,8 @@
                             <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()"> Logout</a>
                             <a class="item" th:href="@{/signup}" sec:authorize="isAnonymous()"> Register</a>
                             <a class="item" th:href="@{/login}" sec:authorize="isAnonymous()"> Login</a>
-                            <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i class="shopping bag icon"></i> </a>
+                            <a class="item" sec:authorize="isAuthenticated()" onclick="openModal()"> <i
+                                    class="shopping bag icon"></i> </a>
                         </div>
                     </div>
                 </div>
@@ -111,47 +117,62 @@
     
     <!-- Cart Modal Start -->
     <div th:if="${cartItems}">
-    <div id="custom-modal" style="display: none">
-        <div class="custom-container" onclick="closeModal()"></div>
-        <div class="cart">
-            <span onclick="closeModal()">x</span>
-            <p th:if="${cartItems.isEmpty()}" class="empty-cart">No item in the cart!</p>
-            
-            <div th:if="${!cartItems.isEmpty()}">
+        <div id="custom-modal" style="display: none">
+            <div class="custom-container" onclick="closeModal()"></div>
+            <div class="cart">
+                <span onclick="closeModal()">x</span>
+                <!--            <button class="cart-btn check" th:onclick="deleteCartItem([[${_csrf.headerName}]], [[${_csrf.token}]])">Checkout</button>-->
                 
+                <p th:if="${cartItems.isEmpty()}" class="empty-cart">No item in the cart!</p>
                 
-                <div th:each="cartItem : ${cartItems}">
-                    <div class="items" th:id="${cartItem.getId()}">
-                        <i class="remove-item trash alternate outline icon "
-                           th:onclick="deleteCartItem([[${cartItem.getId()}]])"></i>
-                        <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
-                             alt="item-image"/>
-                        <div class="details">
-                            <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
-                            <p th:text=" '$  ' + ${cartItem.getProduct().getPrice()}">$ 50</p>
-                        </div>
-                        <div class="quantity">
-                            <button th:onclick="decreaseQuantity([[${cartItem.getId()}]])"> -</button>
-                            <p th:id="'q'+ ${cartItem.getId()+''}" th:text="${cartItem.getQuantity()}">23</p>
-                            <button th:onclick="increaseQuantity([[${cartItem.getId()}]])">+</button>
+                <div th:if="${!cartItems.isEmpty()}">
+                    
+                    <div th:each="cartItem : ${cartItems}">
+                        <div class="items" th:id="${cartItem.getId()}">
+                            <i class="remove-item trash alternate outline icon"
+                               th:onclick="deleteCartItem([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])"></i>
+                            <!--                        <button th:onclick="addToCart([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">-->
+                            <!--                            Add to Cart-->
+                            <!--                        </button>-->
+                            <img th:src="${cartItem.getProduct().getImage()}" alt="item-image"/>
+                            
+                            <div class="details">
+                                <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
+                                <p th:text=" '$  ' + ${cartItem.getProduct().getPrice()}">$ 50</p>
+                            </div>
+                            
+                            <div class="quantity">
+                                <button th:onclick="decreaseQuantity([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">
+                                    -
+                                </button>
+                                <p th:id="'q'+ ${cartItem.getProduct().getId()+''}" th:text="${cartItem.getQuantity()}">
+                                    23</p>
+                                <button th:onclick="increaseQuantity([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">
+                                    +
+                                </button>
+                            </div>
+                        
                         </div>
                     </div>
-                </div>
-                
-                <div class="cart-details">
-                    <p id="cost" th:text=" 'Total Amount: $ ' + ${totalCost}">total cost</p>
-                    <div>
-                        <button class="cart-btn" onclick="clearCart()">Clear Cart</button>
-                        <button class="cart-btn check">Checkout</button>
+                    
+                    <div class="cart-details">
+                        <p id="cost" th:text=" 'Total Amount: $ ' + ${totalCost}">total cost</p>
+                        <div>
+                            <button class="cart-btn"
+                                    th:onclick="clearCart([[${_csrf.headerName}]], [[${_csrf.token}]])">
+                                Clear Cart
+                            </button>
+                            <button class="cart-btn check">Checkout</button>
+                        </div>
                     </div>
+                
                 </div>
             </div>
         </div>
     </div>
-    </div>
     <!-- Cart Modal END -->
-
-
+    
+    
     <!-- Break From Top Start -->
     <br><br>
     <!-- Break From Top END -->
@@ -164,6 +185,36 @@
 
 
 <div th:fragment="common_script">
+    
+    
+    <script>
+        $('.ui.vertical.menu').hide();
+        $('.ui.dropdown').dropdown();
+        $('.ui.accordion').accordion();
+        $(document).ready(function () {
+            $("html").click((event) => {
+                if (event.target.id === "menu-toggle-button" || $(event.target).parents("#menu-toggle-button").length) {
+                    $('.ui.vertical.menu').toggle("250", "linear")
+                } else if (!(event.target.id === "menu" || $(event.target).parents("#menu").length)) {
+                    $('.ui.vertical.menu').hide("250", "linear")
+                }
+            });
+        });
+        
+        function caretChanger(event) {
+            console.log("came here.")
+            let caretIcon = document.getElementById("categories-caret");
+            if (caretIcon.classList.contains("down")) {
+                caretIcon.classList.remove("down");
+                caretIcon.classList.add("up");
+            } else if (caretIcon.classList.contains("up")) {
+                caretIcon.classList.remove("up");
+                caretIcon.classList.add("down");
+            }
+        }
+    
+    </script>
+    
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <script th:src="@{'/js/navbar.js'}"></script>

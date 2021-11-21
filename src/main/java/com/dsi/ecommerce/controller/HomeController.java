@@ -20,10 +20,11 @@ public class HomeController {
     private CartServiceImpl cartService;
 
     @GetMapping("/")
-    public String homePage( Model model ) {
-        List<CartItem> cartItemList = new ArrayList<>();
+    public String homePage(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
+        List<CartItem> cartItemList = (principal == null ? new ArrayList<CartItem>() : cartService.getAllCartItem(principal));
+
         model.addAttribute("cartItems", cartItemList);
-        model.addAttribute("totalCost", 0.0);
+        model.addAttribute("totalCost", principal == null ? 0.0 : cartService.getTotalCost());
         return "index";
     }
 }

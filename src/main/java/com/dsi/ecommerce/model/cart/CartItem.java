@@ -15,7 +15,7 @@ public class CartItem {
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_item_id_sequence")
         private Long id;
 
-        @Column(nullable = false)
+        @Column(nullable = false, columnDefinition = "integer default 0")
         private Integer quantity;
 
         @Transient
