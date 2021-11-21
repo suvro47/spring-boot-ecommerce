@@ -34,14 +34,14 @@ public class ProductController {
 
     @RequestMapping("/products")
 
-    public String getAllProducts( Model model ) {
+    public String getAllProducts(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
 
         List<Product> products = productService.getProducts();
         model.addAttribute("products", products);
 
-        List<CartItem> cartItemList = new ArrayList<>();
+        List<CartItem> cartItemList = (principal == null ? new ArrayList<CartItem>() : cartService.getAllCartItem(principal));
         model.addAttribute("cartItems", cartItemList);
-        model.addAttribute("totalCost",0.0);
+        model.addAttribute("totalCost", principal== null ? 0.0 : cartService.getTotalCost());
 
         return "product/products";
     }

@@ -33,7 +33,7 @@ public class ConfigWebSecurity extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity https) throws Exception {
 
-                https.csrf().disable().authorizeRequests()
+                https.authorizeRequests()
                         .antMatchers("/admin/**").hasAnyAuthority(UserRoles.ADMIN.toString())
                         .antMatchers("/user/**").hasAnyAuthority(UserRoles.SELLER.toString(), UserRoles.BUYER.toString(),
                                 UserRoles.ADMIN.toString())

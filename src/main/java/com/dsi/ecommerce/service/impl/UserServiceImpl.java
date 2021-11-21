@@ -60,7 +60,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(Long userId) throws UserNotFoundException {
         User user = userDao.findById(userId).orElseThrow(() -> new UserNotFoundException(userId));
-
         return user;
     }
 
@@ -70,7 +69,6 @@ public class UserServiceImpl implements UserService {
         if (user == null){
             throw new UserNotFoundException(username);
         }
-
         return user;
     }
 

@@ -10,8 +10,9 @@ import com.dsi.ecommerce.model.cart.CartItem;
 import com.dsi.ecommerce.service.CartService;
 import com.dsi.ecommerce.service.MyUserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -36,7 +37,10 @@ public class CartServiceImpl implements CartService {
 
         @Override
         public void addCartItem(Long id) {
-                User user = userDao.findById(3L).orElse(new User());
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                MyUserDetail loged = (MyUserDetail) auth.getPrincipal();
+                User user = userDao.findById(loged.getId()).orElse(new User());
+
                 Product product = productDao.findById(id).orElse(new Product());
 
                 CartItem cartItem = new CartItem();
@@ -74,14 +78,17 @@ public class CartServiceImpl implements CartService {
 
         @Override
         public void clearCart() {
-                User user = userDao.findById(1L).orElse(new User());
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                MyUserDetail loged = (MyUserDetail) auth.getPrincipal();
+                User user = userDao.findById(loged.getId()).orElse(new User());
                 cartItemDao.deleteAllInBatch(user.getCart().getCartItems());
         }
 
         @Override
         public Double getTotalCost() {
-                User user = userDao.findById(1L).orElse(new User());
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                MyUserDetail loged = (MyUserDetail) auth.getPrincipal();
+                User user = userDao.findById(loged.getId()).orElse(new User());
                 return user.getCart().getTotalCost();
         }
-
 }
