@@ -12,7 +12,7 @@
 
     <div th:insert="navbar :: navbar_body">...</div>
 
-    <div class="ui segment container" style="margin-top:20px; margin-bottom:50px;" th:object="${products}">
+    <div class="ui segment container" style="margin-top:60px; margin-bottom:50px;" th:object="${products}">
 
         <div th:if="${products.isEmpty()}" class="ui segment container" style="margin: 15px auto" th:fragment="product_list">
             <p>No Products Available!!!</p>

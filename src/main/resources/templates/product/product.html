@@ -17,7 +17,7 @@
 
     <div th:insert="navbar :: navbar_body">...</div>
 
-        <div class="ui container product-container" style="display:flex; flex-flow : row wrap; column-gap: 30px; row-gap: 10px; justify-content:space-between; margin-top:20px;" th:object="${product}">
+        <div class="ui container product-container" style="display:flex; flex-flow : row wrap; column-gap: 30px; row-gap: 10px; justify-content:space-between; margin-top:40px; padding : 40px 20px;" th:object="${product}">
 
             <div class="ui link cards" style="flex: 1 200px; width:300px">
                 <div class="card" style="width: 90%; height:100%; margin:auto;">
@@ -40,15 +40,13 @@
                 <p style="height:.01rem; background-color: gray;"> </p>
 
                 <div style="display: flex; flex-flow: row nowrap; column-gap: 15px; align-items : center;">
-                    <div style="font-size:20px;"> Quantity : </div>
-                    <div class="ui animated button" tabindex="0">
-                        <div class="visible content"> <i class="plus icon"></i> </div>
-                        <div class="hidden content"> <i class="plus icon"></i> </div>
+                    <div style="font-size:18px;"> Quantity : </div>
+                    <div onclick="decrement()">
+                        <i style="font-size:30px; cursor:pointer; margin:0px;" class="minus square icon"></i>
                     </div>
-                    <div style="font-size:20px;"> 0 </div>
-                    <div class="ui animated button" tabindex="0">
-                        <div class="visible content" style=""><i class="minus icon"></i></div>
-                        <div class="hidden content" style=""> <i class="minus icon"></i></div>
+                    <div style="font-size:22px; margin:0px;" id="count" type=number min=1 max=9> 1 </div>
+                    <div onclick="increment()">
+                        <i style="font-size:30px;  cursor:pointer; margin:0px;" class="plus square icon"></i>
                     </div>
                 </div>
 
@@ -59,17 +57,19 @@
                     <div class="ui animated fade teal button" tabindex="0">
                         <div class="visible content">Buy Now</div>
                         <div class="hidden content">
-                            $12.99
+                            $[[${product.price}]]
                         </div>
                     </div>
                     <div class="or"></div>
-                    <div class="ui animated fade positive button" tabindex="0">
-                        <div class="visible content">Add To Cart</div>
+
+                    <div class="ui animated fade positive button" tabindex="0" onclick="addToCart()">
+                        <div class="visible content">Add To Cart </div>
                         <div class="hidden content">
-                            $12.99
+                            <i class="shopping basket icon"></i>
                         </div>
                     </div>
                 </div>
+
 
                 <div style="margin-top:20px;"> <a href="#" style="all:unset; color:red; cursor:pointer;"> GO TO STORE </a>  </div>
 
@@ -84,7 +84,29 @@
 
 
     <div th:insert="navbar :: common_script">...</div>
-    <!-- Additional Script Insert Here -->
+    <script>
+
+        let x = 1;
+        let count = document.getElementById('count'); // find the <span> element in the DOM
+
+        function increment() {
+            if( x < 9 ) count.textContent = ++x;
+        }
+        function decrement() {
+            if( x > 1 ) count.textContent = --x;
+        }
+
+        // function addToCart( productId ) {
+        //     let xhp = new XMLHttpRequest();
+        //     xhp.open("POST", "http://localhost:8080/add-to-cart/product/{productId}");
+        //     xhp.setRequestHeader("Content-type", "application/json");
+        //     let body = {
+        //         quantity : x
+        //     }
+        //     xhp.send(body);
+        // }
+
+    </script>
 </body>
 
 </html>
