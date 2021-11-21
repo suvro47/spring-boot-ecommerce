@@ -12,7 +12,7 @@ public interface ProductService {
 
     ProductDTO convertsProductEntityToProductDTO(Product product);
 
-    Product convertProductDTOtoProductEntity(Product product, ProductDTO productDTO, Shop shop, MultipartFile image);
+    Product convertProductDTOtoProductEntity(Product product, ProductDTO productDTO, Shop shop, String imageName);
 
     void saveProduct(Product product);
 

@@ -116,60 +116,67 @@
     </div>
     
     <!-- Cart Modal Start -->
-    <div id="custom-modal" style="display: none !important;">
-        <div class="custom-container" onclick="closeModal()"></div>
-        <div class="cart">
-            <span onclick="closeModal()">x</span>
-            <!--            <button class="cart-btn check" th:onclick="deleteCartItem([[${_csrf.headerName}]], [[${_csrf.token}]])">Checkout</button>-->
-            
-            <p th:if="${cartItems.isEmpty()}" class="empty-cart">No item in the cart!</p>
-            
-            <div th:if="${!cartItems.isEmpty()}">
+    <div th:if="${cartItems}">
+        <div id="custom-modal" style="display: none">
+            <div class="custom-container" onclick="closeModal()"></div>
+            <div class="cart">
+                <span onclick="closeModal()">x</span>
+                <!--            <button class="cart-btn check" th:onclick="deleteCartItem([[${_csrf.headerName}]], [[${_csrf.token}]])">Checkout</button>-->
                 
-                <div th:each="cartItem : ${cartItems}">
-                    <div class="items" th:id="${cartItem.getId()}">
-                        <i class="remove-item trash alternate outline icon"
-                           th:onclick="deleteCartItem([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])"></i>
-<!--                        <button th:onclick="addToCart([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">-->
-<!--                            Add to Cart-->
-<!--                        </button>-->
-                        <img src="https://www.sony-asia.com/image/d2a9de09d98e7fc40ccf2cc6677f0e13?fmt=pjpeg&wid=660&bgcolor=F1F5F9&bgc=F1F5F9"
-                             alt="item-image"/>
-                        
-                        <div class="details">
-                            <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
-                            <p th:text=" '$  ' + ${cartItem.getProduct().getPrice()}">$ 50</p>
-                        </div>
-                        
-                        <div class="quantity">
-                            <button th:onclick="decreaseQuantity([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">
-                                -
-                            </button>
-                            <p th:id="'q'+ ${cartItem.getProduct().getId()+''}" th:text="${cartItem.getQuantity()}">
-                                23</p>
-                            <button th:onclick="increaseQuantity([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">
-                                +
-                            </button>
-                        </div>
+                <p th:if="${cartItems.isEmpty()}" class="empty-cart">No item in the cart!</p>
+                
+                <div th:if="${!cartItems.isEmpty()}">
                     
+                    <div th:each="cartItem : ${cartItems}">
+                        <div class="items" th:id="${cartItem.getId()}">
+                            <i class="remove-item trash alternate outline icon"
+                               th:onclick="deleteCartItem([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])"></i>
+                            <!--                        <button th:onclick="addToCart([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">-->
+                            <!--                            Add to Cart-->
+                            <!--                        </button>-->
+                            <img th:src="${cartItem.getProduct().getImage()}" alt="item-image"/>
+                            
+                            <div class="details">
+                                <p th:text="${cartItem.getProduct().getName()}">Product Title</p>
+                                <p th:text=" '$  ' + ${cartItem.getProduct().getPrice()}">$ 50</p>
+                            </div>
+                            
+                            <div class="quantity">
+                                <button th:onclick="decreaseQuantity([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">
+                                    -
+                                </button>
+                                <p th:id="'q'+ ${cartItem.getProduct().getId()+''}" th:text="${cartItem.getQuantity()}">
+                                    23</p>
+                                <button th:onclick="increaseQuantity([[${cartItem.getProduct().getId()}]], [[${_csrf.headerName}]], [[${_csrf.token}]])">
+                                    +
+                                </button>
+                            </div>
+                        
+                        </div>
                     </div>
-                </div>
+                    
+                    <div class="cart-details">
+                        <p id="cost" th:text=" 'Total Amount: $ ' + ${totalCost}">total cost</p>
+                        <div>
+                            <button class="cart-btn"
+                                    th:onclick="clearCart([[${_csrf.headerName}]], [[${_csrf.token}]])">
+                                Clear Cart
+                            </button>
+                            <button class="cart-btn check">Checkout</button>
+                        </div>
+                    </div>
                 
-                <div class="cart-details">
-                    <p id="cost" th:text=" 'Total Amount: $ ' + ${totalCost}">total cost</p>
-                    <div>
-                        <button class="cart-btn" th:onclick="clearCart([[${_csrf.headerName}]], [[${_csrf.token}]])">
-                            Clear Cart
-                        </button>
-                        <button class="cart-btn check">Checkout</button>
-                    </div>
                 </div>
-            
             </div>
         </div>
     </div>
     <!-- Cart Modal END -->
-    <br><br><br><br>
+    
+    
+    <!-- Break From Top Start -->
+    <br><br>
+    <!-- Break From Top END -->
+
 </div>
 <!-- Navbar End -->
 
@@ -206,15 +213,12 @@
             }
         }
     
-    
     </script>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
     <script th:src="@{'/js/navbar.js'}"></script>
     <script th:src="@{'/js/cart.js'}"></script>
-    <link th:href="@{/css/cart.css}" rel="stylesheet"/>
 </div>
 </body>
 </html>

@@ -63,8 +63,8 @@ public class ShopServiceImpl implements ShopService {
         shop.setDescription(shopDetails.getDescription());
 
         /* this hell is not working .... */
-        if( file != null ) shop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
-        if( file2 != null ) shop.setAdvertisingBanner(FileUpload.saveImage(ImageType.ADVERTISING_BANNER, shopDetails.getName(), file2));
+        if( ! file.isEmpty() ) shop.setBanner(FileUpload.saveImage(ImageType.SHOP_BANNER, shopDetails.getName(), file));
+        if( ! file2.isEmpty() ) shop.setAdvertisingBanner(FileUpload.saveImage(ImageType.ADVERTISING_BANNER, shopDetails.getName(), file2));
 
         return shopDao.save(shop);
     }

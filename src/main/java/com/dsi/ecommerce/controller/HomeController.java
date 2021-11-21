@@ -21,7 +21,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String homePage(@AuthenticationPrincipal MyUserDetail principal, Model model ) {
-        List<CartItem> cartItemList = principal == null ? new ArrayList<CartItem>() : cartService.getAllCartItem(principal);
+        List<CartItem> cartItemList = (principal == null ? new ArrayList<CartItem>() : cartService.getAllCartItem(principal));
 
         model.addAttribute("cartItems", cartItemList);
         model.addAttribute("totalCost", principal == null ? 0.0 : cartService.getTotalCost());

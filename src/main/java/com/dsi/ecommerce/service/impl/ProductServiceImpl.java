@@ -33,14 +33,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product convertProductDTOtoProductEntity(Product product, ProductDTO productDTO, Shop shop, MultipartFile image){
+    public Product convertProductDTOtoProductEntity(Product product, ProductDTO productDTO, Shop shop, String imageName){
         product.setId(product.getId());
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setCategory(productDTO.getCategory());
         product.setPrice(productDTO.getPrice());
         product.setAvailableQuantity(productDTO.getAvailableQuantity());
-        product.setImage(FileUpload.saveImage(ImageType.PRODUCT_IMAGE, productDTO.getName(), image));
+        product.setImage(imageName);
         product.setShop(shop);
         product.setSoldItems(product.getSoldItems()!=null? product.getSoldItems() : 0);
         return product;
