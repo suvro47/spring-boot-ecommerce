@@ -58,7 +58,6 @@ public class ProductController {
         try {
             Product product = productService.getProduct(shopId, productId);
             model.addAttribute("product", product);
-            System.out.println(product.getName());
         } catch (Exception e) {
             System.out.println("Exception Occur : " + e );
         }

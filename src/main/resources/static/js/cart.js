@@ -10,13 +10,13 @@ function openModal() {
 }
 
 
-function addToCart(productId, header, token) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8080/add-to-cart", true);
-    xhr.setRequestHeader(header, token);
-    xhr.send(productId.toString());
-    xhr.close();
-}
+// function addToCart(productId, header, token) {
+//     let xhr = new XMLHttpRequest();
+//     xhr.open("POST", "http://localhost:8080/add-to-cart", true);
+//     xhr.setRequestHeader(header, token);
+//     xhr.send(productId.toString());
+//     xhr.close();
+// }
 
 
 function deleteCartItem(product_id, header, token) {
